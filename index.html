@@ -57,36 +57,70 @@
     }
 
     /* ==========================================================================
-       2. 开场动画 (Shanghai ✈ Tokyo)
+       2. ✨ 高级定制：Apple Ticket 风格开场大屏与实时倒计时
        ========================================================================== */
     #opening-animation {
       position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-      background: linear-gradient(180deg, #bbf2f6 0%, #ffffff 100%);
+      background: linear-gradient(135deg, #e0f2fe 0%, #fdf2f8 100%);
       z-index: 999; display: flex; flex-direction: column; justify-content: center; align-items: center;
       transition: transform 1.2s cubic-bezier(0.85, 0, 0.15, 1);
+      padding: 2rem;
     }
-    #opening-animation.exit { transform: translateY(-100%); }
+    #opening-animation.exit { transform: translateY(-100%); pointer-events: none; }
 
-    .sky-background { position: absolute; width: 100%; height: 60%; top: 0; overflow: hidden; z-index: 1; }
-    .cloud { position: absolute; background: white; border-radius: 100px; opacity: 0.8; filter: blur(4px); }
-    .cloud-1 { width: 180px; height: 60px; top: 15%; left: -20%; animation: cloudMove 25s linear infinite; }
-    .cloud-2 { width: 240px; height: 80px; top: 30%; left: -30%; animation: cloudMove 35s linear infinite 5s; }
-    @keyframes cloudMove { to { left: 120%; } }
+    /* 模拟天空流动微光 */
+    .sky-background { position: absolute; width: 100%; height: 100%; top: 0; left: 0; overflow: hidden; z-index: 1; pointer-events: none; }
+    .cloud { position: absolute; background: white; border-radius: 100px; opacity: 0.5; filter: blur(6px); }
+    .cloud-1 { width: 300px; height: 100px; top: 10%; left: -10%; animation: cloudMove 40s linear infinite; }
+    .cloud-2 { width: 400px; height: 120px; top: 60%; right: -10%; animation: cloudMove 55s linear infinite reverse; }
+    @keyframes cloudMove { from { transform: translateX(-10%); } to { transform: translateX(110vw); } }
 
-    .flight-container { position: relative; width: 80%; max-width: 600px; display: flex; justify-content: space-between; align-items: center; z-index: 3; margin-bottom: 2rem; }
-    .airport-label { font-size: 1.5rem; font-weight: 700; letter-spacing: 1px; color: #333; }
-    .flight-path { position: relative; flex-grow: 1; height: 2px; border-bottom: 2px dashed rgba(0,0,0,0.15); margin: 0 20px; }
-    .airplane { position: absolute; left: 0; top: -14px; font-size: 1.5rem; transform: rotate(45deg); animation: flightFlight 3.8s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
-    @keyframes flightFlight {
-      0% { left: 0%; transform: scale(1) rotate(45deg); }
-      50% { transform: scale(1.3) rotate(35deg) translateY(-15px); }
-      100% { left: 100%; transform: scale(1) rotate(45deg); }
+    /* 数字化机票卡片卡片 */
+    .flight-ticket-card {
+      position: relative; z-index: 3; width: 100%; max-width: 460px;
+      background: rgba(255, 255, 255, 0.65); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
+      border: 1px solid rgba(255, 255, 255, 0.5); border-radius: 32px; padding: 2rem;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05); margin-bottom: 2.5rem;
+      transform: translateY(20px); opacity: 0; animation: ticketFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
     }
+    @keyframes ticketFadeIn { to { transform: translateY(0); opacity: 1; } }
 
-    .welcome-text { text-align: center; z-index: 3; opacity: 0; animation: textReveal 1.5s ease 2s forwards; }
-    .welcome-text h2 { font-size: 1.8rem; font-weight: 600; color: #222; margin-bottom: 0.5rem; letter-spacing: 2px; }
-    .welcome-text p { font-size: 1rem; color: #666; letter-spacing: 1px; }
-    @keyframes textReveal { to { opacity: 1; transform: translateY(-5px); } }
+    .ticket-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed rgba(0,0,0,0.08); padding-bottom: 1.2rem; margin-bottom: 1.5rem; }
+    .flight-no { font-size: 0.95rem; font-weight: 700; letter-spacing: 2px; color: #0071e3; background: rgba(0,113,227,0.08); padding: 0.3rem 0.8rem; border-radius: 100px; }
+    .ticket-date { font-size: 0.85rem; font-weight: 600; color: #666; letter-spacing: 0.5px; }
+
+    .flight-container { display: flex; justify-content: space-between; align-items: center; position: relative; }
+    .airport-label { font-size: 1.6rem; font-weight: 800; color: #1d1d1f; letter-spacing: 0.5px; line-height: 1.2; }
+    .airport-label p { font-size: 0.8rem; font-weight: 500; color: #86868b; margin-top: 0.2rem; letter-spacing: 1px; text-transform: uppercase; }
+    .flight-path { position: relative; flex-grow: 1; height: 2px; border-bottom: 2px dashed rgba(0,0,0,0.12); margin: 0 25px; }
+    .airplane { position: absolute; left: 45%; top: -14px; font-size: 1.4rem; transform: rotate(45deg); animation: floatPlane 3s ease-in-out infinite alternate; }
+    @keyframes floatPlane { from { transform: rotate(45deg) translateY(0); } to { transform: rotate(45deg) translateY(-4px); } }
+
+    /* 高级等宽数字倒计时区 */
+    .countdown-container { position: relative; z-index: 3; text-align: center; margin-bottom: 3rem; opacity: 0; animation: ticketFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards; }
+    .countdown-title { font-size: 0.9rem; font-weight: 600; color: #86868b; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 1.2rem; }
+    
+    .countdown-timer { display: flex; gap: 1.2rem; justify-content: center; align-items: center; }
+    .time-block { display: flex; flex-direction: column; align-items: center; }
+    .time-block span { 
+      font-size: 3rem; font-weight: 800; color: #1d1d1f; 
+      font-variant-numeric: tabular-nums; /* ✨ 关键：等宽字体，数字刷新时绝不抖动 */
+      line-height: 1;
+    }
+    .time-block p { font-size: 0.75rem; font-weight: 600; color: #86868b; margin-top: 0.5rem; letter-spacing: 1px; }
+    .time-colon { font-size: 2rem; font-weight: 300; color: #ccc; transform: translateY(-10px); animation: blink 1s infinite; }
+    @keyframes blink { 50% { opacity: 0.3; } }
+
+    /* 高级感触控按钮 */
+    .premium-enter-btn {
+      position: relative; z-index: 3; padding: 1.1rem 3.5rem; border-radius: 100px; border: none;
+      background: #1d1d1f; color: white; font-size: 1rem; font-weight: 600; letter-spacing: 2px;
+      cursor: pointer; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      opacity: 0; transform: translateY(10px); animation: ticketFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) 0.9s forwards;
+    }
+    .premium-enter-btn:hover { background: #0071e3; transform: translateY(-3px); box-shadow: 0 15px 35px rgba(0, 113, 227, 0.3); }
+    .premium-enter-btn:active { transform: translateY(-1px); }
 
     /* ==========================================================================
        3. 导航与 Hero 视觉区
@@ -172,8 +206,7 @@
     .pulse-marker span { position: absolute; top: -20px; left: 50%; transform: translateX(-50%); white-space: nowrap; font-size: 0.75rem; background: black; color: white; padding: 2px 6px; border-radius: 4px; }
     @keyframes pulse { 0% { transform: scale(0.6); opacity: 1; } 100% { transform: scale(1.6); opacity: 0; } }
 
-    /* 模态弹窗 */
-/* 升级版弹窗遮罩：支持超长内容滚动 */
+    /* 模态弹窗升级版 */
     .modal-overlay { 
       position: fixed; 
       inset: 0; 
@@ -182,15 +215,15 @@
       z-index: 200; 
       display: flex; 
       justify-content: center; 
-      align-items: flex-start;     /* 1. 改为顶部对齐，方便长图向下延伸 */
-      padding: 4rem 1rem;          /* 2. 增大上下留白，让长图有呼吸感 */
-      overflow-y: auto;            /* 3. 核心：开启垂直滚动条 */
+      align-items: flex-start;
+      padding: 4rem 1rem;
+      overflow-y: auto;
       opacity: 1; 
       transition: opacity 0.3s ease; 
     }
     .modal-overlay.hidden { opacity: 0; pointer-events: none; }
     .modal-card { background: var(--bg-glass-active); width: 100%; max-width: 600px; border-radius: 28px; padding: 2.5rem; border: 1px solid var(--border-glass); box-shadow: var(--shadow-md); position: relative; }
-    .modal-close-btn { position: absolute; top: 1.5rem; right: 1.5rem; background: none; border: none; font-size: 1.2rem; cursor: pointer; color: var(--text-muted); }
+    .modal-close-btn { position: absolute; top: 1.5rem; right: 1.5rem; background: none; border: none; font-size: 1.2rem; cursor: pointer; color: var(--text-muted); z-index: 10; }
 
     /* 返回顶部 */
     #back-to-top { position: fixed; bottom: 2rem; right: 2rem; width: 50px; height: 50px; border-radius: 50%; background: var(--bg-glass-active); border: 1px solid var(--border-glass); color: var(--text-main); box-shadow: var(--shadow-md); display: flex; align-items: center; justify-content: center; cursor: pointer; opacity: 0; transform: translateY(20px); transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); z-index: 90; }
@@ -220,25 +253,48 @@
 
   <div id="scroll-progress"></div>
 
+  <!-- ✨ 重构的开场高阶数字舱大屏 -->
   <div id="opening-animation">
     <div class="sky-background">
       <div class="cloud cloud-1"></div>
       <div class="cloud cloud-2"></div>
     </div>
-    <div class="flight-container">
-      <div class="airport-label">Jiayin<p>Shanghai</p></div>
-      <div class="flight-path"><span class="airplane">✈️</span></div>
-      <div class="airport-label">Juncheng<p>Tokyo</p></div>
+    
+    <!-- 数字化电子机票 -->
+    <div class="flight-ticket-card">
+      <div class="ticket-header">
+        <span class="flight-no">FLIGHT HA123</span>
+        <span class="ticket-date">2026.07.03 15:30</span>
+      </div>
+      <div class="flight-container">
+        <div class="airport-label">Jiayin<p>Shanghai</p></div>
+        <div class="flight-path"><span class="airplane">✈️</span></div>
+        <div class="airport-label">Juncheng<p>Tokyo</p></div>
+      </div>
     </div>
-    <div class="welcome-text">
-      <h2>开启你的幸福日本旅行</h2>
-      <p>Let's Travel Japan</p>
+
+    <!-- 动态精准倒计时 -->
+    <div class="countdown-container">
+      <div class="countdown-title">距离完美行程启航还有</div>
+      <div class="countdown-timer">
+        <div class="time-block"><span id="cd-d">00</span><p>DAYS</p></div>
+        <div class="time-colon">:</div>
+        <div class="time-block"><span id="cd-h">00</span><p>HOURS</p></div>
+        <div class="time-colon">:</div>
+        <div class="time-block"><span id="cd-m">00</span><p>MINS</p></div>
+        <div class="time-colon">:</div>
+        <div class="time-block"><span id="cd-s">00</span><p>SECS</p></div>
+      </div>
     </div>
+
+    <!-- 交互解锁按钮 -->
+    <button id="enter-btn" class="premium-enter-btn">开启日本之旅</button>
   </div>
 
+  <!-- 主App内容 -->
   <div id="app-content" class="hidden">
     <nav class="glass-navbar">
-      <div class="nav-brand">🇯🇵 TravelGuide</div>
+      <div class="nav-brand">Juncheng ❤  Jiayin</div>
       <div class="search-wrapper"><input type="text" id="global-search" placeholder="检索景点、美食、购物..."></div>
       <div class="nav-controls"><button id="theme-toggle">🌓</button></div>
     </nav>
@@ -320,6 +376,7 @@
     </footer>
   </div>
 
+  <!-- 全局模态遮罩层 -->
   <div id="global-modal" class="modal-overlay hidden">
     <div class="modal-card">
       <button class="modal-close-btn" id="modal-close">✕</button>
@@ -333,45 +390,43 @@
     // 1. 全局解耦数据集
     const TRAVEL_DATA = {
       preparations: [
-      { id: "passport", 
-        icon: "国内（上海）", 
-        title: "出境", 
-        desc: "Tips: 提前一天电子通关码", 
-        steps: [
-          { text: "step0. 提前填写电子版通关码。（用浏览器打开哦！）" },
-          { image: "visa-step1.jpg" }, 
-          { image: "visa-step2.jpg" }, 
-          { image: "visa-step3.jpg" }, 
-          { image: "visa-step4.jpg" }, 
-          { image: "visa-step5.jpg" }, 
-          { image: "visa-step6.jpg" }, 
-          { image: "visa-step7.jpg" }, 
-          { image: "visa-step8.jpg" }, 
-          { image: "visa-step9.jpg" }, 
-          { image: "visa-step10.jpg" }, 
-          { image: "visa-step11.jpg" }, 
-          { text: "宝贝，务必把二维码截图！" },
-          { text: "准备好，并且顺利通关后，就可以去免税店逛逛或者登机口休息啦！" }
-        ]
+        { id: "passport", 
+          icon: "国内（上海）", 
+          title: "出境", 
+          desc: "宝贝托运好，拿好护照休息休息哦", 
+          steps: [
+            { text: "step0. 提前填写电子版通关码。（用浏览器打开）" },
+            { image: "visa-step1.jpg" }, 
+            { image: "visa-step2.jpg" }, 
+            { image: "visa-step3.jpg" }, 
+            { image: "visa-step4.jpg" }, 
+            { image: "visa-step5.jpg" }, 
+            { image: "visa-step6.jpg" }, 
+            { image: "visa-step7.jpg" }, 
+            { image: "visa-step8.jpg" }, 
+            { image: "visa-step9.jpg" }, 
+            { image: "visa-step10.jpg" }, 
+            { image: "visa-step11.jpg" }, 
+            { text: "务必把二维码截图" }
+          ]
         },
-      { 
-        id: "visa", 
-        icon: "落地（东京）", 
-        title: "入境", 
-        desc: "入境流程", 
-        detail: "step1. 二维码入境+护照\n step2. 排队入关，录入指纹与面部照片\n step3. 行李提取\n（Tips：你已经填写好二维码，出境时直接找到自助通关设备：\n1.屏幕上选择中文界面\n2.放上护照并扫描之前填写的二维码\n3.按提示完成拍照\n4.设备会告知你走哪个出口，跟着指引就能顺利通过海关🛃）", 
-
-      },
-     // { id: "flight", icon: "飞", title: "机票", desc: "上海 往返 东京", detail: "去程注意免费托运行李额度，回程建议预留充足的重量空间。" },
-      //{ id: "suica", icon: "卡", title: "Suica 西瓜卡", desc: "iPhone 钱包快捷卡", detail: "可直接在 iPhone「钱包」APP 中点击右上角「+」直接添加交通卡，选择 Suica 并通过 Apple Pay 直接充值，极度便利。" },
-      //{ id: "cash", icon: "币", title: "现金准备", desc: "适量日元现金备用", detail: "虽然扫码极为普及，但部分老牌美食店、御守贩卖处以及部分车站自动售票机仍坚持「现金专用」。" }
-    ],
+        { 
+          id: "visa", 
+          icon: "落地（东京）", 
+          title: "入境", 
+          desc: "入境流程", 
+          detail: "step1. 填写入境卡\nstep2. 录入指纹与面部照片\nstep3. 安全检查与行李提取"
+        },
+        { id: "flight", icon: "飞", title: "机票", desc: "上海 往返 东京", detail: "去程注意免费托运行李额度，回程建议预留充足的重量空间。" },
+        { id: "suica", icon: "卡", title: "Suica 西瓜卡", desc: "iPhone 钱包快捷卡", detail: "可直接在 iPhone「钱包」APP 中点击右上角「+」直接添加交通卡，选择 Suica 并通过 Apple Pay 直接充值，极度便利。" },
+        { id: "cash", icon: "币", title: "现金准备", desc: "适量日元现金备用", detail: "虽然扫码极为普及，但部分老牌美食店、御守贩卖处以及部分车站自动售票机仍坚持「现金专用」。" }
+      ],
       foods: [
-        { title: "一兰拉面 (新宿店)", subtitle: "经典豚骨拉面代表", image: "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=600&auto=format&fit=crop&q=80", address: "東京都新宿区新宿3-34-11", openingHours: "10:00 - 23:00", budget: "¥1,500 - ¥2,500", index: "⭐⭐⭐⭐⭐", googleMap: "#", comment: "独创的单人隔间设计，非常适合i人。特制秘传酱汁是灵魂，面条硬度选「硬」最佳。" },
+        { title: "一兰拉面 (新宿店)", subtitle: "经典豚骨拉面代表", image: "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=600&auto=format&fit=crop&q=80", address: "東京都新宿区新宿3-34-11", openingHours: "10:00 - 23:00", budget: "¥1,500 - ¥2,500", index: "⭐⭐⭐⭐慢", googleMap: "#", comment: "独创的单人隔间设计，非常适合i人。特制秘传酱汁是灵魂，面条硬度选「硬」最佳。" },
         { title: "築地 寿司清 (本店)", subtitle: "江户前寿司百年老店", image: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=600&auto=format&fit=crop&q=80", address: "東京都中央区築地4-13-9", openingHours: "08:30 - 20:00", budget: "¥4,000 - ¥8,000", index: "⭐⭐⭐⭐⭐", googleMap: "#", comment: "食材极其新鲜，推荐尝试主厨搭配套餐(Omakase)，金枪鱼大脂入口即化。" }
       ],
       attractions: [
-        { title: "浅草寺", image: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=600&auto=format&fit=crop&q=80", address: "東京都台東区浅草2-3-1", duration: "2 - 3 小时", description: "东京都内最古老的寺庙，巨大的「雷门」红灯笼是经典地标。适合租借和服在此拍照打卡。", transport: "银座线/浅草线 浅草站 步行5分钟" },
+        { title: "浅草寺", image: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=600&auto=format&fit=crop&q=80", address: "東京都台东区浅草2-3-1", duration: "2 - 3 小时", description: "东京都内最古老的寺庙，巨大的「雷门」红灯笼是经典地标。适合租借和服在此拍照打卡。", transport: "银座线/浅草线 浅草站 步行5分钟" },
         { title: "东京晴空塔", image: "https://images.unsplash.com/photo-1540959733332-eab4deceeaf7?w=600&auto=format&fit=crop&q=80", address: "東京都墨田区押上1-1-2", duration: "1.5 - 2 小时", description: "世界第一高自立式电波塔。推荐在黄昏前1小时登塔，可以同时欣赏日落与繁华的东京都市夜景。", transport: "东武晴空塔线 押上站 直达" }
       ],
       shoppings: [
@@ -391,7 +446,7 @@
           ]
         }
       ],
-      budgets: { flight: 0, hotel: 0, shopping: 0, dining: 0, transport: 0, tickets: 0 },
+      budgets: { flight: 3500, hotel: 4800, shopping: 4000, dining: 2500, transport: 600, tickets: 500 },
       photos: [
         { url: "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?w=600&auto=format&fit=crop&q=80", caption: "东京城市夜景" },
         { url: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=600&auto=format&fit=crop&q=80", caption: "古韵雷门" },
@@ -399,29 +454,74 @@
       ]
     };
 
-// 2. 交互主引擎
+    // 2. 交互与引擎主控中心
     document.addEventListener("DOMContentLoaded", () => {
-      document.body.classList.add("locked");
+      document.body.classList.add("locked"); // 锁定页面禁止滚动
       
-      // 🌟【完美修复】开场动画定时控制：3.8秒后让飞机动画飞走，展现主内容
-      setTimeout(() => {
-        const opening = document.getElementById("opening-animation");
-        const appContent = document.getElementById("app-content");
-        
-        if (opening) opening.classList.add("exit");       // 让动画向上滑出
-        if (appContent) appContent.classList.remove("hidden"); // 显示主网页
-        document.body.classList.remove("locked");         // 解锁滚动条
-      }, 3800);
-
+      initFlightCountdown(); // 🪐 激活高阶动态倒计时引擎
+      initEnterButtonEvent(); // 🖱️ 绑定解锁入场按钮
+      
       renderDynamicCards();
-      initBudgetDashboard(); // 🌟【新增调用】让你的机票、酒店等预算自动求和并显示！
       initSearchEngine();
       initScrollAndTheme();
+      initModalEvents(); 
     });
+
+    // 🪐 ✨ 新增：高阶实时航班倒计时计算逻辑
+    function initFlightCountdown() {
+      // 设定目标起飞时间：2026年7月3日 15点30分
+      const targetTime = new Date("2026-07-03T15:30:00").getTime();
+      
+      function updateClock() {
+        const now = new Date().getTime();
+        const diff = targetTime - now;
+        
+        // 如果时间到了或者过了
+        if (diff <= 0) {
+          document.querySelector(".countdown-title").innerText = "旅行已启航 ✈️";
+          document.getElementById("cd-d").innerText = "00";
+          document.getElementById("cd-h").innerText = "00";
+          document.getElementById("cd-m").innerText = "00";
+          document.getElementById("cd-s").innerText = "00";
+          return;
+        }
+        
+        // 精准时间切片计算
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+        
+        // 用 PadStart 强行补零，保持极致的视觉整齐度
+        document.getElementById("cd-d").innerText = String(days).padStart(2, '0');
+        document.getElementById("cd-h").innerText = String(hours).padStart(2, '0');
+        document.getElementById("cd-m").innerText = String(minutes).padStart(2, '0');
+        document.getElementById("cd-s").innerText = String(seconds).padStart(2, '0');
+      }
+      
+      updateClock(); // 初始化执行一次避免白屏
+      setInterval(updateClock, 1000); // 每一秒精准刷新
+    }
+
+    // 🖱️ ✨ 新增：手动点击“进入按钮”才会切入下一个界面
+    function initEnterButtonEvent() {
+      const enterBtn = document.getElementById("enter-btn");
+      enterBtn.addEventListener("click", () => {
+        const anim = document.getElementById("opening-animation");
+        if (anim) anim.classList.add("exit"); // 执行上推离场动效
+        
+        document.body.classList.remove("locked"); // 完美释放主网页垂直滚动
+        
+        const appContent = document.getElementById("app-content");
+        if (appContent) appContent.classList.remove("hidden"); // 全景铺开主内容
+        
+        initBudgetDashboard(); // 初始化财务图表
+      });
+    }
 
     // 3. 动态卡片渲染机制
     function renderDynamicCards() {
-      // 准备
+      // 入境准备
       document.getElementById("prep-container").innerHTML = TRAVEL_DATA.preparations.map(item => `
         <div class="glass-card" onclick="openDetails('prep', '${item.id}')">
           <div style="font-size: 1.5rem; color:var(--accent); margin-bottom:0.5rem;">${item.icon}</div>
@@ -503,7 +603,7 @@
       renderFavorites();
     }
 
-// 4. 模态弹窗细化交互
+    // 4. 模态弹窗细化交互逻辑
     function openDetails(type, key) {
       const modal = document.getElementById("global-modal");
       const body = document.getElementById("modal-body-content");
@@ -512,8 +612,6 @@
       if(type === 'prep') {
         const item = TRAVEL_DATA.preparations.find(p => p.id === key);
         contentHtml = `<h3>${item.title}</h3><div style="margin-top:1.2rem; line-height:1.7;">`;
-        
-        // 【核心控制】如果这一项写了全新的 steps 数组，就按你排好的顺序依次画出文字和图片
         if (item.steps) {
           item.steps.forEach(step => {
             if (step.text) {
@@ -524,29 +622,81 @@
             }
           });
         } else {
-          // 【完美兼容】如果其他卡片还是老格式，依然正常显示，不报错
           contentHtml += `<p style="white-space: pre-line;">${item.detail || ''}</p>`;
           if (item.image) {
             contentHtml += `<img src="${item.image}" style="width:100%; border-radius:12px; margin-top:1.5rem; box-shadow: var(--shadow-sm);">`;
           }
         }
-        
         contentHtml += `</div>`;
+      }
+      else if(type === 'food') {
+        const item = TRAVEL_DATA.foods[key];
+        contentHtml = `
+          <h3>${item.title}</h3>
+          <p style="color:var(--text-muted); font-size:0.9rem; margin-top:0.3rem; margin-bottom:1.2rem;">${item.subtitle}</p>
+          <img src="${item.image}" style="width:100%; border-radius:16px; margin-bottom:1.2rem; box-shadow: var(--shadow-sm);">
+          <div style="line-height:1.8; font-size:0.95rem;">
+            <p><strong>📍 店铺地址：</strong>${item.address}</p>
+            <p><strong>🕒 营业时间：</strong>${item.openingHours}</p>
+            <p><strong>💰 人均预算：</strong>${item.budget}</p>
+            <p><strong>⭐ 推荐指数：</strong>${item.index}</p>
+            <div style="margin-top:1.2rem; padding:1rem; background:rgba(0,0,0,0.03); border-radius:12px; color:var(--text-main); border-left: 4px solid var(--accent);">
+              <strong>💡 佳音专属小批注：</strong><br>${item.comment}
+            </div>
+          </div>
+        `;
+      }
+      else if(type === 'attraction') {
+        const item = TRAVEL_DATA.attractions[key];
+        contentHtml = `
+          <h3>${item.title}</h3>
+          <img src="${item.image}" style="width:100%; border-radius:16px; margin:1.2rem 0; box-shadow: var(--shadow-sm);">
+          <div style="line-height:1.8; font-size:0.95rem;">
+            <p><strong>📍 景点地址：</strong>${item.address}</p>
+            <p><strong>⏱️ 建议停留：</strong>${item.duration}</p>
+            <p><strong>🚃 交通路线：</strong>${item.transport}</p>
+            <p style="margin-top:1rem; white-space: pre-line; color:var(--text-main);"><strong>📝 景点简介：</strong>\n${item.description}</p>
+          </div>
+        `;
+      }
+      else if(type === 'shop') {
+        const item = TRAVEL_DATA.shoppings[key];
+        contentHtml = `
+          <h3>${item.title}</h3>
+          <div style="line-height:1.8; font-size:0.95rem; margin-top:1.2rem;">
+            <p><strong>🌟 必买爆款：</strong>${item.mustBuy}</p>
+            <p><strong>💶 专属退税：</strong>${item.taxRefund}</p>
+            <div style="margin-top:1.2rem; padding:1rem; background:rgba(0,0,0,0.03); border-radius:12px; border-left: 4px solid #ffcc00;">
+              <strong>💡 逛街贴士：</strong>${item.remark}
+            </div>
+          </div>
+        `;
       }
 
       body.innerHTML = contentHtml;
       modal.classList.remove("hidden");
-      document.body.classList.add("locked"); // 🔒 打开弹窗时，锁死背景不让滚
+      document.body.classList.add("locked"); 
     }
 
-    // 🌟【完美修复】点击关闭按钮时，不仅隐藏弹窗，还要释放滚动锁
-    document.getElementById("modal-close").addEventListener("click", () => {
-      document.getElementById("global-modal").classList.add("hidden");
-      document.body.classList.remove("locked"); // 🔓 加上这句，关闭弹窗后主页面才能恢复上下滚动！
-    });
-    document.getElementById("modal-close").addEventListener("click", () => document.getElementById("global-modal").classList.add("hidden"));
+    // 5. 弹窗控制中心
+    function initModalEvents() {
+      const modal = document.getElementById("global-modal");
+      const closeBtn = document.getElementById("modal-close");
 
-    // 5. 财务看板自动求和
+      closeBtn.addEventListener("click", () => {
+        modal.classList.add("hidden");
+        document.body.classList.remove("locked"); 
+      });
+
+      modal.addEventListener("click", (e) => {
+        if (e.target === modal) {
+          modal.classList.add("hidden");
+          document.body.classList.remove("locked"); 
+        }
+      });
+    }
+
+    // 6. 财务看板自动求和
     function initBudgetDashboard() {
       const b = TRAVEL_DATA.budgets;
       const total = Object.values(b).reduce((a, b) => a + b, 0);
@@ -565,7 +715,7 @@
       }).join('');
     }
 
-    // 6. 模糊全局检索
+    // 7. 模糊全局检索
     function initSearchEngine() {
       document.getElementById("global-search").addEventListener("input", (e) => {
         const val = e.target.value.toLowerCase().trim();
@@ -575,7 +725,7 @@
       });
     }
 
-    // 7. 本地收藏夹状态同步
+    // 8. 本地收藏夹状态同步
     function toggleFavorite(e, title) {
       e.stopPropagation();
       let favs = JSON.parse(localStorage.getItem("t_favs")) || [];
@@ -605,7 +755,7 @@
       }
     }
 
-    // 8. 滚动感知动效与换肤控制
+    // 9. 滚动感知动效与换肤控制
     function initScrollAndTheme() {
       const btt = document.getElementById("back-to-top");
       window.addEventListener("scroll", () => {
@@ -616,13 +766,11 @@
       });
       btt.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
 
-      // AOS 纯原生动态观测器
       const obs = new IntersectionObserver((entries) => {
         entries.forEach(ent => { if(ent.isIntersecting) { ent.target.classList.add("active"); obs.unobserve(ent.target); } });
       }, { threshold: 0.05 });
       document.querySelectorAll(".scroll-reveal").forEach(el => obs.observe(el));
 
-      // 皮肤切换
       const toggle = document.getElementById("theme-toggle");
       toggle.addEventListener("click", () => {
         const next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
