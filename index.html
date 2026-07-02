@@ -225,6 +225,72 @@
     .modal-card { background: var(--bg-glass-active); width: 100%; max-width: 600px; border-radius: 28px; padding: 2.5rem; border: 1px solid var(--border-glass); box-shadow: var(--shadow-md); position: relative; }
     .modal-close-btn { position: absolute; top: 1.5rem; right: 1.5rem; background: none; border: none; font-size: 1.2rem; cursor: pointer; color: var(--text-muted); z-index: 10; }
 
+    /* ==========================================================================
+       ✨ 新增：具有高级设计感的流光磨玻璃多图联动交互画廊样式
+       ========================================================================== */
+    .modal-gallery-container {
+      position: relative;
+      margin-bottom: 1.8rem;
+      border-radius: 24px;
+      overflow: hidden;
+    }
+    /* 电影级主图视窗预览容器 */
+    .main-preview-wrapper {
+      width: 100%;
+      height: 320px;
+      border-radius: 24px;
+      overflow: hidden;
+      background: #111;
+      box-shadow: inset 0 0 20px rgba(0,0,0,0.2);
+    }
+    .main-preview-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1), transform 0.4s ease;
+    }
+    /* 借鉴 Apple 经典底部的悬浮磨玻璃小图轨道 */
+    .thumbnail-glass-dock {
+      display: flex;
+      gap: 0.75rem;
+      padding: 0.75rem;
+      margin-top: 0.75rem;
+      background: rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      border-radius: 18px;
+      overflow-x: auto;
+      scrollbar-width: none; /* 隐去原始滚动条 */
+    }
+    .thumbnail-glass-dock::-webkit-scrollbar { display: none; }
+    [data-theme="dark"] .thumbnail-glass-dock {
+      background: rgba(20, 20, 25, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    /* 交互缩略图元素 */
+    .thumb-link-item {
+      width: 75px;
+      height: 52px;
+      border-radius: 10px;
+      object-fit: cover;
+      cursor: pointer;
+      opacity: 0.4;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      border: 2px solid transparent;
+      flex-shrink: 0;
+    }
+    .thumb-link-item:hover {
+      opacity: 0.7;
+      transform: translateY(-2px);
+    }
+    .thumb-link-item.active {
+      opacity: 1;
+      border-color: var(--accent);
+      transform: scale(1.05) translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 113, 227, 0.2);
+    }
+
     /* 返回顶部 */
     #back-to-top { position: fixed; bottom: 2rem; right: 2rem; width: 50px; height: 50px; border-radius: 50%; background: var(--bg-glass-active); border: 1px solid var(--border-glass); color: var(--text-main); box-shadow: var(--shadow-md); display: flex; align-items: center; justify-content: center; cursor: pointer; opacity: 0; transform: translateY(20px); transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); z-index: 90; }
     #back-to-top.visible { opacity: 1; transform: translateY(0); }
@@ -246,6 +312,7 @@
       .scroll-card-lg { flex: 0 0 290px; }
       .content-container { padding: 2rem 1rem; }
       section { margin-bottom: 4rem; }
+      .main-preview-wrapper { height: 220px; } /* 移动端自适应调低高度 */
     }
   </style>
 </head>
@@ -263,7 +330,7 @@
     <!-- 数字化电子机票 -->
     <div class="flight-ticket-card">
       <div class="ticket-header">
-        <span class="flight-no">FLIGHT HA123</span>
+        <span class="flight-no">FLIGHT Love520</span>
         <span class="ticket-date">2026.07.03 15:30</span>
       </div>
       <div class="flight-container">
@@ -416,14 +483,13 @@
           title: "入境", 
           desc: "入境流程", 
           detail: "step1. 填写入境卡\nstep2. 录入指纹与面部照片\nstep3. 安全检查与行李提取"
-        },
-        //{ id: "flight", icon: "飞", title: "机票", desc: "上海 往返 东京", detail: "去程注意免费托运行李额度，回程建议预留充足的重量空间。" },
-       // { id: "suica", icon: "卡", title: "Suica 西瓜卡", desc: "iPhone 钱包快捷卡", detail: "可直接在 iPhone「钱包」APP 中点击右上角「+」直接添加交通卡，选择 Suica 并通过 Apple Pay 直接充值，极度便利。" },
-       // { id: "cash", icon: "币", title: "现金准备", desc: "适量日元现金备用", detail: "虽然扫码极为普及，但部分老牌美食店、御守贩卖处以及部分车站自动售票机仍坚持「现金专用」。" }
+        }
       ],
       foods: [
-        { title: "一兰拉面 (新宿店)", subtitle: "经典豚骨拉面代表", image: "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=600&auto=format&fit=crop&q=80", address: "東京都新宿区新宿3-34-11", openingHours: "10:00 - 23:00", budget: "¥1,500 - ¥2,500", index: "⭐⭐⭐⭐慢", googleMap: "#", comment: "独创的单人隔间设计，非常适合i人。特制秘传酱汁是灵魂，面条硬度选「硬」最佳。" },
-        { title: "築地 寿司清 (本店)", subtitle: "江户前寿司百年老店", image: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=600&auto=format&fit=crop&q=80", address: "東京都中央区築地4-13-9", openingHours: "08:30 - 20:00", budget: "¥4,000 - ¥8,000", index: "⭐⭐⭐⭐⭐", googleMap: "#", comment: "食材极其新鲜，推荐尝试主厨搭配套餐(Omakase)，金枪鱼大脂入口即化。" }
+        // ✨ 将单张图也优雅包装成包含 images 的结构，保持内核向下兼容与代码健壮度
+        { title: "TANUKI APPETIZING", subtitle: "糕点店", images: ["TANUKI.png"], address: "〒104-0054 Tokyo, Chuo City, Kachidoki, 4 Chome−10−5 としの荘", openingHours: "7:00 - 卖完即闭店（周四和周日营业）", index: "⭐⭐⭐⭐", googleMap: "#", comment: "贝果很好吃！！！码住了很久，但是一直没有尝试。" },
+        { title: "Dining33", subtitle: "法餐", images: ["Dining33-2.png", "Dining33.png", "Dining33-3.png", "Dining33-4.png"], address: "〒106-0041 Tokyo, Minato City, Azabudai, 1 Chome−3−1 ヒ尔ズ 森JPタワ 33阶", openingHours: "18:00 - 23:00", index: "⭐⭐⭐⭐⭐", googleMap: "#", comment: "可以边看东京塔，边吃美食。" },
+        { title: "つじ半", subtitle: "海鮮丼", images: ["Tsujihann.png"], address: "〒104-0045 Tokyo, Chuo City, Tsukiji, 5 Chome−2−1 築地市場 6号馆", openingHours: "5:00 - 14:00", index: "⭐⭐⭐⭐⭐", googleMap: "#", comment: "新鲜的海鲜，值得一试。" }
       ],
       attractions: [
         { title: "浅草寺", image: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=600&auto=format&fit=crop&q=80", address: "東京都台东区浅草2-3-1", duration: "2 - 3 小时", description: "东京都内最古老的寺庙，巨大的「雷门」红灯笼是经典地标。适合租借和服在此拍照打卡。", transport: "银座线/浅草线 浅草站 步行5分钟" },
@@ -467,16 +533,14 @@
       initModalEvents(); 
     });
 
-    // 🪐 ✨ 新增：高阶实时航班倒计时计算逻辑
+    // 🪐 ✨ 高阶实时航班倒计时计算逻辑
     function initFlightCountdown() {
-      // 设定目标起飞时间：2026年7月3日 15点30分
       const targetTime = new Date("2026-07-03T15:30:00").getTime();
       
       function updateClock() {
         const now = new Date().getTime();
         const diff = targetTime - now;
         
-        // 如果时间到了或者过了
         if (diff <= 0) {
           document.querySelector(".countdown-title").innerText = "旅行已启航 ✈️";
           document.getElementById("cd-d").innerText = "00";
@@ -486,36 +550,34 @@
           return;
         }
         
-        // 精准时间切片计算
         const days = Math.floor(diff / (1000 * 60 * 60 * 24));
         const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((diff % (1000 * 60)) / 1000);
         
-        // 用 PadStart 强行补零，保持极致的视觉整齐度
         document.getElementById("cd-d").innerText = String(days).padStart(2, '0');
         document.getElementById("cd-h").innerText = String(hours).padStart(2, '0');
         document.getElementById("cd-m").innerText = String(minutes).padStart(2, '0');
         document.getElementById("cd-s").innerText = String(seconds).padStart(2, '0');
       }
       
-      updateClock(); // 初始化执行一次避免白屏
-      setInterval(updateClock, 1000); // 每一秒精准刷新
+      updateClock();
+      setInterval(updateClock, 1000);
     }
 
-    // 🖱️ ✨ 新增：手动点击“进入按钮”才会切入下一个界面
+    // 🖱️ ✨ 手动点击“进入按钮”才会切入下一个界面
     function initEnterButtonEvent() {
       const enterBtn = document.getElementById("enter-btn");
       enterBtn.addEventListener("click", () => {
         const anim = document.getElementById("opening-animation");
-        if (anim) anim.classList.add("exit"); // 执行上推离场动效
+        if (anim) anim.classList.add("exit");
         
-        document.body.classList.remove("locked"); // 完美释放主网页垂直滚动
+        document.body.classList.remove("locked");
         
         const appContent = document.getElementById("app-content");
-        if (appContent) appContent.classList.remove("hidden"); // 全景铺开主内容
+        if (appContent) appContent.classList.remove("hidden");
         
-        initBudgetDashboard(); // 初始化财务图表
+        initBudgetDashboard();
       });
     }
 
@@ -530,19 +592,22 @@
         </div>
       `).join('');
 
-      // 美食
-      document.getElementById("food-container").innerHTML = TRAVEL_DATA.foods.map((item, idx) => `
-        <div class="scroll-card-lg">
-          <button class="fav-btn" onclick="toggleFavorite(event, '${item.title}')">♥</button>
-          <div class="card-img-wrapper"><img src="${item.image}" loading="lazy"></div>
-          <div class="card-info-pad">
-            <h3 style="font-size:1.15rem;">${item.title}</h3>
-            <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:0.5rem;">${item.subtitle}</p>
-            <p style="font-size:0.8rem; opacity:0.8;">预算：${item.budget}</p>
-            <button class="cta-button" onclick="openDetails('food', ${idx})" style="padding:0.4rem 0.8rem; font-size:0.75rem; margin-top:0.6rem; box-shadow:none; background:var(--text-main); color:var(--bg-app);">阅读攻略</button>
+      // 美食列表渲染
+      document.getElementById("food-container").innerHTML = TRAVEL_DATA.foods.map((item, idx) => {
+        // ✨ 安全读取多图数组中的第一张图作为外部卡片封面
+        const coverImg = (item.images && item.images.length > 0) ? item.images[0] : (item.image || 'default.jpg');
+        return `
+          <div class="scroll-card-lg">
+            <button class="fav-btn" onclick="toggleFavorite(event, '${item.title}')">♥</button>
+            <div class="card-img-wrapper"><img src="${coverImg}" loading="lazy"></div>
+            <div class="card-info-pad">
+              <h3 style="font-size:1.15rem;">${item.title}</h3>
+              <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:0.5rem;">${item.subtitle}</p>
+              <button class="cta-button" onclick="openDetails('food', ${idx})" style="padding:0.4rem 0.8rem; font-size:0.75rem; margin-top:0.6rem; box-shadow:none; background:var(--text-main); color:var(--bg-app);">阅读攻略</button>
+            </div>
           </div>
-        </div>
-      `).join('');
+        `;
+      }).join('');
 
       // 景点
       document.getElementById("attraction-container").innerHTML = TRAVEL_DATA.attractions.map((item, idx) => `
@@ -631,14 +696,33 @@
       }
       else if(type === 'food') {
         const item = TRAVEL_DATA.foods[key];
+        // ✨ 将数据源自适应包裹，提取出纯净数组
+        const imgList = item.images || [item.image || 'default.jpg'];
+        
         contentHtml = `
           <h3>${item.title}</h3>
           <p style="color:var(--text-muted); font-size:0.9rem; margin-top:0.3rem; margin-bottom:1.2rem;">${item.subtitle}</p>
-          <img src="${item.image}" style="width:100%; border-radius:16px; margin-bottom:1.2rem; box-shadow: var(--shadow-sm);">
+          
+          <!-- ✨ 重构交互：流光微光多图联动交互区 -->
+          <div class="modal-gallery-container">
+            <div class="main-preview-wrapper">
+              <img id="modal-main-img" src="${imgList[0]}" loading="lazy">
+            </div>
+            
+            <!-- 悬浮高级感磨玻璃缩略图底座 -->
+            <div class="thumbnail-glass-dock">
+              ${imgList.map((img, idx) => `
+                <img src="${img}" 
+                     class="thumb-link-item ${idx === 0 ? 'active' : ''}" 
+                     onclick="switchModalImage(this, '${img}')" 
+                     loading="lazy">
+              `).join('')}
+            </div>
+          </div>
+
           <div style="line-height:1.8; font-size:0.95rem;">
             <p><strong>📍 店铺地址：</strong>${item.address}</p>
             <p><strong>🕒 营业时间：</strong>${item.openingHours}</p>
-            <p><strong>💰 人均预算：</strong>${item.budget}</p>
             <p><strong>⭐ 推荐指数：</strong>${item.index}</p>
             <div style="margin-top:1.2rem; padding:1rem; background:rgba(0,0,0,0.03); border-radius:12px; color:var(--text-main); border-left: 4px solid var(--accent);">
               <strong>💡 佳音专属小批注：</strong><br>${item.comment}
@@ -676,6 +760,27 @@
       body.innerHTML = contentHtml;
       modal.classList.remove("hidden");
       document.body.classList.add("locked"); 
+    }
+
+    // ✨ 新增：负责大图细腻丝滑切换的动效交互引擎
+    function switchModalImage(thumbElement, newSrc) {
+      const mainImg = document.getElementById("modal-main-img");
+      if (!mainImg) return;
+      
+      // 1. 触发转场：轻微缩小并降低透明度
+      mainImg.style.opacity = "0.2";
+      mainImg.style.transform = "scale(0.98)";
+      
+      // 2. 硬件加速缓冲后，安全更替大图资源并优雅舒展复位
+      setTimeout(() => {
+        mainImg.src = newSrc;
+        mainImg.style.opacity = "1";
+        mainImg.style.transform = "scale(1)";
+      }, 200);
+      
+      // 3. 动态调度底座中缩略图的 Active 激活高亮边框状态
+      document.querySelectorAll(".thumb-link-item").forEach(el => el.classList.remove("active"));
+      thumbElement.classList.add("active");
     }
 
     // 5. 弹窗控制中心
