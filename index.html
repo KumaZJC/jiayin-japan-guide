@@ -57,7 +57,7 @@
     }
 
     /* ==========================================================================
-       2. ✨ 高级定制：Apple Ticket 风格开场大屏与实时倒计时
+       2. ✨ Apple Ticket 风格开场大屏与实时倒计时
        ========================================================================== */
     #opening-animation {
       position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
@@ -68,14 +68,12 @@
     }
     #opening-animation.exit { transform: translateY(-100%); pointer-events: none; }
 
-    /* 模拟天空流动微光 */
     .sky-background { position: absolute; width: 100%; height: 100%; top: 0; left: 0; overflow: hidden; z-index: 1; pointer-events: none; }
     .cloud { position: absolute; background: white; border-radius: 100px; opacity: 0.5; filter: blur(6px); }
     .cloud-1 { width: 300px; height: 100px; top: 10%; left: -10%; animation: cloudMove 40s linear infinite; }
     .cloud-2 { width: 400px; height: 120px; top: 60%; right: -10%; animation: cloudMove 55s linear infinite reverse; }
     @keyframes cloudMove { from { transform: translateX(-10%); } to { transform: translateX(110vw); } }
 
-    /* 数字化机票卡片卡片 */
     .flight-ticket-card {
       position: relative; z-index: 3; width: 100%; max-width: 460px;
       background: rgba(255, 255, 255, 0.65); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
@@ -96,31 +94,23 @@
     .airplane { position: absolute; left: 45%; top: -14px; font-size: 1.4rem; transform: rotate(45deg); animation: floatPlane 3s ease-in-out infinite alternate; }
     @keyframes floatPlane { from { transform: rotate(45deg) translateY(0); } to { transform: rotate(45deg) translateY(-4px); } }
 
-    /* 高级等宽数字倒计时区 */
     .countdown-container { position: relative; z-index: 3; text-align: center; margin-bottom: 3rem; opacity: 0; animation: ticketFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards; }
     .countdown-title { font-size: 0.9rem; font-weight: 600; color: #86868b; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 1.2rem; }
     
     .countdown-timer { display: flex; gap: 1.2rem; justify-content: center; align-items: center; }
     .time-block { display: flex; flex-direction: column; align-items: center; }
-    .time-block span { 
-      font-size: 3rem; font-weight: 800; color: #1d1d1f; 
-      font-variant-numeric: tabular-nums; /* ✨ 关键：等宽字体，数字刷新时绝不抖动 */
-      line-height: 1;
-    }
+    .time-block span { font-size: 3rem; font-weight: 800; color: #1d1d1f; font-variant-numeric: tabular-nums; line-height: 1; }
     .time-block p { font-size: 0.75rem; font-weight: 600; color: #86868b; margin-top: 0.5rem; letter-spacing: 1px; }
     .time-colon { font-size: 2rem; font-weight: 300; color: #ccc; transform: translateY(-10px); animation: blink 1s infinite; }
     @keyframes blink { 50% { opacity: 0.3; } }
 
-    /* 高级感触控按钮 */
     .premium-enter-btn {
       position: relative; z-index: 3; padding: 1.1rem 3.5rem; border-radius: 100px; border: none;
       background: #1d1d1f; color: white; font-size: 1rem; font-weight: 600; letter-spacing: 2px;
-      cursor: pointer; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
       opacity: 0; transform: translateY(10px); animation: ticketFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) 0.9s forwards;
     }
     .premium-enter-btn:hover { background: #0071e3; transform: translateY(-3px); box-shadow: 0 15px 35px rgba(0, 113, 227, 0.3); }
-    .premium-enter-btn:active { transform: translateY(-1px); }
 
     /* ==========================================================================
        3. 导航与 Hero 视觉区
@@ -144,9 +134,7 @@
     .badge { padding: 0.4rem 1rem; background: rgba(255,255,255,0.25); backdrop-filter: blur(10px); border-radius: 20px; font-size: 0.85rem; font-weight: 600; }
     .hero-content h1 { font-size: 3.5rem; margin: 1.5rem 0 0.5rem 0; font-weight: 800; letter-spacing: -1px; }
     .hero-content .subtitle { font-size: 1.2rem; opacity: 0.9; margin-bottom: 2.5rem; letter-spacing: 2px; }
-    .cta-button { padding: 1rem 2.5rem; border-radius: 30px; border: none; background: white; color: #1d1d1f; font-weight: 600; cursor: pointer; box-shadow: 0 10px 25px rgba(0,0,0,0.15); transition: all 0.3s ease; }
-    .cta-button:hover { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(0,0,0,0.25); }
-
+    
     /* ==========================================================================
        4. 通用网格与高级卡片
        ========================================================================== */
@@ -162,21 +150,29 @@
     }
     .glass-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); background: var(--bg-glass-active); }
 
-    /* 横向滑轨 */
-    .horizontal-scroll { display: flex; gap: 1.5rem; overflow-x: auto; padding: 1rem 0; scroll-snap-type: x mandatory; scrollbar-width: none; }
-    .horizontal-scroll::-webkit-scrollbar { display: none; }
-    .scroll-card-lg { flex: 0 0 380px; scroll-snap-align: start; border-radius: 24px; background: var(--bg-glass); border: 1px solid var(--border-glass); overflow: hidden; position: relative; }
-    .card-img-wrapper { width: 100%; height: 220px; overflow: hidden; }
-    .card-img-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
-    .scroll-card-lg:hover .card-img-wrapper img { transform: scale(1.05); }
-    .card-info-pad { padding: 1.5rem; }
+    /* ==========================================================================
+       🍱 现代画廊自适应网格系统 (PC固定3列换行，多端绝对对齐)
+       ========================================================================== */
+    .food-grid-layout { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.8rem; margin-top: 1.5rem; }
+    
+    .food-card-premium {
+      background: var(--bg-glass); backdrop-filter: blur(var(--blur-radius)); -webkit-backdrop-filter: blur(var(--blur-radius));
+      border: 1px solid var(--border-glass); border-radius: 24px; overflow: hidden; position: relative; box-shadow: var(--shadow-sm);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease; display: flex; flex-direction: column; height: 100%;
+    }
+    .food-card-premium:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); background: var(--bg-glass-active); }
+
+    .food-img-viewport { width: 100%; aspect-ratio: 16 / 10; overflow: hidden; background: rgba(0,0,0,0.02); position: relative; }
+    .food-img-viewport img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+    .food-card-premium:hover .food-img-viewport img { transform: scale(1.04); }
+
+    .food-info-pad { padding: 1.6rem; display: flex; flex-direction: column; flex-grow: 1; }
+    .food-btn-wrapper { margin-top: auto; padding-top: 1.2rem; }
     .fav-btn { position: absolute; top: 1rem; right: 1rem; background: rgba(255,255,255,0.7); border: none; border-radius: 50%; width: 36px; height: 36px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; z-index: 5; }
 
-    /* Pinterest 瀑布流 */
+    /* Pinterest 瀑布流 & 时间轴 */
     .pinterest-masonry { columns: 3; column-gap: 1.5rem; }
     .masonry-item { break-inside: avoid; margin-bottom: 1.5rem; display: inline-block; width: 100%; }
-
-    /* 时间轴机制 */
     .timeline-block { margin-bottom: 3rem; }
     .timeline-day-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem; color: var(--accent); }
     .timeline-track { position: relative; border-left: 2px solid var(--border-glass); padding-left: 2rem; margin-left: 0.5rem; }
@@ -191,7 +187,7 @@
     .bar-track { flex-grow: 1; height: 10px; background: rgba(0,0,0,0.05); margin: 0 1rem; border-radius: 50px; overflow: hidden; }
     .bar-fill { height: 100%; background: var(--accent); border-radius: 50px; width: 0%; transition: width 1s cubic-bezier(0.16, 1, 0.3, 1); }
 
-    /* Instagram 摄影墙 */
+    /* Instagram 摄影墙 & 虚拟路线图 */
     .instagram-gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; }
     .gallery-item { position: relative; aspect-ratio: 1; border-radius: 16px; overflow: hidden; cursor: pointer; }
     .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
@@ -199,166 +195,99 @@
     .gallery-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.4); opacity: 0; display: flex; align-items: center; justify-content: center; color: white; padding: 1rem; text-align: center; font-size: 0.85rem; transition: opacity 0.3s; }
     .gallery-item:hover .gallery-overlay { opacity: 1; }
 
-    /* 虚拟路线图 */
     .map-mock-ui { height: 350px; background: radial-gradient(circle at center, #e3f2fd 0%, #bbdefb 100%); border-radius: 16px; position: relative; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; }
     .pulse-marker { position: absolute; width: 12px; height: 12px; background: #ff1744; border-radius: 50%; }
     .pulse-marker::after { content: ''; position: absolute; inset: -6px; border: 2px solid #ff1744; border-radius: 50%; animation: pulse 1.5s infinite; }
     .pulse-marker span { position: absolute; top: -20px; left: 50%; transform: translateX(-50%); white-space: nowrap; font-size: 0.75rem; background: black; color: white; padding: 2px 6px; border-radius: 4px; }
     @keyframes pulse { 0% { transform: scale(0.6); opacity: 1; } 100% { transform: scale(1.6); opacity: 0; } }
 
-    /* 模态弹窗升级版 */
+    /* ==========================================================================
+       5. 🎛️ 模态弹窗与高阶流体灯箱 (Lightbox) 核心系统
+       ========================================================================== */
     .modal-overlay { 
-      position: fixed; 
-      inset: 0; 
-      background: rgba(0,0,0,0.3); 
-      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-      z-index: 200; 
-      display: flex; 
-      justify-content: center; 
-      align-items: flex-start;
-      padding: 4rem 1rem;
-      overflow-y: auto;
-      opacity: 1; 
-      transition: opacity 0.3s ease; 
+      position: fixed; inset: 0; background: rgba(0,0,0,0.3); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+      z-index: 200; display: flex; justify-content: center; align-items: flex-start; padding: 4rem 1rem; overflow-y: auto;
+      opacity: 1; transition: opacity 0.3s ease; 
     }
     .modal-overlay.hidden { opacity: 0; pointer-events: none; }
     .modal-card { background: var(--bg-glass-active); width: 100%; max-width: 600px; border-radius: 28px; padding: 2.5rem; border: 1px solid var(--border-glass); box-shadow: var(--shadow-md); position: relative; }
     .modal-close-btn { position: absolute; top: 1.5rem; right: 1.5rem; background: none; border: none; font-size: 1.2rem; cursor: pointer; color: var(--text-muted); z-index: 10; }
 
-    /* ==========================================================================
-       ✨ 新增：具有高级设计感的流光磨玻璃多图联动交互画廊样式
-       ========================================================================== */
-    .modal-gallery-container {
-      position: relative;
-      margin-bottom: 1.8rem;
-      border-radius: 24px;
-      overflow: hidden;
+    /* ✨ 焕新注入：弹窗内的图片赋予“可点击深度看图”的微观美学暗示 */
+    #modal-body-content img {
+      cursor: zoom-in;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
     }
-    /* 电影级主图视窗预览容器 */
-    .main-preview-wrapper {
-      width: 100%;
-      height: 320px;
-      border-radius: 24px;
-      overflow: hidden;
-      background: #111;
-      box-shadow: inset 0 0 20px rgba(0,0,0,0.2);
-    }
-    .main-preview-wrapper img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1), transform 0.4s ease;
-    }
-    /* 借鉴 Apple 经典底部的悬浮磨玻璃小图轨道 */
-    .thumbnail-glass-dock {
-      display: flex;
-      gap: 0.75rem;
-      padding: 0.75rem;
-      margin-top: 0.75rem;
-      background: rgba(255, 255, 255, 0.25);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.4);
-      border-radius: 18px;
-      overflow-x: auto;
-      scrollbar-width: none; /* 隐去原始滚动条 */
-    }
-    .thumbnail-glass-dock::-webkit-scrollbar { display: none; }
-    [data-theme="dark"] .thumbnail-glass-dock {
-      background: rgba(20, 20, 25, 0.4);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-    }
-    /* 交互缩略图元素 */
-    .thumb-link-item {
-      width: 75px;
-      height: 52px;
-      border-radius: 10px;
-      object-fit: cover;
-      cursor: pointer;
-      opacity: 0.4;
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      border: 2px solid transparent;
-      flex-shrink: 0;
-    }
-    .thumb-link-item:hover {
-      opacity: 0.7;
-      transform: translateY(-2px);
-    }
-    .thumb-link-item.active {
-      opacity: 1;
-      border-color: var(--accent);
-      transform: scale(1.05) translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0, 113, 227, 0.2);
+    #modal-body-content img:hover {
+      transform: scale(1.018);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
     }
 
-    /* 返回顶部 */
+    /* ✨ 顶奢超感流体灯箱图层 (Lightbox Overlay) */
+    .premium-lightbox-container {
+      position: fixed; inset: 0; background: rgba(10, 10, 12, 0.82);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      z-index: 300; display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .premium-lightbox-container.visible { opacity: 1; pointer-events: auto; }
+    
+    .lightbox-viewport-img {
+      max-width: 90vw; max-height: 88vh; border-radius: 16px; object-fit: contain;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.5); cursor: zoom-out;
+      transform: scale(0.94);
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .premium-lightbox-container.visible .lightbox-viewport-img { transform: scale(1); }
+
+    /* 其他系统组件 */
     #back-to-top { position: fixed; bottom: 2rem; right: 2rem; width: 50px; height: 50px; border-radius: 50%; background: var(--bg-glass-active); border: 1px solid var(--border-glass); color: var(--text-main); box-shadow: var(--shadow-md); display: flex; align-items: center; justify-content: center; cursor: pointer; opacity: 0; transform: translateY(20px); transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); z-index: 90; }
     #back-to-top.visible { opacity: 1; transform: translateY(0); }
-
-    /* 滚动进入动效 */
     .scroll-reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
     .scroll-reveal.active { opacity: 1; transform: translateY(0); }
     .hidden { display: none !important; }
     .empty-state { text-align: center; color: var(--text-muted); padding: 2rem; grid-column: 1 / -1; }
 
-    /* 响应式断点 */
-    @media (max-width: 1024px) { .pinterest-masonry { columns: 2; } }
+    /* 多端优雅弹性控制 */
+    @media (max-width: 1024px) { .pinterest-masonry { columns: 2; } .food-grid-layout { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; } }
     @media (max-width: 768px) {
-      .pinterest-masonry { columns: 1; }
-      .hero-content h1 { font-size: 2.4rem; }
+      .pinterest-masonry { columns: 1; } .hero-content h1 { font-size: 2.4rem; }
       .glass-navbar { top: 0; width: 100%; border-radius: 0; border-inline: none; height: 60px; padding: 0 1rem; }
-      .search-wrapper input { width: 140px; }
-      .search-wrapper input:focus { width: 180px; }
-      .scroll-card-lg { flex: 0 0 290px; }
-      .content-container { padding: 2rem 1rem; }
-      section { margin-bottom: 4rem; }
-      .main-preview-wrapper { height: 220px; } /* 移动端自适应调低高度 */
+      .search-wrapper input { width: 140px; } .search-wrapper input:focus { width: 180px; }
+      .content-container { padding: 2rem 1rem; } section { margin-bottom: 4rem; }
     }
+    @media (max-width: 680px) { .food-grid-layout { grid-template-columns: 1fr; gap: 1.2rem; } .food-img-viewport { aspect-ratio: 16 / 9; } }
   </style>
 </head>
 <body>
 
   <div id="scroll-progress"></div>
 
-  <!-- ✨ 重构的开场高阶数字舱大屏 -->
+  <!-- 开场动态舱屏 -->
   <div id="opening-animation">
-    <div class="sky-background">
-      <div class="cloud cloud-1"></div>
-      <div class="cloud cloud-2"></div>
-    </div>
-    
-    <!-- 数字化电子机票 -->
+    <div class="sky-background"><div class="cloud cloud-1"></div><div class="cloud cloud-2"></div></div>
     <div class="flight-ticket-card">
-      <div class="ticket-header">
-        <span class="flight-no">FLIGHT Love520</span>
-        <span class="ticket-date">2026.07.03 15:30</span>
-      </div>
+      <div class="ticket-header"><span class="flight-no">FLIGHT Love520</span><span class="ticket-date">2026.07.03 15:30</span></div>
       <div class="flight-container">
         <div class="airport-label">Jiayin<p>Shanghai</p></div>
         <div class="flight-path"><span class="airplane">✈️</span></div>
         <div class="airport-label">Juncheng<p>Tokyo</p></div>
       </div>
     </div>
-
-    <!-- 动态精准倒计时 -->
     <div class="countdown-container">
       <div class="countdown-title">距离完美行程启航还有</div>
       <div class="countdown-timer">
-        <div class="time-block"><span id="cd-d">00</span><p>DAYS</p></div>
-        <div class="time-colon">:</div>
-        <div class="time-block"><span id="cd-h">00</span><p>HOURS</p></div>
-        <div class="time-colon">:</div>
-        <div class="time-block"><span id="cd-m">00</span><p>MINS</p></div>
-        <div class="time-colon">:</div>
+        <div class="time-block"><span id="cd-d">00</span><p>DAYS</p></div><div class="time-colon">:</div>
+        <div class="time-block"><span id="cd-h">00</span><p>HOURS</p></div><div class="time-colon">:</div>
+        <div class="time-block"><span id="cd-m">00</span><p>MINS</p></div><div class="time-colon">:</div>
         <div class="time-block"><span id="cd-s">00</span><p>SECS</p></div>
       </div>
     </div>
-
-    <!-- 交互解锁按钮 -->
     <button id="enter-btn" class="premium-enter-btn">开启日本之旅</button>
   </div>
 
-  <!-- 主App内容 -->
+  <!-- 主App架构 -->
   <div id="app-content" class="hidden">
     <nav class="glass-navbar">
       <div class="nav-brand">Juncheng ❤  Jiayin</div>
@@ -372,7 +301,7 @@
         <span class="badge">2026</span>
         <h1>佳音的日本之旅</h1>
         <p class="subtitle">Tokyo · Japan</p>
-        <button class="cta-button" onclick="document.getElementById('prep-section').scrollIntoView({behavior: 'smooth'})">开始旅行 →</button>
+       <!--<button class="cta-button" onclick="document.getElementById('prep-section').scrollIntoView({behavior: 'smooth'})">开始旅行 →</button>-->
       </div>
     </header>
 
@@ -384,7 +313,7 @@
 
       <section id="food-section" class="scroll-reveal">
         <h2 class="section-title">🍣 日本美食</h2>
-        <div class="horizontal-scroll" id="food-container"></div>
+        <div class="food-grid-layout" id="food-container"></div>
       </section>
 
       <section id="attraction-section" class="scroll-reveal">
@@ -443,7 +372,7 @@
     </footer>
   </div>
 
-  <!-- 全局模态遮罩层 -->
+  <!-- 全局攻略基础模态层 -->
   <div id="global-modal" class="modal-overlay hidden">
     <div class="modal-card">
       <button class="modal-close-btn" id="modal-close">✕</button>
@@ -451,45 +380,33 @@
     </div>
   </div>
 
+  <!-- ✨ 全新注入：顶奢流体大图高清灯箱全景舱 -->
+  <div id="premium-lightbox" class="premium-lightbox-container">
+    <img src="" id="lightbox-viewer" class="lightbox-viewport-img" alt="高清视觉特写">
+  </div>
+
   <button id="back-to-top">▲</button>
 
   <script>
-    // 1. 全局解耦数据集
     const TRAVEL_DATA = {
       preparations: [
-        { id: "passport", 
-          icon: "国内（上海）", 
-          title: "出境", 
-          desc: "宝贝托运好，拿好护照休息休息哦", 
+        { id: "passport", icon: "国内（上海）", title: "出境", desc: "宝贝托运好，拿好护照休息休息哦", 
           steps: [
             { text: "step0. 提前填写电子版通关码。（用浏览器打开）" },
-            { image: "visa-step1.jpg" }, 
-            { image: "visa-step2.jpg" }, 
-            { image: "visa-step3.jpg" }, 
-            { image: "visa-step4.jpg" }, 
-            { image: "visa-step5.jpg" }, 
-            { image: "visa-step6.jpg" }, 
-            { image: "visa-step7.jpg" }, 
-            { image: "visa-step8.jpg" }, 
-            { image: "visa-step9.jpg" }, 
-            { image: "visa-step10.jpg" }, 
-            { image: "visa-step11.jpg" }, 
-            { text: "务必把二维码截图" }
+            { image: "visa-step1.jpg" }, { image: "visa-step2.jpg" }, { image: "visa-step3.jpg" }, 
+            { image: "visa-step4.jpg" }, { image: "visa-step5.jpg" }, { image: "visa-step6.jpg" }, 
+            { image: "visa-step7.jpg" }, { image: "visa-step8.jpg" }, { image: "visa-step9.jpg" }, 
+            { image: "visa-step10.jpg" }, { image: "visa-step11.jpg" }, { text: "务必把二维码截图" }
           ]
         },
-        { 
-          id: "visa", 
-          icon: "落地（东京）", 
-          title: "入境", 
-          desc: "入境流程", 
-          detail: "step1. 填写入境卡\nstep2. 录入指纹与面部照片\nstep3. 安全检查与行李提取"
-        }
+        { id: "visa", icon: "落地（东京）", title: "入境", desc: "入境流程", detail: "step1. 填写入境卡\nstep2. 录入指纹与面部照片\nstep3. 安全检查与行李提取" }
       ],
       foods: [
-        // ✨ 将单张图也优雅包装成包含 images 的结构，保持内核向下兼容与代码健壮度
         { title: "TANUKI APPETIZING", subtitle: "糕点店", images: ["TANUKI.png"], address: "〒104-0054 Tokyo, Chuo City, Kachidoki, 4 Chome−10−5 としの荘", openingHours: "7:00 - 卖完即闭店（周四和周日营业）", index: "⭐⭐⭐⭐", googleMap: "#", comment: "贝果很好吃！！！码住了很久，但是一直没有尝试。" },
-        { title: "Dining33", subtitle: "法餐", images: ["Dining33-2.png", "Dining33.png", "Dining33-3.png", "Dining33-4.png"], address: "〒106-0041 Tokyo, Minato City, Azabudai, 1 Chome−3−1 ヒ尔ズ 森JPタワ 33阶", openingHours: "18:00 - 23:00", index: "⭐⭐⭐⭐⭐", googleMap: "#", comment: "可以边看东京塔，边吃美食。" },
-        { title: "つじ半", subtitle: "海鮮丼", images: ["Tsujihann.png"], address: "〒104-0045 Tokyo, Chuo City, Tsukiji, 5 Chome−2−1 築地市場 6号馆", openingHours: "5:00 - 14:00", index: "⭐⭐⭐⭐⭐", googleMap: "#", comment: "新鲜的海鲜，值得一试。" }
+        { title: "Dining33", subtitle: "法餐", images: ["Dining33-2.png", "Dining33.png", "Dining33-3.png", "Dining33-4.png"], address: "〒106-0041 Tokyo, Minato City, Azabudai, 1 Chome−3−1 ヒ尔兹 森JPタワ 33阶", openingHours: "18:00 - 23:00", index: "⭐⭐⭐⭐⭐", googleMap: "#", comment: "可以边看东京塔，边吃美食。" },
+        { title: "つじ半（中文谐音：茨鸡夯）", subtitle: "海鮮丼", images: ["tsujihann-3.png","tsujihann.png","tsujihann-2.png"], address: "〒107-0052 Tokyo, Minato City, Akasaka, 1 Chome−12−32 Ark Mori Building, 3階", openingHours: "11:00 - 21:30", index: "⭐⭐⭐⭐⭐", googleMap: "#", comment: "超级好吃的一家海鲜饭，我去公司经常去这家吃！" },
+        { title: "TsuruTonTan UDON NOODLE Brasserie SHIBUYA", subtitle: "乌冬面", images: ["shibuya-udon.png","shibuya-udon2.png","shibuya-udon3.png"], address: "〒150-6113 Tokyo, Shibuya, 2 Chome−24−12 スクランブルスクエア 13階", openingHours: "11:00 - 23:00", index: "⭐⭐⭐⭐⭐", googleMap: "#", comment: "可以在stay with me那个楼上边看涩谷街头，边吃乌冬面." },
+        { title: "Curry & Cafe SAMA Kanda", subtitle: "汤咖喱", images: ["sama4.png","sama5.png","sama1.png","sama2.png","sama3.png"], address: "6 Chome-15-4 Sotokanda, Chiyoda City, Tokyo 101-0021", openingHours: "11:30 - 14:30  / 17:00 - 21:00", index: "⭐⭐⭐⭐⭐", googleMap: "#", comment: "好吃又健康的汤咖喱！王思聪经常会去。"  }
       ],
       attractions: [
         { title: "浅草寺", image: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=600&auto=format&fit=crop&q=80", address: "東京都台东区浅草2-3-1", duration: "2 - 3 小时", description: "东京都内最古老的寺庙，巨大的「雷门」红灯笼是经典地标。适合租借和服在此拍照打卡。", transport: "银座线/浅草线 浅草站 步行5分钟" },
@@ -520,70 +437,49 @@
       ]
     };
 
-    // 2. 交互与引擎主控中心
     document.addEventListener("DOMContentLoaded", () => {
-      document.body.classList.add("locked"); // 锁定页面禁止滚动
-      
-      initFlightCountdown(); // 🪐 激活高阶动态倒计时引擎
-      initEnterButtonEvent(); // 🖱️ 绑定解锁入场按钮
-      
+      document.body.classList.add("locked");
+      initFlightCountdown();
+      initEnterButtonEvent();
       renderDynamicCards();
       initSearchEngine();
       initScrollAndTheme();
       initModalEvents(); 
+      initLightboxEngine(); // ✨ 启动灯箱总控中心
     });
 
-    // 🪐 ✨ 高阶实时航班倒计时计算逻辑
     function initFlightCountdown() {
       const targetTime = new Date("2026-07-03T15:30:00").getTime();
-      
       function updateClock() {
-        const now = new Date().getTime();
-        const diff = targetTime - now;
-        
+        const now = new Date().getTime(); const diff = targetTime - now;
         if (diff <= 0) {
           document.querySelector(".countdown-title").innerText = "旅行已启航 ✈️";
-          document.getElementById("cd-d").innerText = "00";
-          document.getElementById("cd-h").innerText = "00";
-          document.getElementById("cd-m").innerText = "00";
-          document.getElementById("cd-s").innerText = "00";
+          document.getElementById("cd-d").innerText = "00"; document.getElementById("cd-h").innerText = "00";
+          document.getElementById("cd-m").innerText = "00"; document.getElementById("cd-s").innerText = "00";
           return;
         }
-        
         const days = Math.floor(diff / (1000 * 60 * 60 * 24));
         const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-        
         document.getElementById("cd-d").innerText = String(days).padStart(2, '0');
         document.getElementById("cd-h").innerText = String(hours).padStart(2, '0');
         document.getElementById("cd-m").innerText = String(minutes).padStart(2, '0');
         document.getElementById("cd-s").innerText = String(seconds).padStart(2, '0');
       }
-      
-      updateClock();
-      setInterval(updateClock, 1000);
+      updateClock(); setInterval(updateClock, 1000);
     }
 
-    // 🖱️ ✨ 手动点击“进入按钮”才会切入下一个界面
     function initEnterButtonEvent() {
-      const enterBtn = document.getElementById("enter-btn");
-      enterBtn.addEventListener("click", () => {
-        const anim = document.getElementById("opening-animation");
-        if (anim) anim.classList.add("exit");
-        
-        document.body.classList.remove("locked");
-        
-        const appContent = document.getElementById("app-content");
-        if (appContent) appContent.classList.remove("hidden");
-        
-        initBudgetDashboard();
+      document.getElementById("enter-btn").addEventListener("click", () => {
+        document.getElementById("opening-animation").classList.add("exit"); 
+        document.body.classList.remove("locked"); 
+        document.getElementById("app-content").classList.remove("hidden"); 
+        initBudgetDashboard(); 
       });
     }
 
-    // 3. 动态卡片渲染机制
     function renderDynamicCards() {
-      // 入境准备
       document.getElementById("prep-container").innerHTML = TRAVEL_DATA.preparations.map(item => `
         <div class="glass-card" onclick="openDetails('prep', '${item.id}')">
           <div style="font-size: 1.5rem; color:var(--accent); margin-bottom:0.5rem;">${item.icon}</div>
@@ -592,24 +488,25 @@
         </div>
       `).join('');
 
-      // 美食列表渲染
       document.getElementById("food-container").innerHTML = TRAVEL_DATA.foods.map((item, idx) => {
-        // ✨ 安全读取多图数组中的第一张图作为外部卡片封面
         const coverImg = (item.images && item.images.length > 0) ? item.images[0] : (item.image || 'default.jpg');
         return `
-          <div class="scroll-card-lg">
+          <div class="food-card-premium">
             <button class="fav-btn" onclick="toggleFavorite(event, '${item.title}')">♥</button>
-            <div class="card-img-wrapper"><img src="${coverImg}" loading="lazy"></div>
-            <div class="card-info-pad">
-              <h3 style="font-size:1.15rem;">${item.title}</h3>
-              <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:0.5rem;">${item.subtitle}</p>
-              <button class="cta-button" onclick="openDetails('food', ${idx})" style="padding:0.4rem 0.8rem; font-size:0.75rem; margin-top:0.6rem; box-shadow:none; background:var(--text-main); color:var(--bg-app);">阅读攻略</button>
+            <div class="food-img-viewport"><img src="${coverImg}" loading="lazy"></div>
+            <div class="food-info-pad">
+              <h3 style="font-size:1.15rem; font-weight:700; letter-spacing:-0.3px;">${item.title}</h3>
+              <p style="font-size:0.8rem; color:var(--text-muted); margin-top:0.25rem;">${item.subtitle}</p>
+              <div class="food-btn-wrapper">
+                <button class="cta-button" onclick="openDetails('food', ${idx})" style="padding:0.45rem 1.2rem; font-size:0.75rem; box-shadow:none; background:var(--text-main); color:var(--bg-app); border-radius:100px; transition: all 0.2s;">
+                  阅读攻略
+                </button>
+              </div>
             </div>
           </div>
         `;
       }).join('');
 
-      // 景点
       document.getElementById("attraction-container").innerHTML = TRAVEL_DATA.attractions.map((item, idx) => `
         <div class="masonry-item glass-card" style="padding:0;" onclick="openDetails('attraction', ${idx})">
           <div class="card-img-wrapper" style="height:auto;"><img src="${item.image}" style="width:100%; height:auto;" loading="lazy"></div>
@@ -620,7 +517,6 @@
         </div>
       `).join('');
 
-      // 购物
       document.getElementById("shop-container").innerHTML = TRAVEL_DATA.shoppings.map((item, idx) => `
         <div class="glass-card" onclick="openDetails('shop', ${idx})">
           <h4 style="font-size:1.1rem; margin-bottom:0.3rem;">${item.title}</h4>
@@ -628,7 +524,6 @@
         </div>
       `).join('');
 
-      // 交通与行程
       document.getElementById("transport-container").innerHTML = TRAVEL_DATA.transports.map(item => `
         <div class="glass-card" style="margin-bottom:1rem;">
           <h5>${item.name} (${item.type})</h5>
@@ -642,8 +537,7 @@
           <div class="timeline-track">
             ${dayBlock.nodes.map(node => `
               <div class="timeline-node">
-                <div class="node-dot"></div>
-                <div class="node-time">${node.time}</div>
+                <div class="node-dot"></div><div class="node-time">${node.time}</div>
                 <div class="glass-card" style="display:flex; gap:1rem; align-items:center; max-width:600px;">
                   <img src="${node.image}" style="width:60px; height:60px; object-fit:cover; border-radius:12px;">
                   <div>
@@ -657,7 +551,6 @@
         </div>
       `).join('');
 
-      // 摄影墙
       document.getElementById("gallery-container").innerHTML = TRAVEL_DATA.photos.map(p => `
         <div class="gallery-item">
           <img src="${p.url}" loading="lazy">
@@ -668,7 +561,6 @@
       renderFavorites();
     }
 
-    // 4. 模态弹窗细化交互逻辑
     function openDetails(type, key) {
       const modal = document.getElementById("global-modal");
       const body = document.getElementById("modal-body-content");
@@ -679,51 +571,33 @@
         contentHtml = `<h3>${item.title}</h3><div style="margin-top:1.2rem; line-height:1.7;">`;
         if (item.steps) {
           item.steps.forEach(step => {
-            if (step.text) {
-              contentHtml += `<p style="margin-bottom:0.8rem; white-space: pre-line; color:var(--text-main);">${step.text}</p>`;
-            }
-            if (step.image) {
-              contentHtml += `<img src="${step.image}" style="width:100%; border-radius:12px; margin: 1rem 0; box-shadow: var(--shadow-sm); display:block;">`;
-            }
+            if (step.text) contentHtml += `<p style="margin-bottom:0.8rem; white-space: pre-line; color:var(--text-main);">${step.text}</p>`;
+            if (step.image) contentHtml += `<img src="${step.image}" style="width:100%; border-radius:12px; margin: 1rem 0; box-shadow: var(--shadow-sm); display:block;">`;
           });
         } else {
           contentHtml += `<p style="white-space: pre-line;">${item.detail || ''}</p>`;
-          if (item.image) {
-            contentHtml += `<img src="${item.image}" style="width:100%; border-radius:12px; margin-top:1.5rem; box-shadow: var(--shadow-sm);">`;
-          }
         }
         contentHtml += `</div>`;
       }
       else if(type === 'food') {
         const item = TRAVEL_DATA.foods[key];
-        // ✨ 将数据源自适应包裹，提取出纯净数组
-        const imgList = item.images || [item.image || 'default.jpg'];
-        
-        contentHtml = `
-          <h3>${item.title}</h3>
-          <p style="color:var(--text-muted); font-size:0.9rem; margin-top:0.3rem; margin-bottom:1.2rem;">${item.subtitle}</p>
-          
-          <!-- ✨ 重构交互：流光微光多图联动交互区 -->
-          <div class="modal-gallery-container">
-            <div class="main-preview-wrapper">
-              <img id="modal-main-img" src="${imgList[0]}" loading="lazy">
-            </div>
-            
-            <!-- 悬浮高级感磨玻璃缩略图底座 -->
-            <div class="thumbnail-glass-dock">
-              ${imgList.map((img, idx) => `
-                <img src="${img}" 
-                     class="thumb-link-item ${idx === 0 ? 'active' : ''}" 
-                     onclick="switchModalImage(this, '${img}')" 
-                     loading="lazy">
+        let galleryHtml = '';
+        if (item.images && item.images.length > 0) {
+          galleryHtml = `
+            <div style="display:grid; grid-template-columns: ${item.images.length === 1 ? '1fr' : 'repeat(2, 1fr)'}; gap: 0.8rem; margin-bottom: 1.2rem;">
+              ${item.images.map((img, i) => `
+                <div style="aspect-ratio: 16/10; overflow:hidden; border-radius:12px; box-shadow: var(--shadow-sm); ${item.images.length > 1 && i === 0 ? 'grid-column: span 2;' : ''}">
+                  <img src="${img}" style="width:100%; height:100%; object-fit:cover;">
+                </div>
               `).join('')}
             </div>
-          </div>
-
+          `;
+        }
+        contentHtml = `
+          <h3>${item.title}</h3><p style="color:var(--text-muted); font-size:0.9rem; margin-top:0.3rem; margin-bottom:1.2rem;">${item.subtitle}</p>
+          ${galleryHtml}
           <div style="line-height:1.8; font-size:0.95rem;">
-            <p><strong>📍 店铺地址：</strong>${item.address}</p>
-            <p><strong>🕒 营业时间：</strong>${item.openingHours}</p>
-            <p><strong>⭐ 推荐指数：</strong>${item.index}</p>
+            <p><strong>📍 店铺地址：</strong>${item.address}</p><p><strong>🕒 营业时间：</strong>${item.openingHours}</p><p><strong>⭐ 推荐指数：</strong>${item.index}</p>
             <div style="margin-top:1.2rem; padding:1rem; background:rgba(0,0,0,0.03); border-radius:12px; color:var(--text-main); border-left: 4px solid var(--accent);">
               <strong>💡 佳音专属小批注：</strong><br>${item.comment}
             </div>
@@ -733,12 +607,9 @@
       else if(type === 'attraction') {
         const item = TRAVEL_DATA.attractions[key];
         contentHtml = `
-          <h3>${item.title}</h3>
-          <img src="${item.image}" style="width:100%; border-radius:16px; margin:1.2rem 0; box-shadow: var(--shadow-sm);">
+          <h3>${item.title}</h3><img src="${item.image}" style="width:100%; border-radius:16px; margin:1.2rem 0; box-shadow: var(--shadow-sm);">
           <div style="line-height:1.8; font-size:0.95rem;">
-            <p><strong>📍 景点地址：</strong>${item.address}</p>
-            <p><strong>⏱️ 建议停留：</strong>${item.duration}</p>
-            <p><strong>🚃 交通路线：</strong>${item.transport}</p>
+            <p><strong>📍 景点地址：</strong>${item.address}</p><p><strong>⏱️ 建议停留：</strong>${item.duration}</p><p><strong>🚃 交通路线：</strong>${item.transport}</p>
             <p style="margin-top:1rem; white-space: pre-line; color:var(--text-main);"><strong>📝 景点简介：</strong>\n${item.description}</p>
           </div>
         `;
@@ -748,8 +619,7 @@
         contentHtml = `
           <h3>${item.title}</h3>
           <div style="line-height:1.8; font-size:0.95rem; margin-top:1.2rem;">
-            <p><strong>🌟 必买爆款：</strong>${item.mustBuy}</p>
-            <p><strong>💶 专属退税：</strong>${item.taxRefund}</p>
+            <p><strong>🌟 必买爆款：</strong>${item.mustBuy}</p><p><strong>💶 专属退税：</strong>${item.taxRefund}</p>
             <div style="margin-top:1.2rem; padding:1rem; background:rgba(0,0,0,0.03); border-radius:12px; border-left: 4px solid #ffcc00;">
               <strong>💡 逛街贴士：</strong>${item.remark}
             </div>
@@ -762,105 +632,75 @@
       document.body.classList.add("locked"); 
     }
 
-    // ✨ 新增：负责大图细腻丝滑切换的动效交互引擎
-    function switchModalImage(thumbElement, newSrc) {
-      const mainImg = document.getElementById("modal-main-img");
-      if (!mainImg) return;
-      
-      // 1. 触发转场：轻微缩小并降低透明度
-      mainImg.style.opacity = "0.2";
-      mainImg.style.transform = "scale(0.98)";
-      
-      // 2. 硬件加速缓冲后，安全更替大图资源并优雅舒展复位
-      setTimeout(() => {
-        mainImg.src = newSrc;
-        mainImg.style.opacity = "1";
-        mainImg.style.transform = "scale(1)";
-      }, 200);
-      
-      // 3. 动态调度底座中缩略图的 Active 激活高亮边框状态
-      document.querySelectorAll(".thumb-link-item").forEach(el => el.classList.remove("active"));
-      thumbElement.classList.add("active");
-    }
-
-    // 5. 弹窗控制中心
     function initModalEvents() {
       const modal = document.getElementById("global-modal");
-      const closeBtn = document.getElementById("modal-close");
+      document.getElementById("modal-close").addEventListener("click", () => {
+        modal.classList.add("hidden"); document.body.classList.remove("locked"); 
+      });
+      modal.addEventListener("click", (e) => {
+        if (e.target === modal) { modal.classList.add("hidden"); document.body.classList.remove("locked"); }
+      });
+    }
 
-      closeBtn.addEventListener("click", () => {
-        modal.classList.add("hidden");
-        document.body.classList.remove("locked"); 
+    // ✨ 全新注入：大图高清看图灯箱管理引擎
+    function initLightboxEngine() {
+      const lightbox = document.getElementById("premium-lightbox");
+      const viewer = document.getElementById("lightbox-viewer");
+      const modalBody = document.getElementById("modal-body-content");
+
+      // 利用事件代理：捕捉攻略弹窗里的任意图片点击行为
+      modalBody.addEventListener("click", (e) => {
+        if (e.target.tagName === "IMG") {
+          viewer.src = e.target.src; // 提取图片源
+          lightbox.classList.add("visible"); // 浮现高级看图舱
+        }
       });
 
-      modal.addEventListener("click", (e) => {
-        if (e.target === modal) {
-          modal.classList.add("hidden");
-          document.body.classList.remove("locked"); 
+      // 点击大图或者毛玻璃空白处，平滑降维关闭
+      lightbox.addEventListener("click", () => {
+        lightbox.classList.remove("visible");
+      });
+
+      // 风控支持：按下 ESC 键安全退出大图，防止操作困顿
+      window.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && lightbox.classList.contains("visible")) {
+          lightbox.classList.remove("visible");
         }
       });
     }
 
-    // 6. 财务看板自动求和
     function initBudgetDashboard() {
-      const b = TRAVEL_DATA.budgets;
-      const total = Object.values(b).reduce((a, b) => a + b, 0);
+      const b = TRAVEL_DATA.budgets; const total = Object.values(b).reduce((a, b) => a + b, 0);
       document.getElementById("total-budget-val").innerText = total.toLocaleString();
-
       const labels = { flight:"机票", hotel:"酒店", shopping:"购物", dining:"餐饮", transport:"交通", tickets:"门票" };
       document.getElementById("budget-bars-container").innerHTML = Object.keys(b).map(key => {
         const pct = (b[key] / total) * 100;
-        return `
-          <div class="bar-row">
-            <span class="bar-label">${labels[key]}</span>
-            <div class="bar-track"><div class="bar-fill" style="width: ${pct}%"></div></div>
-            <span style="font-size:0.85rem; font-weight:600;">¥${b[key]}</span>
-          </div>
-        `;
+        return `<div class="bar-row"><span class="bar-label">${labels[key]}</span><div class="bar-track"><div class="bar-fill" style="width: ${pct}%"></div></div><span style="font-size:0.85rem; font-weight:600;">¥${b[key]}</span></div>`;
       }).join('');
     }
 
-    // 7. 模糊全局检索
     function initSearchEngine() {
       document.getElementById("global-search").addEventListener("input", (e) => {
         const val = e.target.value.toLowerCase().trim();
-        document.querySelectorAll("main section .glass-card, main section .scroll-card-lg").forEach(card => {
+        document.querySelectorAll("main section .glass-card, main section .food-card-premium").forEach(card => {
           card.style.display = card.innerText.toLowerCase().includes(val) ? "" : "none";
         });
       });
     }
 
-    // 8. 本地收藏夹状态同步
     function toggleFavorite(e, title) {
-      e.stopPropagation();
-      let favs = JSON.parse(localStorage.getItem("t_favs")) || [];
-      if(favs.includes(title)) {
-        favs = favs.filter(t => t !== title);
-        e.target.style.color = "";
-      } else {
-        favs.push(title);
-        e.target.style.color = "#ff1744";
-      }
-      localStorage.setItem("t_favs", JSON.stringify(favs));
-      renderFavorites();
+      e.stopPropagation(); let favs = JSON.parse(localStorage.getItem("t_favs")) || [];
+      if(favs.includes(title)) { favs = favs.filter(t => t !== title); e.target.style.color = ""; }
+      else { favs.push(title); e.target.style.color = "#ff1744"; }
+      localStorage.setItem("t_favs", JSON.stringify(favs)); renderFavorites();
     }
 
     function renderFavorites() {
-      const favs = JSON.parse(localStorage.getItem("t_favs")) || [];
-      const container = document.getElementById("favorites-container");
-      if(favs.length === 0) {
-        container.innerHTML = `<p class="empty-state">轻触美食卡片上的心形图标，将旅行灵感加入愿望清单...</p>`;
-      } else {
-        container.innerHTML = favs.map(title => `
-          <div class="glass-card" style="border-left:4px solid var(--accent);">
-            <h5>❤️ ${title}</h5>
-            <p style="font-size:0.75rem; color:var(--text-muted); margin-top:0.25rem;">已实时同步至本地云端缓存</p>
-          </div>
-        `).join('');
-      }
+      const favs = JSON.parse(localStorage.getItem("t_favs")) || []; const container = document.getElementById("favorites-container");
+      if(favs.length === 0) container.innerHTML = `<p class="empty-state">轻触美食卡片上的心形图标，将旅行灵感加入愿望清单...</p>`;
+      else container.innerHTML = favs.map(title => `<div class="glass-card" style="border-left:4px solid var(--accent);"><h5>❤️ ${title}</h5><p style="font-size:0.75rem; color:var(--text-muted); margin-top:0.25rem;">已实时同步至本地云端缓存</p></div>`).join('');
     }
 
-    // 9. 滚动感知动效与换肤控制
     function initScrollAndTheme() {
       const btt = document.getElementById("back-to-top");
       window.addEventListener("scroll", () => {
@@ -870,14 +710,11 @@
         btt.classList.toggle("visible", top > 400);
       });
       btt.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
-
       const obs = new IntersectionObserver((entries) => {
         entries.forEach(ent => { if(ent.isIntersecting) { ent.target.classList.add("active"); obs.unobserve(ent.target); } });
       }, { threshold: 0.05 });
       document.querySelectorAll(".scroll-reveal").forEach(el => obs.observe(el));
-
-      const toggle = document.getElementById("theme-toggle");
-      toggle.addEventListener("click", () => {
+      document.getElementById("theme-toggle").addEventListener("click", () => {
         const next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
         document.documentElement.setAttribute("data-theme", next);
       });
