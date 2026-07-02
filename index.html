@@ -34,7 +34,7 @@
       --bg-glass-active: rgba(30, 30, 38, 0.8);
       --border-glass: rgba(255, 255, 255, 0.08);
       --text-main: #f5f5f7;
-      --text-muted: #86868b;
+      --text-muted: #d51adb;
       --accent: #2997ff;
       --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.2);
       --shadow-md: 0 12px 40px rgba(0, 0, 0, 0.4);
@@ -99,6 +99,7 @@
     
     .countdown-timer { display: flex; gap: 1.2rem; justify-content: center; align-items: center; }
     .time-block { display: flex; flex-direction: column; align-items: center; }
+    /* 此处的 id="cd-d" 等统一调整为 class，方便与导航栏无缝联动同步渲染 */
     .time-block span { font-size: 3rem; font-weight: 800; color: #1d1d1f; font-variant-numeric: tabular-nums; line-height: 1; }
     .time-block p { font-size: 0.75rem; font-weight: 600; color: #86868b; margin-top: 0.5rem; letter-spacing: 1px; }
     .time-colon { font-size: 2rem; font-weight: 300; color: #ccc; transform: translateY(-10px); animation: blink 1s infinite; }
@@ -113,16 +114,54 @@
     .premium-enter-btn:hover { background: #0071e3; transform: translateY(-3px); box-shadow: 0 15px 35px rgba(0, 113, 227, 0.3); }
 
     /* ==========================================================================
-       3. 导航与 Hero 视觉区
+       3. 导航与 Hero 视觉区（✨ 新增导航栏航班仪表盘胶囊样式）
        ========================================================================== */
     .glass-navbar {
       position: fixed; top: 1.5rem; left: 50%; transform: translateX(-50%); width: 90%; max-width: 1200px; height: 64px; padding: 0 2rem;
       background: var(--bg-glass); backdrop-filter: blur(var(--blur-radius)); -webkit-backdrop-filter: blur(var(--blur-radius));
       border: 1px solid var(--border-glass); border-radius: 32px; display: flex; justify-content: space-between; align-items: center; z-index: 100; box-shadow: var(--shadow-md);
     }
-    .nav-brand { font-size: 1.2rem; font-weight: 700; }
-    .search-wrapper input { padding: 0.6rem 1.2rem; width: 260px; border-radius: 20px; border: 1px solid var(--border-glass); background: rgba(255,255,255,0.2); color: var(--text-main); outline: none; transition: all 0.3s; }
-    .search-wrapper input:focus { width: 340px; background: var(--bg-glass-active); box-shadow: 0 0 0 3px rgba(0,113,227,0.15); }
+    .nav-brand { font-size: 1.2rem; font-weight: 700; flex-shrink: 0; }
+    
+    /* ✨ 独创设计：微观流体空运航班胶囊样式 */
+    .nav-flight-capsule {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      background: rgba(0, 113, 227, 0.05);
+      border: 1px solid var(--border-glass);
+      padding: 0.4rem 1.2rem;
+      border-radius: 100px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    [data-theme="dark"] .nav-flight-capsule {
+      background: rgba(41, 151, 255, 0.08);
+    }
+    .nav-flight-no {
+      color: var(--accent);
+      letter-spacing: 0.5px;
+    }
+    .nav-flight-divider {
+      color: var(--text-muted);
+      opacity: 0.3;
+      font-weight: 300;
+    }
+    .nav-flight-date {
+     color: #1d1d1f;
+    }
+    .nav-live-countdown {
+      font-variant-numeric: tabular-nums; /* 锁定等宽字体，数字跳动时完全不抖动 */
+      color: var(--text-main);
+    }
+    .nav-live-countdown span {
+      color: var(--accent);
+      font-weight: 700;
+      margin: 0 1px;
+    }
+
+    .nav-controls { flex-shrink: 0; }
     #theme-toggle { background: none; border: none; font-size: 1.2rem; cursor: pointer; }
 
     .hero-section {
@@ -213,7 +252,6 @@
     .modal-card { background: var(--bg-glass-active); width: 100%; max-width: 600px; border-radius: 28px; padding: 2.5rem; border: 1px solid var(--border-glass); box-shadow: var(--shadow-md); position: relative; }
     .modal-close-btn { position: absolute; top: 1.5rem; right: 1.5rem; background: none; border: none; font-size: 1.2rem; cursor: pointer; color: var(--text-muted); z-index: 10; }
 
-    /* ✨ 焕新注入：弹窗内的图片赋予“可点击深度看图”的微观美学暗示 */
     #modal-body-content img {
       cursor: zoom-in;
       transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
@@ -223,7 +261,6 @@
       box-shadow: 0 8px 24px rgba(0,0,0,0.08);
     }
 
-    /* ✨ 顶奢超感流体灯箱图层 (Lightbox Overlay) */
     .premium-lightbox-container {
       position: fixed; inset: 0; background: rgba(10, 10, 12, 0.82);
       backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
@@ -249,13 +286,24 @@
     .hidden { display: none !important; }
     .empty-state { text-align: center; color: var(--text-muted); padding: 2rem; grid-column: 1 / -1; }
 
-    /* 多端优雅弹性控制 */
+    /* 多端优雅弹性控制与响应式精细瘦身 */
     @media (max-width: 1024px) { .pinterest-masonry { columns: 2; } .food-grid-layout { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; } }
     @media (max-width: 768px) {
       .pinterest-masonry { columns: 1; } .hero-content h1 { font-size: 2.4rem; }
       .glass-navbar { top: 0; width: 100%; border-radius: 0; border-inline: none; height: 60px; padding: 0 1rem; }
-      .search-wrapper input { width: 140px; } .search-wrapper input:focus { width: 180px; }
+      
+      /* 手机端精细适配：隐藏具体日期，保留航班号和极简倒计时，防止内容重叠 */
+      .nav-flight-date, .nav-flight-divider:nth-child(4) { 
+        display: none !important; 
+      }
+      .nav-flight-capsule {
+        gap: 0.4rem; padding: 0.3rem 0.7rem; font-size: 0.75rem;
+      }
       .content-container { padding: 2rem 1rem; } section { margin-bottom: 4rem; }
+    }
+    @media (max-width: 480px) {
+      .nav-brand { font-size: 0.95rem; }
+      .nav-flight-capsule { scale: 0.9; transform-origin: right center; gap: 0.25rem; }
     }
     @media (max-width: 680px) { .food-grid-layout { grid-template-columns: 1fr; gap: 1.2rem; } .food-img-viewport { aspect-ratio: 16 / 9; } }
   </style>
@@ -264,11 +312,10 @@
 
   <div id="scroll-progress"></div>
 
-  <!-- 开场动态舱屏 -->
   <div id="opening-animation">
     <div class="sky-background"><div class="cloud cloud-1"></div><div class="cloud cloud-2"></div></div>
     <div class="flight-ticket-card">
-      <div class="ticket-header"><span class="flight-no">FLIGHT Love520</span><span class="ticket-date">2026.07.03 15:30</span></div>
+      <div class="ticket-header"><span class="flight-no">FLIGHT航班号 Love520</span><span class="ticket-date">2026.07.30 15:30</span></div>
       <div class="flight-container">
         <div class="airport-label">Jiayin<p>Shanghai</p></div>
         <div class="flight-path"><span class="airplane">✈️</span></div>
@@ -278,20 +325,29 @@
     <div class="countdown-container">
       <div class="countdown-title">距离完美行程启航还有</div>
       <div class="countdown-timer">
-        <div class="time-block"><span id="cd-d">00</span><p>DAYS</p></div><div class="time-colon">:</div>
-        <div class="time-block"><span id="cd-h">00</span><p>HOURS</p></div><div class="time-colon">:</div>
-        <div class="time-block"><span id="cd-m">00</span><p>MINS</p></div><div class="time-colon">:</div>
-        <div class="time-block"><span id="cd-s">00</span><p>SECS</p></div>
+        <div class="time-block"><span class="cd-d">00</span><p>DAYS</p></div><div class="time-colon">:</div>
+        <div class="time-block"><span class="cd-h">00</span><p>HOURS</p></div><div class="time-colon">:</div>
+        <div class="time-block"><span class="cd-m">00</span><p>MINS</p></div><div class="time-colon">:</div>
+        <div class="time-block"><span class="cd-s">00</span><p>SECS</p></div>
       </div>
     </div>
     <button id="enter-btn" class="premium-enter-btn">开启日本之旅</button>
   </div>
 
-  <!-- 主App架构 -->
   <div id="app-content" class="hidden">
     <nav class="glass-navbar">
       <div class="nav-brand">Juncheng ❤  Jiayin</div>
-      <div class="search-wrapper"><input type="text" id="global-search" placeholder="检索景点、美食、购物..."></div>
+      
+      <div class="nav-flight-capsule">
+        <span class="nav-flight-no">✈️ Love520</span>
+        <span class="nav-flight-divider">|</span>
+        <span class="nav-flight-date">07月30日 15:30</span>
+        <span class="nav-flight-divider">|</span>
+        <div class="nav-live-countdown">
+          <span class="cd-d">00</span>天<span class="cd-h">00</span>时<span class="cd-m">00</span>分<span class="cd-s">00</span>秒
+        </div>
+      </div>
+
       <div class="nav-controls"><button id="theme-toggle">🌓</button></div>
     </nav>
 
@@ -301,7 +357,6 @@
         <span class="badge">2026</span>
         <h1>佳音的日本之旅</h1>
         <p class="subtitle">Tokyo · Japan</p>
-       <!--<button class="cta-button" onclick="document.getElementById('prep-section').scrollIntoView({behavior: 'smooth'})">开始旅行 →</button>-->
       </div>
     </header>
 
@@ -372,7 +427,6 @@
     </footer>
   </div>
 
-  <!-- 全局攻略基础模态层 -->
   <div id="global-modal" class="modal-overlay hidden">
     <div class="modal-card">
       <button class="modal-close-btn" id="modal-close">✕</button>
@@ -380,7 +434,6 @@
     </div>
   </div>
 
-  <!-- ✨ 全新注入：顶奢流体大图高清灯箱全景舱 -->
   <div id="premium-lightbox" class="premium-lightbox-container">
     <img src="" id="lightbox-viewer" class="lightbox-viewport-img" alt="高清视觉特写">
   </div>
@@ -442,30 +495,44 @@
       initFlightCountdown();
       initEnterButtonEvent();
       renderDynamicCards();
-      initSearchEngine();
+      // initSearchEngine(); 👈 已安全砍掉已失效的旧搜索函数初始化
       initScrollAndTheme();
       initModalEvents(); 
-      initLightboxEngine(); // ✨ 启动灯箱总控中心
+      initLightboxEngine();
     });
 
+    // ✨ 升级版双端联动无缝同步倒计时引擎
     function initFlightCountdown() {
-      const targetTime = new Date("2026-07-03T15:30:00").getTime();
+      const targetTime = new Date("2026-07-30T15:30:00").getTime();
+      
+      // 封装复用选择器，通过 Class 同时给开场大屏与导航栏塞入统一的时钟流数据
+      const syncTimeText = (className, value) => {
+        document.querySelectorAll('.' + className).forEach(el => {
+          el.innerText = value;
+        });
+      };
+
       function updateClock() {
         const now = new Date().getTime(); const diff = targetTime - now;
         if (diff <= 0) {
-          document.querySelector(".countdown-title").innerText = "旅行已启航 ✈️";
-          document.getElementById("cd-d").innerText = "00"; document.getElementById("cd-h").innerText = "00";
-          document.getElementById("cd-m").innerText = "00"; document.getElementById("cd-s").innerText = "00";
+          const titleEl = document.querySelector(".countdown-title");
+          if (titleEl) titleEl.innerText = "旅行已启航 ✈️";
+          syncTimeText("cd-d", "00"); syncTimeText("cd-h", "00");
+          syncTimeText("cd-m", "00"); syncTimeText("cd-s", "00");
           return;
         }
         const days = Math.floor(diff / (1000 * 60 * 60 * 24));
         const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-        document.getElementById("cd-d").innerText = String(days).padStart(2, '0');
-        document.getElementById("cd-h").innerText = String(hours).padStart(2, '0');
-        document.getElementById("cd-m").innerText = String(minutes).padStart(2, '0');
-        document.getElementById("cd-s").innerText = String(seconds).padStart(2, '0');
+        
+        const pad = num => String(num).padStart(2, '0');
+
+        // 双向同步，数据严丝合缝
+        syncTimeText("cd-d", pad(days));
+        syncTimeText("cd-h", pad(hours));
+        syncTimeText("cd-m", pad(minutes));
+        syncTimeText("cd-s", pad(seconds));
       }
       updateClock(); setInterval(updateClock, 1000);
     }
@@ -488,28 +555,24 @@
         </div>
       `).join('');
 
-      // 替换 food-container 的渲染逻辑
-document.getElementById("food-container").innerHTML = TRAVEL_DATA.foods.map((item, idx) => {
-  const coverImg = (item.images && item.images.length > 0) ? item.images[0] : (item.image || 'default.jpg');
-  return `
-    <!-- 1. 将点击事件绑定到整个卡片，并优雅地加上手型光标 -->
-    <div class="food-card-premium" onclick="openDetails('food', ${idx})" style="cursor: pointer;">
-      <!-- 收藏按钮自带阻止冒泡，点击不会触发弹窗 -->
-      <button class="fav-btn" onclick="toggleFavorite(event, '${item.title}')">♥</button>
-      <div class="food-img-viewport"><img src="${coverImg}" loading="lazy"></div>
-      <div class="food-info-pad">
-        <h3 style="font-size:1.15rem; font-weight:700; letter-spacing:-0.3px;">${item.title}</h3>
-        <p style="font-size:0.8rem; color:var(--text-muted); margin-top:0.25rem;">${item.subtitle}</p>
-        <div class="food-btn-wrapper">
-          <!-- 这里的按钮保留，作为视觉引导提示 -->
-          <button class="cta-button" style="padding:0.45rem 1.2rem; font-size:0.75rem; box-shadow:none; background:var(--text-main); color:var(--bg-app); border-radius:100px; transition: all 0.2s;">
-            阅读攻略
-          </button>
-        </div>
-      </div>
-    </div>
-  `;
-}).join('');
+      document.getElementById("food-container").innerHTML = TRAVEL_DATA.foods.map((item, idx) => {
+        const coverImg = (item.images && item.images.length > 0) ? item.images[0] : (item.image || 'default.jpg');
+        return `
+          <div class="food-card-premium" onclick="openDetails('food', ${idx})" style="cursor: pointer;">
+            <button class="fav-btn" onclick="toggleFavorite(event, '${item.title}')">♥</button>
+            <div class="food-img-viewport"><img src="${coverImg}" loading="lazy"></div>
+            <div class="food-info-pad">
+              <h3 style="font-size:1.15rem; font-weight:700; letter-spacing:-0.3px;">${item.title}</h3>
+              <p style="font-size:0.8rem; color:var(--text-muted); margin-top:0.25rem;">${item.subtitle}</p>
+              <div class="food-btn-wrapper">
+                <button class="cta-button" style="padding:0.45rem 1.2rem; font-size:0.75rem; box-shadow:none; background:var(--text-main); color:var(--bg-app); border-radius:100px; transition: all 0.2s;">
+                  阅读攻略
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
 
       document.getElementById("attraction-container").innerHTML = TRAVEL_DATA.attractions.map((item, idx) => `
         <div class="masonry-item glass-card" style="padding:0;" onclick="openDetails('attraction', ${idx})">
@@ -646,26 +709,22 @@ document.getElementById("food-container").innerHTML = TRAVEL_DATA.foods.map((ite
       });
     }
 
-    // ✨ 全新注入：大图高清看图灯箱管理引擎
     function initLightboxEngine() {
       const lightbox = document.getElementById("premium-lightbox");
       const viewer = document.getElementById("lightbox-viewer");
       const modalBody = document.getElementById("modal-body-content");
 
-      // 利用事件代理：捕捉攻略弹窗里的任意图片点击行为
       modalBody.addEventListener("click", (e) => {
         if (e.target.tagName === "IMG") {
-          viewer.src = e.target.src; // 提取图片源
-          lightbox.classList.add("visible"); // 浮现高级看图舱
+          viewer.src = e.target.src;
+          lightbox.classList.add("visible");
         }
       });
 
-      // 点击大图或者毛玻璃空白处，平滑降维关闭
       lightbox.addEventListener("click", () => {
         lightbox.classList.remove("visible");
       });
 
-      // 风控支持：按下 ESC 键安全退出大图，防止操作困顿
       window.addEventListener("keydown", (e) => {
         if (e.key === "Escape" && lightbox.classList.contains("visible")) {
           lightbox.classList.remove("visible");
@@ -683,14 +742,7 @@ document.getElementById("food-container").innerHTML = TRAVEL_DATA.foods.map((ite
       }).join('');
     }
 
-    function initSearchEngine() {
-      document.getElementById("global-search").addEventListener("input", (e) => {
-        const val = e.target.value.toLowerCase().trim();
-        document.querySelectorAll("main section .glass-card, main section .food-card-premium").forEach(card => {
-          card.style.display = card.innerText.toLowerCase().includes(val) ? "" : "none";
-        });
-      });
-    }
+    // 💡 原本这里的旧 initSearchEngine 逻辑已完全清除，确保系统无死角干净稳定
 
     function toggleFavorite(e, title) {
       e.stopPropagation(); let favs = JSON.parse(localStorage.getItem("t_favs")) || [];
