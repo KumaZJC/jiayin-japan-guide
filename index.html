@@ -488,24 +488,28 @@
         </div>
       `).join('');
 
-      document.getElementById("food-container").innerHTML = TRAVEL_DATA.foods.map((item, idx) => {
-        const coverImg = (item.images && item.images.length > 0) ? item.images[0] : (item.image || 'default.jpg');
-        return `
-          <div class="food-card-premium">
-            <button class="fav-btn" onclick="toggleFavorite(event, '${item.title}')">♥</button>
-            <div class="food-img-viewport"><img src="${coverImg}" loading="lazy"></div>
-            <div class="food-info-pad">
-              <h3 style="font-size:1.15rem; font-weight:700; letter-spacing:-0.3px;">${item.title}</h3>
-              <p style="font-size:0.8rem; color:var(--text-muted); margin-top:0.25rem;">${item.subtitle}</p>
-              <div class="food-btn-wrapper">
-                <button class="cta-button" onclick="openDetails('food', ${idx})" style="padding:0.45rem 1.2rem; font-size:0.75rem; box-shadow:none; background:var(--text-main); color:var(--bg-app); border-radius:100px; transition: all 0.2s;">
-                  阅读攻略
-                </button>
-              </div>
-            </div>
-          </div>
-        `;
-      }).join('');
+      // 替换 food-container 的渲染逻辑
+document.getElementById("food-container").innerHTML = TRAVEL_DATA.foods.map((item, idx) => {
+  const coverImg = (item.images && item.images.length > 0) ? item.images[0] : (item.image || 'default.jpg');
+  return `
+    <!-- 1. 将点击事件绑定到整个卡片，并优雅地加上手型光标 -->
+    <div class="food-card-premium" onclick="openDetails('food', ${idx})" style="cursor: pointer;">
+      <!-- 收藏按钮自带阻止冒泡，点击不会触发弹窗 -->
+      <button class="fav-btn" onclick="toggleFavorite(event, '${item.title}')">♥</button>
+      <div class="food-img-viewport"><img src="${coverImg}" loading="lazy"></div>
+      <div class="food-info-pad">
+        <h3 style="font-size:1.15rem; font-weight:700; letter-spacing:-0.3px;">${item.title}</h3>
+        <p style="font-size:0.8rem; color:var(--text-muted); margin-top:0.25rem;">${item.subtitle}</p>
+        <div class="food-btn-wrapper">
+          <!-- 这里的按钮保留，作为视觉引导提示 -->
+          <button class="cta-button" style="padding:0.45rem 1.2rem; font-size:0.75rem; box-shadow:none; background:var(--text-main); color:var(--bg-app); border-radius:100px; transition: all 0.2s;">
+            阅读攻略
+          </button>
+        </div>
+      </div>
+    </div>
+  `;
+}).join('');
 
       document.getElementById("attraction-container").innerHTML = TRAVEL_DATA.attractions.map((item, idx) => `
         <div class="masonry-item glass-card" style="padding:0;" onclick="openDetails('attraction', ${idx})">
