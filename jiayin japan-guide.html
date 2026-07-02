@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>🇯🇵 日本旅行攻略 | 从上海出发的沉浸式极简设计指南</title>
+  
+  <meta name="description" content="专为高审美旅行者打造的日本东京全方位全景旅游攻略，融合Apple与Airbnb设计美学。">
+  <meta property="og:title" content="🇯🇵 日本旅行攻略 | 开启你的完美旅程">
+  <meta property="og:description" content="高级、清新、富有浓厚旅行氛围的极致极简极速响应式一页攻略。">
+  <meta property="og:type" content="website">
+  
+  <style>
+    /* ==========================================================================
+       1. 现代排版、设计变量与暗黑模式
+       ========================================================================== */
+    :root {
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --bg-app: #f4f7f6;
+      --bg-glass: rgba(255, 255, 255, 0.45);
+      --bg-glass-active: rgba(255, 255, 255, 0.7);
+      --border-glass: rgba(255, 255, 255, 0.4);
+      --text-main: #1d1d1f;
+      --text-muted: #86868b;
+      --accent: #0071e3;
+      --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.03);
+      --shadow-md: 0 12px 32px rgba(0, 0, 0, 0.06);
+      --blur-radius: 20px;
+    }
+
+    [data-theme="dark"] {
+      --bg-app: #0a0a0c;
+      --bg-glass: rgba(20, 20, 25, 0.6);
+      --bg-glass-active: rgba(30, 30, 38, 0.8);
+      --border-glass: rgba(255, 255, 255, 0.08);
+      --text-main: #f5f5f7;
+      --text-muted: #86868b;
+      --accent: #2997ff;
+      --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.2);
+      --shadow-md: 0 12px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--bg-app);
+      color: var(--text-main);
+      overflow-x: hidden;
+      transition: background-color 0.5s ease, color 0.3s ease;
+      -webkit-font-smoothing: antialiased;
+    }
+    body.locked { overflow: hidden; }
+
+    #scroll-progress {
+      position: fixed; top: 0; left: 0; width: 0%; height: 4px;
+      background: linear-gradient(90deg, #3a86ff, #ff007f); z-index: 1000; transition: width 0.1s linear;
+    }
+
+    /* ==========================================================================
+       2. 开场动画 (Shanghai ✈ Tokyo)
+       ========================================================================== */
+    #opening-animation {
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      background: linear-gradient(180deg, #bbf2f6 0%, #ffffff 100%);
+      z-index: 999; display: flex; flex-direction: column; justify-content: center; align-items: center;
+      transition: transform 1.2s cubic-bezier(0.85, 0, 0.15, 1);
+    }
+    #opening-animation.exit { transform: translateY(-100%); }
+
+    .sky-background { position: absolute; width: 100%; height: 60%; top: 0; overflow: hidden; z-index: 1; }
+    .cloud { position: absolute; background: white; border-radius: 100px; opacity: 0.8; filter: blur(4px); }
+    .cloud-1 { width: 180px; height: 60px; top: 15%; left: -20%; animation: cloudMove 25s linear infinite; }
+    .cloud-2 { width: 240px; height: 80px; top: 30%; left: -30%; animation: cloudMove 35s linear infinite 5s; }
+    @keyframes cloudMove { to { left: 120%; } }
+
+    .flight-container { position: relative; width: 80%; max-width: 600px; display: flex; justify-content: space-between; align-items: center; z-index: 3; margin-bottom: 2rem; }
+    .airport-label { font-size: 1.5rem; font-weight: 700; letter-spacing: 1px; color: #333; }
+    .flight-path { position: relative; flex-grow: 1; height: 2px; border-bottom: 2px dashed rgba(0,0,0,0.15); margin: 0 20px; }
+    .airplane { position: absolute; left: 0; top: -14px; font-size: 1.5rem; transform: rotate(45deg); animation: flightFlight 3.8s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+    @keyframes flightFlight {
+      0% { left: 0%; transform: scale(1) rotate(45deg); }
+      50% { transform: scale(1.3) rotate(35deg) translateY(-15px); }
+      100% { left: 100%; transform: scale(1) rotate(45deg); }
+    }
+
+    .welcome-text { text-align: center; z-index: 3; opacity: 0; animation: textReveal 1.5s ease 2s forwards; }
+    .welcome-text h2 { font-size: 1.8rem; font-weight: 600; color: #222; margin-bottom: 0.5rem; letter-spacing: 2px; }
+    .welcome-text p { font-size: 1rem; color: #666; letter-spacing: 1px; }
+    @keyframes textReveal { to { opacity: 1; transform: translateY(-5px); } }
+
+    /* ==========================================================================
+       3. 导航与 Hero 视觉区
+       ========================================================================== */
+    .glass-navbar {
+      position: fixed; top: 1.5rem; left: 50%; transform: translateX(-50%); width: 90%; max-width: 1200px; height: 64px; padding: 0 2rem;
+      background: var(--bg-glass); backdrop-filter: blur(var(--blur-radius)); -webkit-backdrop-filter: blur(var(--blur-radius));
+      border: 1px solid var(--border-glass); border-radius: 32px; display: flex; justify-content: space-between; align-items: center; z-index: 100; box-shadow: var(--shadow-md);
+    }
+    .nav-brand { font-size: 1.2rem; font-weight: 700; }
+    .search-wrapper input { padding: 0.6rem 1.2rem; width: 260px; border-radius: 20px; border: 1px solid var(--border-glass); background: rgba(255,255,255,0.2); color: var(--text-main); outline: none; transition: all 0.3s; }
+    .search-wrapper input:focus { width: 340px; background: var(--bg-glass-active); box-shadow: 0 0 0 3px rgba(0,113,227,0.15); }
+    #theme-toggle { background: none; border: none; font-size: 1.2rem; cursor: pointer; }
+
+    .hero-section {
+      position: relative; width: 100vw; height: 85vh; display: flex; align-items: center; justify-content: center; text-align: center;
+      background: url('https://images.unsplash.com/photo-1503899036084-c55cdd92da26?w=1600&auto=format&fit=crop&q=80') center/cover no-repeat; color: white;
+    }
+    .hero-bg-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.5) 100%); }
+    .hero-content { position: relative; z-index: 2; max-width: 600px; }
+    .badge { padding: 0.4rem 1rem; background: rgba(255,255,255,0.25); backdrop-filter: blur(10px); border-radius: 20px; font-size: 0.85rem; font-weight: 600; }
+    .hero-content h1 { font-size: 3.5rem; margin: 1.5rem 0 0.5rem 0; font-weight: 800; letter-spacing: -1px; }
+    .hero-content .subtitle { font-size: 1.2rem; opacity: 0.9; margin-bottom: 2.5rem; letter-spacing: 2px; }
+    .cta-button { padding: 1rem 2.5rem; border-radius: 30px; border: none; background: white; color: #1d1d1f; font-weight: 600; cursor: pointer; box-shadow: 0 10px 25px rgba(0,0,0,0.15); transition: all 0.3s ease; }
+    .cta-button:hover { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(0,0,0,0.25); }
+
+    /* ==========================================================================
+       4. 通用网格与高级卡片
+       ========================================================================== */
+    .content-container { max-width: 1240px; margin: 0 auto; padding: 4rem 2rem; }
+    section { margin-bottom: 6rem; }
+    .section-title { font-size: 2rem; font-weight: 700; margin-bottom: 2rem; }
+    .grid-layout { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
+    
+    .glass-card {
+      background: var(--bg-glass); backdrop-filter: blur(var(--blur-radius)); -webkit-backdrop-filter: blur(var(--blur-radius));
+      border: 1px solid var(--border-glass); border-radius: 24px; padding: 1.5rem; box-shadow: var(--shadow-sm);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease; cursor: pointer; position: relative; overflow: hidden;
+    }
+    .glass-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); background: var(--bg-glass-active); }
+
+    /* 横向滑轨 */
+    .horizontal-scroll { display: flex; gap: 1.5rem; overflow-x: auto; padding: 1rem 0; scroll-snap-type: x mandatory; scrollbar-width: none; }
+    .horizontal-scroll::-webkit-scrollbar { display: none; }
+    .scroll-card-lg { flex: 0 0 380px; scroll-snap-align: start; border-radius: 24px; background: var(--bg-glass); border: 1px solid var(--border-glass); overflow: hidden; position: relative; }
+    .card-img-wrapper { width: 100%; height: 220px; overflow: hidden; }
+    .card-img-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+    .scroll-card-lg:hover .card-img-wrapper img { transform: scale(1.05); }
+    .card-info-pad { padding: 1.5rem; }
+    .fav-btn { position: absolute; top: 1rem; right: 1rem; background: rgba(255,255,255,0.7); border: none; border-radius: 50%; width: 36px; height: 36px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; z-index: 5; }
+
+    /* Pinterest 瀑布流 */
+    .pinterest-masonry { columns: 3; column-gap: 1.5rem; }
+    .masonry-item { break-inside: avoid; margin-bottom: 1.5rem; display: inline-block; width: 100%; }
+
+    /* 时间轴机制 */
+    .timeline-block { margin-bottom: 3rem; }
+    .timeline-day-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem; color: var(--accent); }
+    .timeline-track { position: relative; border-left: 2px solid var(--border-glass); padding-left: 2rem; margin-left: 0.5rem; }
+    .timeline-node { position: relative; margin-bottom: 2.5rem; }
+    .node-dot { position: absolute; left: -2.45rem; top: 0.25rem; width: 12px; height: 12px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px var(--bg-app); }
+    .node-time { font-weight: 700; font-size: 0.9rem; margin-bottom: 0.25rem; }
+
+    /* Budget Dashboard 柱状图 */
+    .budget-bars { margin-top: 2rem; display: flex; flex-direction: column; gap: 1rem; }
+    .bar-row { display: flex; align-items: center; justify-content: space-between; }
+    .bar-label { width: 80px; font-size: 0.9rem; }
+    .bar-track { flex-grow: 1; height: 10px; background: rgba(0,0,0,0.05); margin: 0 1rem; border-radius: 50px; overflow: hidden; }
+    .bar-fill { height: 100%; background: var(--accent); border-radius: 50px; width: 0%; transition: width 1s cubic-bezier(0.16, 1, 0.3, 1); }
+
+    /* Instagram 摄影墙 */
+    .instagram-gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; }
+    .gallery-item { position: relative; aspect-ratio: 1; border-radius: 16px; overflow: hidden; cursor: pointer; }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+    .gallery-item:hover img { transform: scale(1.08); }
+    .gallery-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.4); opacity: 0; display: flex; align-items: center; justify-content: center; color: white; padding: 1rem; text-align: center; font-size: 0.85rem; transition: opacity 0.3s; }
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+
+    /* 虚拟路线图 */
+    .map-mock-ui { height: 350px; background: radial-gradient(circle at center, #e3f2fd 0%, #bbdefb 100%); border-radius: 16px; position: relative; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+    .pulse-marker { position: absolute; width: 12px; height: 12px; background: #ff1744; border-radius: 50%; }
+    .pulse-marker::after { content: ''; position: absolute; inset: -6px; border: 2px solid #ff1744; border-radius: 50%; animation: pulse 1.5s infinite; }
+    .pulse-marker span { position: absolute; top: -20px; left: 50%; transform: translateX(-50%); white-space: nowrap; font-size: 0.75rem; background: black; color: white; padding: 2px 6px; border-radius: 4px; }
+    @keyframes pulse { 0% { transform: scale(0.6); opacity: 1; } 100% { transform: scale(1.6); opacity: 0; } }
+
+    /* 模态弹窗 */
+/* 升级版弹窗遮罩：支持超长内容滚动 */
+    .modal-overlay { 
+      position: fixed; 
+      inset: 0; 
+      background: rgba(0,0,0,0.3); 
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+      z-index: 200; 
+      display: flex; 
+      justify-content: center; 
+      align-items: flex-start;     /* 1. 改为顶部对齐，方便长图向下延伸 */
+      padding: 4rem 1rem;          /* 2. 增大上下留白，让长图有呼吸感 */
+      overflow-y: auto;            /* 3. 核心：开启垂直滚动条 */
+      opacity: 1; 
+      transition: opacity 0.3s ease; 
+    }
+    .modal-overlay.hidden { opacity: 0; pointer-events: none; }
+    .modal-card { background: var(--bg-glass-active); width: 100%; max-width: 600px; border-radius: 28px; padding: 2.5rem; border: 1px solid var(--border-glass); box-shadow: var(--shadow-md); position: relative; }
+    .modal-close-btn { position: absolute; top: 1.5rem; right: 1.5rem; background: none; border: none; font-size: 1.2rem; cursor: pointer; color: var(--text-muted); }
+
+    /* 返回顶部 */
+    #back-to-top { position: fixed; bottom: 2rem; right: 2rem; width: 50px; height: 50px; border-radius: 50%; background: var(--bg-glass-active); border: 1px solid var(--border-glass); color: var(--text-main); box-shadow: var(--shadow-md); display: flex; align-items: center; justify-content: center; cursor: pointer; opacity: 0; transform: translateY(20px); transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); z-index: 90; }
+    #back-to-top.visible { opacity: 1; transform: translateY(0); }
+
+    /* 滚动进入动效 */
+    .scroll-reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+    .scroll-reveal.active { opacity: 1; transform: translateY(0); }
+    .hidden { display: none !important; }
+    .empty-state { text-align: center; color: var(--text-muted); padding: 2rem; grid-column: 1 / -1; }
+
+    /* 响应式断点 */
+    @media (max-width: 1024px) { .pinterest-masonry { columns: 2; } }
+    @media (max-width: 768px) {
+      .pinterest-masonry { columns: 1; }
+      .hero-content h1 { font-size: 2.4rem; }
+      .glass-navbar { top: 0; width: 100%; border-radius: 0; border-inline: none; height: 60px; padding: 0 1rem; }
+      .search-wrapper input { width: 140px; }
+      .search-wrapper input:focus { width: 180px; }
+      .scroll-card-lg { flex: 0 0 290px; }
+      .content-container { padding: 2rem 1rem; }
+      section { margin-bottom: 4rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="scroll-progress"></div>
+
+  <div id="opening-animation">
+    <div class="sky-background">
+      <div class="cloud cloud-1"></div>
+      <div class="cloud cloud-2"></div>
+    </div>
+    <div class="flight-container">
+      <div class="airport-label">Jiayin<p>Shanghai</p></div>
+      <div class="flight-path"><span class="airplane">✈️</span></div>
+      <div class="airport-label">Juncheng<p>Tokyo</p></div>
+    </div>
+    <div class="welcome-text">
+      <h2>开启你的幸福日本旅行</h2>
+      <p>Let's Travel Japan</p>
+    </div>
+  </div>
+
+  <div id="app-content" class="hidden">
+    <nav class="glass-navbar">
+      <div class="nav-brand">🇯🇵 TravelGuide</div>
+      <div class="search-wrapper"><input type="text" id="global-search" placeholder="检索景点、美食、购物..."></div>
+      <div class="nav-controls"><button id="theme-toggle">🌓</button></div>
+    </nav>
+
+    <header class="hero-section">
+      <div class="hero-bg-overlay"></div>
+      <div class="hero-content">
+        <span class="badge">从上海出发</span>
+        <h1>日本旅行攻略</h1>
+        <p class="subtitle">Tokyo Travel Guide · 2026</p>
+        <button class="cta-button" onclick="document.getElementById('prep-section').scrollIntoView({behavior: 'smooth'})">开始旅行 →</button>
+      </div>
+    </header>
+
+    <main class="content-container">
+      <section id="prep-section" class="scroll-reveal">
+        <h2 class="section-title">✈ 佳音入境日本的贴心准备</h2>
+        <div class="grid-layout" id="prep-container"></div>
+      </section>
+
+      <section id="food-section" class="scroll-reveal">
+        <h2 class="section-title">🍣 日本美食</h2>
+        <div class="horizontal-scroll" id="food-container"></div>
+      </section>
+
+      <section id="attraction-section" class="scroll-reveal">
+        <h2 class="section-title">🗼 景点推荐</h2>
+        <div class="pinterest-masonry" id="attraction-container"></div>
+      </section>
+
+      <section id="shop-section" class="scroll-reveal">
+        <h2 class="section-title">🛍 购物指南</h2>
+        <div class="grid-layout" id="shop-container"></div>
+      </section>
+
+      <section id="transport-section" class="scroll-reveal">
+        <h2 class="section-title">🚃 交通总览</h2>
+        <div id="transport-container"></div>
+      </section>
+
+      <section id="itinerary-section" class="scroll-reveal">
+        <h2 class="section-title">📅 行程安排</h2>
+        <div id="itinerary-container"></div>
+      </section>
+
+      <section id="budget-section" class="scroll-reveal">
+        <h2 class="section-title">💰 预算看板</h2>
+        <div class="glass-card">
+          <h3 style="text-align:center; margin-bottom:1rem;">总预算预估：¥<span id="total-budget-val">0</span></h3>
+          <div class="budget-bars" id="budget-bars-container"></div>
+        </div>
+      </section>
+
+      <section id="map-section" class="scroll-reveal">
+        <h2 class="section-title">📍 智能路线图</h2>
+        <div class="glass-card">
+          <div class="map-mock-ui">
+            <div class="pulse-marker" style="top: 35%; left: 30%;"><span>浅草寺</span></div>
+            <div class="pulse-marker" style="top: 50%; left: 65%;"><span>晴空塔</span></div>
+            <div class="pulse-marker" style="top: 75%; left: 25%;"><span>涩谷 SKY</span></div>
+            <p style="z-index: 2; font-weight: 600; color:#333;">🗺️ 已整合云端虚拟化导航图层</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="favorites-section" class="scroll-reveal">
+        <h2 class="section-title">❤️ 我的收藏夹</h2>
+        <div class="grid-layout" id="favorites-container"></div>
+      </section>
+
+      <section id="gallery-section" class="scroll-reveal">
+        <h2 class="section-title">📸 旅途定格</h2>
+        <div class="instagram-gallery" id="gallery-container"></div>
+      </section>
+    </main>
+
+    <footer style="text-align: center; padding: 4rem 2rem; opacity: 0.6; font-size: 0.9rem;">
+      <p>Made with ❤️ | Shanghai ✈ Tokyo</p>
+    </footer>
+  </div>
+
+  <div id="global-modal" class="modal-overlay hidden">
+    <div class="modal-card">
+      <button class="modal-close-btn" id="modal-close">✕</button>
+      <div id="modal-body-content"></div>
+    </div>
+  </div>
+
+  <button id="back-to-top">▲</button>
+
+  <script>
+    // 1. 全局解耦数据集
+    const TRAVEL_DATA = {
+      preparations: [
+      { id: "passport", 
+        icon: "国内（上海）", 
+        title: "出境", 
+        desc: "Tips: 提前一天电子通关码", 
+        steps: [
+          { text: "step0. 提前填写电子版通关码。（用浏览器打开哦！）" },
+          { image: "visa-step1.jpg" }, 
+          { image: "visa-step2.jpg" }, 
+          { image: "visa-step3.jpg" }, 
+          { image: "visa-step4.jpg" }, 
+          { image: "visa-step5.jpg" }, 
+          { image: "visa-step6.jpg" }, 
+          { image: "visa-step7.jpg" }, 
+          { image: "visa-step8.jpg" }, 
+          { image: "visa-step9.jpg" }, 
+          { image: "visa-step10.jpg" }, 
+          { image: "visa-step11.jpg" }, 
+          { text: "宝贝，务必把二维码截图！" },
+          { text: "准备好，并且顺利通关后，就可以去免税店逛逛或者登机口休息啦！" }
+        ]
+        },
+      { 
+        id: "visa", 
+        icon: "落地（东京）", 
+        title: "入境", 
+        desc: "入境流程", 
+        detail: "step1. 二维码入境+护照\n step2. 排队入关，录入指纹与面部照片\n step3. 行李提取（Tips：你已经填写好二维码，出境时直接找到自助通关设备：1.屏幕上选择中文界面\n2.放上护照并扫描之前填写的二维码\n3.按提示完成拍照\n4.设备会告知你走哪个出口，跟着指引就能顺利通过海关🛃）", 
+
+      },
+     // { id: "flight", icon: "飞", title: "机票", desc: "上海 往返 东京", detail: "去程注意免费托运行李额度，回程建议预留充足的重量空间。" },
+      //{ id: "suica", icon: "卡", title: "Suica 西瓜卡", desc: "iPhone 钱包快捷卡", detail: "可直接在 iPhone「钱包」APP 中点击右上角「+」直接添加交通卡，选择 Suica 并通过 Apple Pay 直接充值，极度便利。" },
+      //{ id: "cash", icon: "币", title: "现金准备", desc: "适量日元现金备用", detail: "虽然扫码极为普及，但部分老牌美食店、御守贩卖处以及部分车站自动售票机仍坚持「现金专用」。" }
+    ],
+      foods: [
+        { title: "一兰拉面 (新宿店)", subtitle: "经典豚骨拉面代表", image: "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=600&auto=format&fit=crop&q=80", address: "東京都新宿区新宿3-34-11", openingHours: "10:00 - 23:00", budget: "¥1,500 - ¥2,500", index: "⭐⭐⭐⭐⭐", googleMap: "#", comment: "独创的单人隔间设计，非常适合i人。特制秘传酱汁是灵魂，面条硬度选「硬」最佳。" },
+        { title: "築地 寿司清 (本店)", subtitle: "江户前寿司百年老店", image: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=600&auto=format&fit=crop&q=80", address: "東京都中央区築地4-13-9", openingHours: "08:30 - 20:00", budget: "¥4,000 - ¥8,000", index: "⭐⭐⭐⭐⭐", googleMap: "#", comment: "食材极其新鲜，推荐尝试主厨搭配套餐(Omakase)，金枪鱼大脂入口即化。" }
+      ],
+      attractions: [
+        { title: "浅草寺", image: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=600&auto=format&fit=crop&q=80", address: "東京都台東区浅草2-3-1", duration: "2 - 3 小时", description: "东京都内最古老的寺庙，巨大的「雷门」红灯笼是经典地标。适合租借和服在此拍照打卡。", transport: "银座线/浅草线 浅草站 步行5分钟" },
+        { title: "东京晴空塔", image: "https://images.unsplash.com/photo-1540959733332-eab4deceeaf7?w=600&auto=format&fit=crop&q=80", address: "東京都墨田区押上1-1-2", duration: "1.5 - 2 小时", description: "世界第一高自立式电波塔。推荐在黄昏前1小时登塔，可以同时欣赏日落与繁华的东京都市夜景。", transport: "东武晴空塔线 押上站 直达" }
+      ],
+      shoppings: [
+        { title: "唐吉诃德 (涩谷本店)", mustBuy: "药妆、零食、限定周边", taxRefund: "满¥5,000免税 + 额外最高5%优惠", remark: "全日本最大型的综合免税折扣店，24小时营业，深夜去可以完美避开人潮。" },
+        { title: "Loft (银座店)", mustBuy: "高颜值手帐本、原创文具", taxRefund: "设有专属免税柜台", remark: "创意文具杂货控的天堂。整个商场充斥着极高阶的日系美学设计感。" }
+      ],
+      transports: [
+        { name: "JR 山手线", type: "市区大动脉", desc: "环状铁路线，连接新宿、涩谷、东京、上野、池袋等超级枢纽，每2分钟一班。" },
+        { name: "东京地下铁", type: "网状地铁网", desc: "纵横交错覆盖市区每个角落。推荐直接购买 24/48/72 小时地铁通票，性价比拉满。" }
+      ],
+      itineraries: [
+        {
+          day: "Day 1", date: "开启东京探索之旅",
+          nodes: [
+            { time: "09:30", title: "上海国际机场出发", desc: "搭乘航班飞往东京，开启完美的行程。", image: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=400&auto=format&fit=crop&q=80" },
+            { time: "15:00", title: "顺利抵达东京 & 入住市区酒店", desc: "激活eSIM卡，搭乘特快列车前往市区酒店办理 Check-in。", image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&auto=format&fit=crop&q=80" }
+          ]
+        }
+      ],
+      budgets: { flight: 3500, hotel: 4800, shopping: 4000, dining: 2500, transport: 600, tickets: 500 },
+      photos: [
+        { url: "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?w=600&auto=format&fit=crop&q=80", caption: "东京城市夜景" },
+        { url: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=600&auto=format&fit=crop&q=80", caption: "古韵雷门" },
+        { url: "https://images.unsplash.com/photo-1540959733332-eab4deceeaf7?w=600&auto=format&fit=crop&q=80", caption: "高耸晴空塔" }
+      ]
+    };
+
+// 2. 交互主引擎
+    document.addEventListener("DOMContentLoaded", () => {
+      document.body.classList.add("locked");
+      
+      // 🌟【完美修复】开场动画定时控制：3.8秒后让飞机动画飞走，展现主内容
+      setTimeout(() => {
+        const opening = document.getElementById("opening-animation");
+        const appContent = document.getElementById("app-content");
+        
+        if (opening) opening.classList.add("exit");       // 让动画向上滑出
+        if (appContent) appContent.classList.remove("hidden"); // 显示主网页
+        document.body.classList.remove("locked");         // 解锁滚动条
+      }, 3800);
+
+      renderDynamicCards();
+      initBudgetDashboard(); // 🌟【新增调用】让你的机票、酒店等预算自动求和并显示！
+      initSearchEngine();
+      initScrollAndTheme();
+    });
+
+    // 3. 动态卡片渲染机制
+    function renderDynamicCards() {
+      // 准备
+      document.getElementById("prep-container").innerHTML = TRAVEL_DATA.preparations.map(item => `
+        <div class="glass-card" onclick="openDetails('prep', '${item.id}')">
+          <div style="font-size: 1.5rem; color:var(--accent); margin-bottom:0.5rem;">${item.icon}</div>
+          <h3 style="font-size:1.1rem; margin-bottom:0.3rem;">${item.title}</h3>
+          <p style="font-size:0.85rem; color:var(--text-muted);">${item.desc}</p>
+        </div>
+      `).join('');
+
+      // 美食
+      document.getElementById("food-container").innerHTML = TRAVEL_DATA.foods.map((item, idx) => `
+        <div class="scroll-card-lg">
+          <button class="fav-btn" onclick="toggleFavorite(event, '${item.title}')">♥</button>
+          <div class="card-img-wrapper"><img src="${item.image}" loading="lazy"></div>
+          <div class="card-info-pad">
+            <h3 style="font-size:1.15rem;">${item.title}</h3>
+            <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:0.5rem;">${item.subtitle}</p>
+            <p style="font-size:0.8rem; opacity:0.8;">预算：${item.budget}</p>
+            <button class="cta-button" onclick="openDetails('food', ${idx})" style="padding:0.4rem 0.8rem; font-size:0.75rem; margin-top:0.6rem; box-shadow:none; background:var(--text-main); color:var(--bg-app);">阅读攻略</button>
+          </div>
+        </div>
+      `).join('');
+
+      // 景点
+      document.getElementById("attraction-container").innerHTML = TRAVEL_DATA.attractions.map((item, idx) => `
+        <div class="masonry-item glass-card" style="padding:0;" onclick="openDetails('attraction', ${idx})">
+          <div class="card-img-wrapper" style="height:auto;"><img src="${item.image}" style="width:100%; height:auto;" loading="lazy"></div>
+          <div class="card-info-pad">
+            <h4 style="font-size:1.05rem;">${item.title}</h4>
+            <p style="font-size:0.8rem; color:var(--text-muted); margin-top:0.3rem;">⏱️ 预计停留：${item.duration}</p>
+          </div>
+        </div>
+      `).join('');
+
+      // 购物
+      document.getElementById("shop-container").innerHTML = TRAVEL_DATA.shoppings.map((item, idx) => `
+        <div class="glass-card" onclick="openDetails('shop', ${idx})">
+          <h4 style="font-size:1.1rem; margin-bottom:0.3rem;">${item.title}</h4>
+          <p style="font-size:0.85rem; color:var(--text-muted);">🌟 必买: ${item.mustBuy}</p>
+        </div>
+      `).join('');
+
+      // 交通与行程
+      document.getElementById("transport-container").innerHTML = TRAVEL_DATA.transports.map(item => `
+        <div class="glass-card" style="margin-bottom:1rem;">
+          <h5>${item.name} (${item.type})</h5>
+          <p style="font-size:0.85rem; color:var(--text-muted); margin-top:0.25rem;">${item.desc}</p>
+        </div>
+      `).join('');
+
+      document.getElementById("itinerary-container").innerHTML = TRAVEL_DATA.itineraries.map(dayBlock => `
+        <div class="timeline-block">
+          <div class="timeline-day-title">${dayBlock.day} · <span style="font-size:1rem; color:var(--text-main);">${dayBlock.date}</span></div>
+          <div class="timeline-track">
+            ${dayBlock.nodes.map(node => `
+              <div class="timeline-node">
+                <div class="node-dot"></div>
+                <div class="node-time">${node.time}</div>
+                <div class="glass-card" style="display:flex; gap:1rem; align-items:center; max-width:600px;">
+                  <img src="${node.image}" style="width:60px; height:60px; object-fit:cover; border-radius:12px;">
+                  <div>
+                    <h6 style="font-size:0.95rem;">${node.title}</h6>
+                    <p style="font-size:0.8rem; color:var(--text-muted);">${node.desc}</p>
+                  </div>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `).join('');
+
+      // 摄影墙
+      document.getElementById("gallery-container").innerHTML = TRAVEL_DATA.photos.map(p => `
+        <div class="gallery-item">
+          <img src="${p.url}" loading="lazy">
+          <div class="gallery-overlay">${p.caption}</div>
+        </div>
+      `).join('');
+
+      renderFavorites();
+    }
+
+// 4. 模态弹窗细化交互
+    function openDetails(type, key) {
+      const modal = document.getElementById("global-modal");
+      const body = document.getElementById("modal-body-content");
+      let contentHtml = "";
+
+      if(type === 'prep') {
+        const item = TRAVEL_DATA.preparations.find(p => p.id === key);
+        contentHtml = `<h3>${item.title}</h3><div style="margin-top:1.2rem; line-height:1.7;">`;
+        
+        // 【核心控制】如果这一项写了全新的 steps 数组，就按你排好的顺序依次画出文字和图片
+        if (item.steps) {
+          item.steps.forEach(step => {
+            if (step.text) {
+              contentHtml += `<p style="margin-bottom:0.8rem; white-space: pre-line; color:var(--text-main);">${step.text}</p>`;
+            }
+            if (step.image) {
+              contentHtml += `<img src="${step.image}" style="width:100%; border-radius:12px; margin: 1rem 0; box-shadow: var(--shadow-sm); display:block;">`;
+            }
+          });
+        } else {
+          // 【完美兼容】如果其他卡片还是老格式，依然正常显示，不报错
+          contentHtml += `<p style="white-space: pre-line;">${item.detail || ''}</p>`;
+          if (item.image) {
+            contentHtml += `<img src="${item.image}" style="width:100%; border-radius:12px; margin-top:1.5rem; box-shadow: var(--shadow-sm);">`;
+          }
+        }
+        
+        contentHtml += `</div>`;
+      }
+
+      body.innerHTML = contentHtml;
+      modal.classList.remove("hidden");
+      document.body.classList.add("locked"); // 🔒 打开弹窗时，锁死背景不让滚
+    }
+
+    // 🌟【完美修复】点击关闭按钮时，不仅隐藏弹窗，还要释放滚动锁
+    document.getElementById("modal-close").addEventListener("click", () => {
+      document.getElementById("global-modal").classList.add("hidden");
+      document.body.classList.remove("locked"); // 🔓 加上这句，关闭弹窗后主页面才能恢复上下滚动！
+    });
+    document.getElementById("modal-close").addEventListener("click", () => document.getElementById("global-modal").classList.add("hidden"));
+
+    // 5. 财务看板自动求和
+    function initBudgetDashboard() {
+      const b = TRAVEL_DATA.budgets;
+      const total = Object.values(b).reduce((a, b) => a + b, 0);
+      document.getElementById("total-budget-val").innerText = total.toLocaleString();
+
+      const labels = { flight:"机票", hotel:"酒店", shopping:"购物", dining:"餐饮", transport:"交通", tickets:"门票" };
+      document.getElementById("budget-bars-container").innerHTML = Object.keys(b).map(key => {
+        const pct = (b[key] / total) * 100;
+        return `
+          <div class="bar-row">
+            <span class="bar-label">${labels[key]}</span>
+            <div class="bar-track"><div class="bar-fill" style="width: ${pct}%"></div></div>
+            <span style="font-size:0.85rem; font-weight:600;">¥${b[key]}</span>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // 6. 模糊全局检索
+    function initSearchEngine() {
+      document.getElementById("global-search").addEventListener("input", (e) => {
+        const val = e.target.value.toLowerCase().trim();
+        document.querySelectorAll("main section .glass-card, main section .scroll-card-lg").forEach(card => {
+          card.style.display = card.innerText.toLowerCase().includes(val) ? "" : "none";
+        });
+      });
+    }
+
+    // 7. 本地收藏夹状态同步
+    function toggleFavorite(e, title) {
+      e.stopPropagation();
+      let favs = JSON.parse(localStorage.getItem("t_favs")) || [];
+      if(favs.includes(title)) {
+        favs = favs.filter(t => t !== title);
+        e.target.style.color = "";
+      } else {
+        favs.push(title);
+        e.target.style.color = "#ff1744";
+      }
+      localStorage.setItem("t_favs", JSON.stringify(favs));
+      renderFavorites();
+    }
+
+    function renderFavorites() {
+      const favs = JSON.parse(localStorage.getItem("t_favs")) || [];
+      const container = document.getElementById("favorites-container");
+      if(favs.length === 0) {
+        container.innerHTML = `<p class="empty-state">轻触美食卡片上的心形图标，将旅行灵感加入愿望清单...</p>`;
+      } else {
+        container.innerHTML = favs.map(title => `
+          <div class="glass-card" style="border-left:4px solid var(--accent);">
+            <h5>❤️ ${title}</h5>
+            <p style="font-size:0.75rem; color:var(--text-muted); margin-top:0.25rem;">已实时同步至本地云端缓存</p>
+          </div>
+        `).join('');
+      }
+    }
+
+    // 8. 滚动感知动效与换肤控制
+    function initScrollAndTheme() {
+      const btt = document.getElementById("back-to-top");
+      window.addEventListener("scroll", () => {
+        const top = document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        document.getElementById("scroll-progress").style.width = (top / height * 100) + "%";
+        btt.classList.toggle("visible", top > 400);
+      });
+      btt.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+
+      // AOS 纯原生动态观测器
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach(ent => { if(ent.isIntersecting) { ent.target.classList.add("active"); obs.unobserve(ent.target); } });
+      }, { threshold: 0.05 });
+      document.querySelectorAll(".scroll-reveal").forEach(el => obs.observe(el));
+
+      // 皮肤切换
+      const toggle = document.getElementById("theme-toggle");
+      toggle.addEventListener("click", () => {
+        const next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+        document.documentElement.setAttribute("data-theme", next);
+      });
+    }
+  </script>
+</body>
+</html>
