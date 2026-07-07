@@ -189,6 +189,10 @@
     .node-dot { position: absolute; left: -2.45rem; top: 0.25rem; width: 12px; height: 12px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px var(--bg-app); }
     .node-time { font-weight: 700; font-size: 0.9rem; margin-bottom: 0.25rem; }
 
+    /* 行程管理微型动作键 */
+    .node-action-btn { background: none; border: none; cursor: pointer; font-size: 0.95rem; padding: 0.2rem; opacity: 0.6; transition: opacity 0.2s, transform 0.2s; }
+    .node-action-btn:hover { opacity: 1; transform: scale(1.1); }
+
     /* Budget Dashboard 柱状图 */
     .budget-bars { margin-top: 2rem; display: flex; flex-direction: column; gap: 1rem; }
     .bar-row { display: flex; align-items: center; justify-content: space-between; }
@@ -241,7 +245,7 @@
     }
     .premium-lightbox-container.visible .lightbox-viewport-img { transform: scale(1); }
 
-    /* ✨ 新增：看图灯箱超极简半透明方向切换按键样式 */
+    /* 看图灯箱超极简半透明方向切换按键样式 */
     .lightbox-nav-btn {
       position: absolute; top: 50%; transform: translateY(-50%);
       background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255,255,255,0.1);
@@ -249,7 +253,7 @@
       width: 56px; height: 56px; border-radius: 50%; cursor: pointer;
       display: flex; align-items: center; justify-content: center;
       transition: all 0.3s ease; z-index: 320; backdrop-filter: blur(10px);
-      opacity: 0; /* 默认隐藏，鼠标移动进来才会轻盈浮现 */
+      opacity: 0;
     }
     .premium-lightbox-container:hover .lightbox-nav-btn { opacity: 1; }
     .lightbox-nav-btn:hover { background: rgba(255, 255, 255, 0.2); color: #fff; transform: translateY(-50%) scale(1.05); }
@@ -273,8 +277,6 @@
       .nav-flight-date, .nav-flight-divider:nth-child(4) { display: none !important; }
       .nav-flight-capsule { gap: 0.4rem; padding: 0.3rem 0.7rem; font-size: 0.75rem; }
       .content-container { padding: 2rem 1rem; } section { margin-bottom: 4rem; }
-      
-      /* ✨ 手机端移除物理方向按钮，完全依靠高阶丝滑的屏幕手势轻扫切换 */
       .lightbox-nav-btn { display: none !important; }
       .lightbox-viewport-img { max-width: 95vw; }
     }
@@ -302,18 +304,15 @@
     <div class="countdown-container">
       <div class="countdown-title">距离完美行程启航还有</div>
       <div class="countdown-timer">
-        <div class="time-block"><span class="cd-d">00</span><p>DAYS</p></div><div class="time-colon">
-      <!--:</div> <div class="time-block"><span class="cd-h">00</span><p>HOURS</p></div><div class="time-colon">:</div> -->  
-      <!-- <div class="time-block"><span class="cd-m">00</span><p>MINS</p></div><div class="time-colon">:</div>-->  
-      <!-- <div class="time-block"><span class="cd-s">00</span><p>SECS</p></div> -->    
+        <div class="time-block"><span class="cd-d">00</span><p>DAYS</p></div><div class="time-colon"></div>
       </div>
-    </div></div>
+    </div>
     <button id="enter-btn" class="premium-enter-btn">开启日本之旅</button>
   </div>
 
   <div id="app-content" class="hidden">
     <nav class="glass-navbar">
-      <div class="nav-brand">Juncheng ❤  Jiayin</div>
+      <div class="nav-brand">Juncheng ❤️ Jiayin</div>
       
       <div class="nav-flight-capsule">
         <span class="nav-flight-no">✈️ 9C8515</span>
@@ -322,7 +321,6 @@
         <span class="nav-flight-divider">|</span>
         <div class="nav-live-countdown">
           <span class="cd-d">00</span>天<span class="cd-h">00</span>时<span class="cd-m">00</span>分
-          <!-- <span class="cd-s">00</span>秒 -->
         </div>
       </div>
 
@@ -340,7 +338,7 @@
 
     <main class="content-container">
       <section id="prep-section" class="scroll-reveal">
-        <h2 class="section-title">✈ 佳音入境日本的贴心准备</h2>
+        <h2 class="section-title">✈️ 佳音入境日本的贴心准备</h2>
         <div class="grid-layout" id="prep-container"></div>
       </section>
 
@@ -355,7 +353,7 @@
       </section>
 
       <section id="shop-section" class="scroll-reveal">
-        <h2 class="section-title">🛍 购物指南</h2>
+        <h2 class="section-title">🛍️ 购物指南</h2>
         <div class="grid-layout" id="shop-container"></div>
       </section>
 
@@ -438,13 +436,14 @@
         { title: "TANUKI APPETIZING", subtitle: "糕点店", images: ["TANUKI.png"], address: "〒104-0054 Tokyo, Chuo City, Kachidoki, 4 Chome−10−5 としの荘", openingHours: "7:00 - 卖完即闭店（周四和周日营业）", index: "⭐⭐⭐⭐", googleMap: "#", comment: "贝果很好吃！！！码住了很久，但是一直没有尝试。" },
         { title: "Dining33", subtitle: "法餐", images: ["Dining33-2.png", "Dining33.png", "Dining33-3.png", "Dining33-4.png"], address: "〒106-0041 Tokyo, Minato City, Azabudai, 1 Chome−3−1 ヒ尔兹 森JPタワ 33阶", openingHours: "18:00 - 23:00", index: "⭐⭐⭐⭐⭐", googleMap: "#", comment: "可以边看东京塔，边吃美食。" },
         { title: "つじ半（中文谐音：茨鸡夯）", subtitle: "海鮮丼", images: ["tsujihann-3.png","tsujihann.png","tsujihann-2.png"], address: "〒107-0052 Tokyo, Minato City, Akasaka, 1 Chome−12−32 Ark Mori Building, 3階", openingHours: "11:00 - 21:30", index: "⭐⭐⭐⭐⭐", googleMap: "#", comment: "超级好吃的一家海鲜饭，我去公司经常去这家吃！" },
-        { title: "TsuruTonTan UDON NOODLE Brasserie SHIBUYA", subtitle: "乌冬面", images: ["shibuya-udon.png","shibuya-udon2.png","shibuya-udon3.png"], address: "〒150-6113 Tokyo, Shibuya, 2 Chome−24−12 スクランブルスクエア 13階", openingHours: "11:00 - 23:00", index: "⭐⭐⭐⭐⭐", googleMap: "#", comment: "可以在stay with me那个楼上边看涩谷街头，边吃乌冬面." },
-        { title: "Curry & Cafe SAMA Kanda", subtitle: "汤咖喱", images: ["sama4.png","sama5.png","sama1.png","sama2.png","sama3.png"], address: "6 Chome-15-4 Sotokanda, Chiyoda City, Tokyo 101-0021", openingHours: "11:30 - 14:30  / 17:00 - 21:00", index: "⭐⭐⭐⭐⭐", googleMap: "#", comment: "好吃又健康的汤咖喱！王思聪经常会去。"  },
-        { title: "母亲牧场", subtitle: "风光+体验", images: ["ma1.jpg","ma2.jpg","ma3.jpg","ma4.jpg"], address: "", openingHours: "", index: "", googleMap: "#", comment: "" }
+        { title: "TsuruTonTan UDON NOODLE Brasserie SHIBUYA", subtitle: "乌冬面", images: ["shibuya-udon.png","shibuya-udon2.png","shibuya-udon3.png"], address: "〒150-6113 Tokyo, Shibuya, 2 Chome−24−12 スク乘车码长条大楼 13阶", openingHours: "11:00 - 23:00", index: "⭐⭐⭐⭐⭐", googleMap: "#", comment: "可以在stay with me那个楼上边看涩谷街头，边吃乌冬面." },
+        { title: "Curry & Cafe SAMA Kanda", subtitle: "汤咖喱", images: ["sama4.png","sama5.png","sama1.png","sama2.png","sama3.png"], address: "6 Chome-15-4 Outer Kanda, Chiyoda City, Tokyo 101-0021", openingHours: "11:30 - 14:30 / 17:00 - 21:00", index: "⭐⭐⭐⭐⭐", googleMap: "#", comment: "好吃又健康的汤咖喱！王思聪经常会去。"  },
+        { title: "LUKE'S LOBSTER 原宿エアストリーム", subtitle: "龙虾堡", images: ["longxia1.png","longxia2.png"], address: "4 Chome-26-18 Jingumae, Shibuya, Tokyo 150-0001", openingHours: "10:00–21:00", index: "夯爆了⭐⭐⭐⭐⭐", googleMap: "#", comment: "" },
+        { title: "Hawaiian Cafe＆Restaurant Merengue 渋谷店", subtitle: "松饼", images: ["songbing1.png","songbing2.png","songbing3.png","songbing4.png"], address: "〒150-0002 Tokyo, Shibuya, 3 Chome−27−11 Gems Shibuya, 1F", openingHours: "10:00–21:00", index: "夯爆了⭐⭐⭐⭐⭐", googleMap: "#", comment: "" }
       ],
       attractions: [
         { title: "浅草寺", image: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=600&auto=format&fit=crop&q=80", address: "東京都台东区浅草2-3-1", duration: "2 - 3 小时", description: "东京都内最古老的寺庙，巨大的「雷门」红灯笼是经典地标。适合租借和服在此拍照打卡。", transport: "银座线/浅草线 浅草站 步行5分钟" },
-        { title: "东京晴空塔", image: "https://images.unsplash.com/photo-1540959733332-eab4deceeaf7?w=600&auto=format&fit=crop&q=80", address: "東京都墨田区押上1-1-2", duration: "1.5 - 2 小时", description: "世界第一高自立式电波塔。推荐在黄昏前1小时登塔，可以同时欣赏日落与繁华的东京都市夜景。", transport: "东武晴空塔线 押上站 直达" }
+        { title: "母亲牧场", subtitle: "风光+体验", images: ["ma1.jpg","ma2.jpg","ma3.jpg","ma4.jpg"], address: "千葉县富津市田仓940-3", duration: "4 - 5 小时", description: "拥有广阔自然风光的体验型牧场，可以近距离亲近各种可爱动物，还有非常精彩的绵羊大游行以及四季不断的花海盛景。", transport: "从JR君津站乘坐直达巴士约30分钟" }
       ],
       shoppings: [
         { title: "唐吉诃德 (涩谷本店)", mustBuy: "药妆、零食、限定周边", taxRefund: "满¥5,000免税 + 额外最高5%优惠", remark: "全日本最大型的综合免税折扣店，24小时营业，深夜去可以完美避开人潮。" },
@@ -456,18 +455,30 @@
       ],
       itineraries: [
         {
-          day: "Day 1", date: "开启东京探索之旅",
+          day: "Day 1", date: "7月31日",
           nodes: [
-            { time: "09:30", title: "上海国际机场出发", desc: "搭乘航班飞往东京，开启完美的行程。", image: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=400&auto=format&fit=crop&q=80" },
-            { time: "15:00", title: "顺利抵达东京 & 入住市区酒店", desc: "激活eSIM卡，搭乘特快列车前往市区酒店办理 Check-in。", image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&auto=format&fit=crop&q=80" }
+            { time: "19:10", title: "上海浦东机场T2出发✈️", desc: "航班号: 9C8515", image: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=400&auto=format&fit=crop&q=80" },
+            { time: "23:00", title: "🛬抵达东京羽田机场T3", desc: "准备入境，迎接日本之旅！", image: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=400&auto=format&fit=crop&q=80" }
+          ]
+        },
+        {
+          day: "Day 2", date: "8月1日",
+          nodes: [
+            { time: "18:00", title: "Wolfgang's Steakhouse Takanawa", desc: "地址: 2-21-1 Takanawa, NEWoMan Takanawa 29F, Minato, Tokyo 108-0074", image: "wolfgangs.png" }
+          ]
+        },
+        {
+          day: "Day 3", date: "8月2日",
+          nodes: [
+            { time: "22:25", title: "成田机场T3启程返航", desc: "航班号: GK35", image: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=400&auto=format&fit=crop&q=80" },
+            { time: "00:50 8月3日", title: "🛬顺利抵达浦东机场T2", desc: "回到温馨的家。", image: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=400&auto=format&fit=crop&q=80" }
           ]
         }
       ],
       budgets: { flight: 3500, hotel: 4800, shopping: 4000, dining: 2500, transport: 600, tickets: 500 },
       photos: [
         { url: "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?w=600&auto=format&fit=crop&q=80", caption: "东京城市夜景" },
-        { url: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=600&auto=format&fit=crop&q=80", caption: "古韵雷门" },
-        { url: "https://images.unsplash.com/photo-1540959733332-eab4deceeaf7?w=600&auto=format&fit=crop&q=80", caption: "高耸晴空塔" }
+        { url: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=600&auto=format&fit=crop&q=80", caption: "古韵雷门" }
       ]
     };
 
@@ -481,15 +492,10 @@
       initLightboxEngine();
     });
 
-    // 核心流体双引擎动态倒计时
     function initFlightCountdown() {
-      // ✨ 已全量调整至你设定的 7月30日
       const targetTime = new Date("2026-07-31T23:00:00").getTime();
-
       const syncTimeText = (className, value) => {
-        document.querySelectorAll('.' + className).forEach(el => {
-          el.innerText = value;
-        });
+        document.querySelectorAll('.' + className).forEach(el => { el.innerText = value; });
       };
 
       function updateClock() {
@@ -498,20 +504,14 @@
           const titleEl = document.querySelector(".countdown-title");
           if (titleEl) titleEl.innerText = "旅行已启航 ✈️";
           syncTimeText("cd-d", "00"); syncTimeText("cd-h", "00");
-          syncTimeText("cd-m", "00"); syncTimeText("cd-s", "00");
-          return;
+          syncTimeText("cd-m", "00"); return;
         }
         const days = Math.floor(diff / (1000 * 60 * 60 * 24));
         const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
         
         const pad = num => String(num).padStart(2, '0');
-
-        syncTimeText("cd-d", pad(days));
-        syncTimeText("cd-h", pad(hours));
-        syncTimeText("cd-m", pad(minutes));
-        syncTimeText("cd-s", pad(seconds));
+        syncTimeText("cd-d", pad(days)); syncTimeText("cd-h", pad(hours)); syncTimeText("cd-m", pad(minutes));
       }
       updateClock(); setInterval(updateClock, 1000);
     }
@@ -523,6 +523,151 @@
         document.getElementById("app-content").classList.remove("hidden"); 
         initBudgetDashboard(); 
       });
+    }
+
+    /* ==========================================================================
+       6. ✨ 核心模块重构：支持深度编辑、排序与删除的时间轴引擎
+       ========================================================================== */
+    function renderItineraryOnly() {
+      const container = document.getElementById("itinerary-container");
+      
+      // 先过滤掉已经彻底没有节点的空日子，保持视图极简
+      const activeDays = TRAVEL_DATA.itineraries.filter(dayBlock => dayBlock.nodes.length > 0);
+      
+      if(activeDays.length === 0) {
+        container.innerHTML = `<p class="empty-state">当前没有任何行程，从上方美食或景点中自动导入，或手动调整吧！</p>`;
+        return;
+      }
+
+      container.innerHTML = TRAVEL_DATA.itineraries.map((dayBlock, dayIdx) => {
+        if(dayBlock.nodes.length === 0) return ''; // 跳过空日程
+        return `
+          <div class="timeline-block">
+            <div class="timeline-day-title">${dayBlock.day} · <span style="font-size:1rem; color:var(--text-main);">${dayBlock.date}</span></div>
+            <div class="timeline-track">
+              ${dayBlock.nodes.map((node, nodeIdx) => `
+                <div class="timeline-node">
+                  <div class="node-dot"></div>
+                  <div class="node-time">${node.time}</div>
+                  <div class="glass-card" style="display:flex; gap:1rem; align-items:center; max-width:600px; position:relative; padding-right:4.5rem;">
+                    <img src="${node.image}" style="width:60px; height:60px; object-fit:cover; border-radius:12px; flex-shrink:0;">
+                    <div style="flex-grow:1; min-width:0;">
+                      <h6 style="font-size:0.95rem; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${node.title}</h6>
+                      <p style="font-size:0.8rem; color:var(--text-muted); white-space:pre-line; margin-top:0.2rem;">${node.desc}</p>
+                    </div>
+                    <!-- 行程单控制动作夹 -->
+                    <div style="position:absolute; right:1.2rem; top:50%; transform:translateY(-50%); display:flex; flex-direction:column; gap:0.6rem; align-items:center;">
+                      <button class="node-action-btn" onclick="openEditItineraryModal(${dayIdx}, ${nodeIdx})" title="修改时间或内容" style="color:var(--accent);">✎</button>
+                      <button class="node-action-btn" onclick="deleteItineraryNode(${dayIdx}, ${nodeIdx})" title="删除此日程" style="color:#ff1744;">✕</button>
+                    </div>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // 核心函数：移除指定节点的逻辑
+    function deleteItineraryNode(dayIdx, nodeIdx) {
+      const targetNode = TRAVEL_DATA.itineraries[dayIdx].nodes[nodeIdx];
+      if (confirm(`确定要移除「${targetNode.title}」这一项行程吗？`)) {
+        TRAVEL_DATA.itineraries[dayIdx].nodes.splice(nodeIdx, 1);
+        renderItineraryOnly();
+      }
+    }
+
+    // 核心函数：调取编辑弹窗
+    function openEditItineraryModal(dayIdx, nodeIdx) {
+      const modal = document.getElementById("global-modal");
+      const body = document.getElementById("modal-body-content");
+      const node = TRAVEL_DATA.itineraries[dayIdx].nodes[nodeIdx];
+
+      body.innerHTML = `
+        <h3 style="margin-bottom:1.5rem;">⚙️ 修改行程详情</h3>
+        <div style="display:flex; flex-direction:column; gap:1.2rem;">
+          <div>
+            <label style="font-size:0.85rem; font-weight:600; color:var(--text-muted); display:block; margin-bottom:0.4rem;">设定时间点</label>
+            <input type="time" id="edit-node-time" value="${node.time}" style="width:100%; padding:0.65rem 0.8rem; border-radius:12px; border:1px solid var(--border-glass); background:var(--bg-app); color:var(--text-main); outline:none; font-size:0.9rem;">
+          </div>
+          <div>
+            <label style="font-size:0.85rem; font-weight:600; color:var(--text-muted); display:block; margin-bottom:0.4rem;">行程主题</label>
+            <input type="text" id="edit-node-title" value="${node.title}" style="width:100%; padding:0.65rem 0.8rem; border-radius:12px; border:1px solid var(--border-glass); background:var(--bg-app); color:var(--text-main); outline:none; font-size:0.9rem;">
+          </div>
+          <div>
+            <label style="font-size:0.85rem; font-weight:600; color:var(--text-muted); display:block; margin-bottom:0.4rem;">详细备忘详情</label>
+            <textarea id="edit-node-desc" style="width:100%; height:90px; padding:0.65rem 0.8rem; border-radius:12px; border:1px solid var(--border-glass); background:var(--bg-app); color:var(--text-main); outline:none; resize:none; font-size:0.85rem; line-height:1.5;">${node.desc}</textarea>
+          </div>
+          <button onclick="saveItineraryNode(${dayIdx}, ${nodeIdx})" style="margin-top:0.4rem; padding:0.75rem; background:var(--accent); color:white; border:none; border-radius:100px; font-size:0.9rem; font-weight:600; cursor:pointer; box-shadow:0 4px 12px rgba(0,113,227,0.2);">
+            保存修改并实时重排
+          </button>
+        </div>
+      `;
+      modal.classList.remove("hidden");
+      document.body.classList.add("locked");
+    }
+
+    // 核心函数：保存修改数据，正序排列重写整个视图
+    function saveItineraryNode(dayIdx, nodeIdx) {
+      const timeVal = document.getElementById("edit-node-time").value;
+      const titleVal = document.getElementById("edit-node-title").value;
+      const descVal = document.getElementById("edit-node-desc").value;
+
+      if(!timeVal || !titleVal.trim()) {
+        alert("时间与标题不能为空哦！");
+        return;
+      }
+
+      const dayBlock = TRAVEL_DATA.itineraries[dayIdx];
+      dayBlock.nodes[nodeIdx].time = timeVal;
+      dayBlock.nodes[nodeIdx].title = titleVal;
+      dayBlock.nodes[nodeIdx].desc = descVal;
+
+      // 实时根据更改后的时间正序重排
+      dayBlock.nodes.sort((a, b) => a.time.localeCompare(b.time));
+
+      renderItineraryOnly();
+      
+      document.getElementById("global-modal").classList.add("hidden");
+      document.body.classList.remove("locked");
+    }
+
+    function addToItinerary(type, key) {
+      const dateVal = document.getElementById("sched-date").value;
+      const timeVal = document.getElementById("sched-time").value;
+      
+      let title = "", desc = "", image = "";
+      if (type === 'food') {
+        const item = TRAVEL_DATA.foods[key];
+        title = `🍣 美食: ${item.title}`;
+        desc = `地址: ${item.address}\n营业时间: ${item.openingHours}`;
+        image = (item.images && item.images.length > 0) ? item.images[0] : 'default.jpg';
+      } else if (type === 'attraction') {
+        const item = TRAVEL_DATA.attractions[key];
+        title = `🗼 景点: ${item.title}`;
+        desc = `地址: ${item.address || '暂无数据'}\n建议停留: ${item.duration || '暂无数据'}`;
+        image = item.image || (item.images && item.images.length > 0 ? item.images[0] : 'default.jpg');
+      }
+
+      const dateMap = { "2026-07-31": "7月31日", "2026-08-01": "8月1日", "2026-08-02": "8月2日" };
+      const targetDateText = dateMap[dateVal];
+      let dayBlock = TRAVEL_DATA.itineraries.find(d => d.date.trim() === targetDateText);
+
+      if (!dayBlock) {
+        const formattedDateStr = dateVal.split('-')[1] + "月" + dateVal.split('-')[2] + "日";
+        dayBlock = { day: "自定义日程", date: formattedDateStr, nodes: [] };
+        TRAVEL_DATA.itineraries.push(dayBlock);
+      }
+
+      dayBlock.nodes.push({ time: timeVal, title: title, desc: desc, image: image });
+      dayBlock.nodes.sort((a, b) => a.time.localeCompare(b.time));
+
+      renderItineraryOnly();
+      alert(`✨ 已成功将「${title}」加入到 ${targetDateText} 的行程单中！`);
+      
+      document.getElementById("global-modal").classList.add("hidden");
+      document.body.classList.remove("locked");
     }
 
     function renderDynamicCards() {
@@ -553,15 +698,18 @@
         `;
       }).join('');
 
-      document.getElementById("attraction-container").innerHTML = TRAVEL_DATA.attractions.map((item, idx) => `
-        <div class="masonry-item glass-card" style="padding:0;" onclick="openDetails('attraction', ${idx})">
-          <div class="card-img-wrapper" style="height:auto;"><img src="${item.image}" style="width:100%; height:auto;" loading="lazy"></div>
-          <div class="card-info-pad">
-            <h4 style="font-size:1.05rem;">${item.title}</h4>
-            <p style="font-size:0.8rem; color:var(--text-muted); margin-top:0.3rem;">⏱️ 预计停留：${item.duration}</p>
+      document.getElementById("attraction-container").innerHTML = TRAVEL_DATA.attractions.map((item, idx) => {
+        const coverImg = item.image || (item.images && item.images.length > 0 ? item.images[0] : 'default.jpg');
+        return `
+          <div class="masonry-item glass-card" style="padding:0;" onclick="openDetails('attraction', ${idx})">
+            <div class="card-img-wrapper" style="height:auto;"><img src="${coverImg}" style="width:100%; height:auto;" loading="lazy"></div>
+            <div class="card-info-pad">
+              <h4 style="font-size:1.05rem; padding: 1.2rem 1.2rem 0.3rem 1.2rem;">${item.title}</h4>
+              <p style="font-size:0.8rem; color:var(--text-muted); padding: 0 1.2rem 1.2rem 1.2rem;">⏱️ 预计停留：${item.duration}</p>
+            </div>
           </div>
-        </div>
-      `).join('');
+        `;
+      }).join('');
 
       document.getElementById("shop-container").innerHTML = TRAVEL_DATA.shoppings.map((item, idx) => `
         <div class="glass-card" onclick="openDetails('shop', ${idx})">
@@ -577,25 +725,7 @@
         </div>
       `).join('');
 
-      document.getElementById("itinerary-container").innerHTML = TRAVEL_DATA.itineraries.map(dayBlock => `
-        <div class="timeline-block">
-          <div class="timeline-day-title">${dayBlock.day} · <span style="font-size:1rem; color:var(--text-main);">${dayBlock.date}</span></div>
-          <div class="timeline-track">
-            ${dayBlock.nodes.map(node => `
-              <div class="timeline-node">
-                <div class="node-dot"></div><div class="node-time">${node.time}</div>
-                <div class="glass-card" style="display:flex; gap:1rem; align-items:center; max-width:600px;">
-                  <img src="${node.image}" style="width:60px; height:60px; object-fit:cover; border-radius:12px;">
-                  <div>
-                    <h6 style="font-size:0.95rem;">${node.title}</h6>
-                    <p style="font-size:0.8rem; color:var(--text-muted);">${node.desc}</p>
-                  </div>
-                </div>
-              </div>
-            `).join('')}
-          </div>
-        </div>
-      `).join('');
+      renderItineraryOnly();
 
       document.getElementById("gallery-container").innerHTML = TRAVEL_DATA.photos.map(p => `
         <div class="gallery-item">
@@ -611,6 +741,23 @@
       const modal = document.getElementById("global-modal");
       const body = document.getElementById("modal-body-content");
       let contentHtml = "";
+
+      const getSchedulerHtml = (titleText) => `
+        <div style="margin-top:1.8rem; padding:1.2rem; background:var(--bg-app); border-radius:20px; border:1px solid var(--border-glass);">
+          <h4 style="font-size:0.95rem; margin-bottom:0.8rem; display:flex; align-items:center; gap:0.4rem;">📅 添加到我的专属安排行程中</h4>
+          <div style="display:flex; gap:0.6rem; flex-wrap:wrap; align-items:center;">
+            <select id="sched-date" style="padding:0.5rem 0.8rem; border-radius:12px; border:1px solid var(--border-glass); background:var(--bg-glass-active); color:var(--text-main); font-size:0.85rem; cursor:pointer; outline:none;">
+              <option value="2026-07-31">7月31日 (Day 1)</option>
+              <option value="2026-08-01" selected>8月1日 (Day 2)</option>
+              <option value="2026-08-02">8月2日 (Day 3)</option>
+            </select>
+            <input type="time" id="sched-time" value="12:00" style="padding:0.45rem 0.8rem; border-radius:12px; border:1px solid var(--border-glass); background:var(--bg-glass-active); color:var(--text-main); font-size:0.85rem; outline:none;">
+            <button onclick="addToItinerary('${type}', ${key})" style="padding:0.5rem 1.4rem; background:var(--accent); color:white; border:none; border-radius:100px; font-size:0.85rem; font-weight:600; cursor:pointer; transition: transform 0.2s;">
+              确认加入
+            </button>
+          </div>
+        </div>
+      `;
 
       if(type === 'prep') {
         const item = TRAVEL_DATA.preparations.find(p => p.id === key);
@@ -645,19 +792,37 @@
           <div style="line-height:1.8; font-size:0.95rem;">
             <p><strong>📍 店铺地址：</strong>${item.address}</p><p><strong>🕒 营业时间：</strong>${item.openingHours}</p><p><strong>⭐ 推荐指数：</strong>${item.index}</p>
             <div style="margin-top:1.2rem; padding:1rem; background:rgba(0,0,0,0.03); border-radius:12px; color:var(--text-main); border-left: 4px solid var(--accent);">
-              <strong>💡 佳音专属小批注：</strong><br>${item.comment}
+              <strong>💡 佳音专属小批注：</strong><br>${item.comment || '暂无批注'}
             </div>
           </div>
+          ${getSchedulerHtml(item.title)}
         `;
       }
       else if(type === 'attraction') {
         const item = TRAVEL_DATA.attractions[key];
+        let galleryHtml = '';
+        if (item.images && item.images.length > 0) {
+          galleryHtml = `
+            <div class="modal-gallery-viewport" style="display:grid; grid-template-columns: ${item.images.length === 1 ? '1fr' : 'repeat(2, 1fr)'}; gap: 0.8rem; margin-bottom: 1.2rem;">
+              ${item.images.map((img, i) => `
+                <div style="aspect-ratio: 16/10; overflow:hidden; border-radius:12px; box-shadow: var(--shadow-sm); ${item.images.length > 1 && i === 0 ? 'grid-column: span 2;' : ''}">
+                  <img src="${img}" style="width:100%; height:100%; object-fit:cover;">
+                </div>
+              `).join('')}
+            </div>
+          `;
+        } else if (item.image) {
+          galleryHtml = `<img src="${item.image}" style="width:100%; border-radius:16px; margin:1.2rem 0; box-shadow: var(--shadow-sm);">`;
+        }
+
         contentHtml = `
-          <h3>${item.title}</h3><img src="${item.image}" style="width:100%; border-radius:16px; margin:1.2rem 0; box-shadow: var(--shadow-sm);">
+          <h3>${item.title}</h3>
+          ${galleryHtml}
           <div style="line-height:1.8; font-size:0.95rem;">
-            <p><strong>📍 景点地址：</strong>${item.address}</p><p><strong>⏱️ 建议停留：</strong>${item.duration}</p><p><strong>🚃 交通路线：</strong>${item.transport}</p>
-            <p style="margin-top:1rem; white-space: pre-line; color:var(--text-main);"><strong>📝 景点简介：</strong>\n${item.description}</p>
+            <p><strong>📍 景点地址：</strong>${item.address || '暂无数据'}</p><p><strong>⏱️ 建议停留：</strong>${item.duration}</p><p><strong>🚃 交通路线：</strong>${item.transport}</p>
+            <p style="margin-top:1rem; white-space: pre-line; color:var(--text-main);"><strong>📝 景点简介：</strong>\n${item.description || '暂无详细描述'}</p>
           </div>
+          ${getSchedulerHtml(item.title)}
         `;
       }
       else if(type === 'shop') {
@@ -688,7 +853,6 @@
       });
     }
 
-    // ✨ ✨ ✨ 革命性升级：全渠道流体灯箱切图引擎 ✨ ✨ ✨
     function initLightboxEngine() {
       const lightbox = document.getElementById("premium-lightbox");
       const viewer = document.getElementById("lightbox-viewer");
@@ -696,64 +860,43 @@
       const prevBtn = document.getElementById("lightbox-prev");
       const nextBtn = document.getElementById("lightbox-next");
 
-      let activeImages = []; // 当前弹窗内所有可查阅的图片资源池
-      let activeIndex = 0;   // 当前展开的图片指针
-      let touchStartX = 0;   // 触控移动原点
-      let touchEndX = 0;     // 触控移动终点
+      let activeImages = []; let activeIndex = 0; let touchStartX = 0; let touchEndX = 0;     
 
-      // 同步渲染核心函数
       function syncRenderImage() {
         if(activeImages.length === 0) return;
         viewer.src = activeImages[activeIndex];
-        
-        // 智能开关：若只有单张图片，则全端直接隐藏物理控制键
         if (activeImages.length <= 1) {
-          prevBtn.classList.add("hidden");
-          nextBtn.classList.add("hidden");
+          prevBtn.classList.add("hidden"); nextBtn.classList.add("hidden");
         } else {
-          prevBtn.classList.remove("hidden");
-          nextBtn.classList.remove("hidden");
+          prevBtn.classList.remove("hidden"); nextBtn.classList.remove("hidden");
         }
       }
 
       function execPrev() {
         if(activeImages.length <= 1) return;
-        activeIndex = (activeIndex - 1 + activeImages.length) % activeImages.length;
-        syncRenderImage();
+        activeIndex = (activeIndex - 1 + activeImages.length) % activeImages.length; syncRenderImage();
       }
 
       function execNext() {
         if(activeImages.length <= 1) return;
-        activeIndex = (activeIndex + 1) % activeImages.length;
-        syncRenderImage();
+        activeIndex = (activeIndex + 1) % activeImages.length; syncRenderImage();
       }
 
-      // 捕获宿主弹窗内部的所有图片点击行为
       modalBody.addEventListener("click", (e) => {
-        if (e.target.tagName === "IMG") {
-          // 精确扫描并打包当前容器下的所有相关图片
+        if (e.target.tagName === "IMG" && !e.target.closest('#sched-date') && !e.target.closest('#sched-time') && !e.target.closest('input') && !e.target.closest('textarea')) {
           const siblings = Array.from(modalBody.querySelectorAll("img"));
-          activeImages = siblings.map(img => img.src);
-          activeIndex = siblings.indexOf(e.target);
-          
-          syncRenderImage();
-          lightbox.classList.add("visible");
+          activeImages = siblings.map(img => img.src); activeIndex = siblings.indexOf(e.target);
+          syncRenderImage(); lightbox.classList.add("visible");
         }
       });
 
-      // 遮罩层及图片本身的点击关闭逻辑
       lightbox.addEventListener("click", (e) => {
-        // 只有点到背景或图片本体才会退出，点击切换按钮不会误触关闭
-        if (e.target === lightbox || e.target === viewer) {
-          lightbox.classList.remove("visible");
-        }
+        if (e.target === lightbox || e.target === viewer) { lightbox.classList.remove("visible"); }
       });
 
-      // 物理按钮挂载
       prevBtn.addEventListener("click", (e) => { e.stopPropagation(); execPrev(); });
       nextBtn.addEventListener("click", (e) => { e.stopPropagation(); execNext(); });
 
-      // 极客化键盘感知：电脑端直接敲控制方向
       window.addEventListener("keydown", (e) => {
         if (!lightbox.classList.contains("visible")) return;
         if (e.key === "Escape") lightbox.classList.remove("visible");
@@ -761,24 +904,13 @@
         if (e.key === "ArrowRight" || e.key === "d") execNext();
       });
 
-      // 丝滑触控手势追踪：完美兼容 iPhone/Android 浏览器左滑右滑
-      viewer.addEventListener("touchstart", (e) => {
-        touchStartX = e.changedTouches[0].screenX;
-      }, { passive: true });
-
-      viewer.addEventListener("touchend", (e) => {
-        touchEndX = e.changedTouches[0].screenX;
-        handleSwipeGesture();
-      }, { passive: true });
+      viewer.addEventListener("touchstart", (e) => { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
+      viewer.addEventListener("touchend", (e) => { touchEndX = e.changedTouches[0].screenX; handleSwipeGesture(); }, { passive: true });
 
       function handleSwipeGesture() {
-        const threshold = 45; // 划过 45 像素即可完美触发翻页
-        if (touchEndX < touchStartX - threshold) {
-          execNext(); // 向左滑 -> 看下一张
-        }
-        if (touchEndX > touchStartX + threshold) {
-          execPrev(); // 向右滑 -> 看上一张
-        }
+        const threshold = 45; 
+        if (touchEndX < touchStartX - threshold) execNext(); 
+        if (touchEndX > touchStartX + threshold) execPrev(); 
       }
     }
 
