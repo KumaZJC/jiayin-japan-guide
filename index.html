@@ -295,6 +295,15 @@
       background: linear-gradient(to left, var(--bg-glass-active), rgba(0,0,0,0));
     }
 
+    /* 快速排程面板样式 */
+    .quick-itinerary-panel {
+      margin-top: 2rem;
+      padding: 1.4rem;
+      background: var(--bg-app);
+      border-radius: 20px;
+      border: 1px dashed var(--border-glass);
+    }
+
     /* 视觉特写灯箱 */
     .premium-lightbox-container {
       position: fixed; inset: 0; background: rgba(10, 10, 12, 0.92);
@@ -359,6 +368,7 @@
 
   <div id="scroll-progress"></div>
 
+  <!-- 开场动画 -->
   <div id="opening-animation">
     <div class="sky-background"><div class="cloud cloud-1"></div><div class="cloud cloud-2"></div></div>
     <div class="flight-ticket-card">
@@ -378,6 +388,7 @@
     <button id="enter-btn" class="premium-enter-btn">开启日本之旅</button>
   </div>
 
+  <!-- 主框架 -->
   <div id="app-content" class="hidden">
     <nav class="glass-navbar">
       <div class="nav-brand">Juncheng ❤️ Jiayin</div>
@@ -410,6 +421,7 @@
         <div class="grid-layout" id="prep-container"></div>
       </section>
 
+      <!-- 🍱 美食模块 -->
       <section id="food-section" class="scroll-reveal">
         <div class="section-header-wrapper">
           <h2 class="section-title">🍣 日本美食</h2>
@@ -418,6 +430,7 @@
         <div class="food-grid-layout" id="food-container"></div>
       </section>
 
+      <!-- 🗼 景点模块 -->
       <section id="attraction-section" class="scroll-reveal">
         <div class="section-header-wrapper">
           <h2 class="section-title">🗼 景点推荐</h2>
@@ -436,6 +449,7 @@
         <div id="transport-container"></div>
       </section>
 
+      <!-- 📅 日程排期模块 -->
       <section id="itinerary-section" class="scroll-reveal">
         <div class="section-header-wrapper">
           <h2 class="section-title">📅 行程安排</h2>
@@ -480,6 +494,7 @@
     </footer>
   </div>
 
+  <!-- 全局中央弹窗系统 -->
   <div id="global-modal" class="modal-overlay hidden">
     <div class="modal-card">
       <button class="modal-close-btn" id="modal-close">✕</button>
@@ -487,6 +502,7 @@
     </div>
   </div>
 
+  <!-- 视觉特写灯箱 -->
   <div id="premium-lightbox" class="premium-lightbox-container">
     <button id="lightbox-prev" class="lightbox-nav-btn">‹</button>
     <img src="" id="lightbox-viewer" class="lightbox-viewport-img" alt="高清视觉特写">
@@ -521,7 +537,7 @@
       ],
       attractions: [
         { title: "浅草寺", subtitle: "经典地标", images: ["https://images.unsplash.com/photo-1503899036084-c55cdd92da26?w=800&auto=format&fit=crop&q=80", "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=800&auto=format&fit=crop&q=80", "https://images.unsplash.com/photo-1542051841857-5f90071e7989?w=800&auto=format&fit=crop&q=80"], address: "東京都台东区浅草2-3-1", duration: "2 - 3 小时", description: "东京都内最古老的寺庙，巨大的「雷门」红灯笼是经典地标。适合租借和服在此拍照打卡。", transport: "银座线/浅草线 浅草站 步行5分钟" },
-        { title: "母亲牧场", subtitle: "风光体验", images: ["https://images.unsplash.com/photo-1484557985045-edf25e08da73?w=800&auto=format&fit=crop&q=80"], address: "千葉县富津市田仓940-3", duration: "4 - 5 小时", description: "拥有广阔自然风光的体验型牧场，可以近距离亲近各种可爱动物，还有非常精彩的绵羊大游行以及四季不断的花海盛景。", transport: "从JR君津站乘坐直达巴士约30分钟" }
+        { title: "母亲牧场", subtitle: "风光体验", images: ["https://images.unsplash.com/photo-1484557985045-edf25e08da73?w=800&auto=format&fit=crop&q=80"], address: "千葉县富津市田仓940-3", duration: "4 - 5 小时", description: "拥有广阔自然风光的体验型牧场，可以近距离亲亲各种可爱动物，还有非常精彩的绵羊大游行以及四季不断的花海盛景。", transport: "从JR君津站乘坐直达巴士约30分钟" }
       ],
       shoppings: [
         { title: "唐吉诃德 (涩谷本店)", mustBuy: "药妆、零食、限定周边", taxRefund: "满¥5,000免税 + 额外最高5%优惠", remark: "全日本最大型的综合免税折扣店，24小时营业，深夜去可以完美避开人潮。" },
@@ -1006,7 +1022,93 @@
       renderFavorites();
     }
 
-    // 🍏 深度重构的“多图边缘毛玻璃透视”详情面板分配器
+    // 🍏 生成“快速排入既有时间轴”的组件HTML
+    function generateQuickItineraryHtml(type, key) {
+      const optionsHtml = TRAVEL_DATA.itineraries.map(d => `
+        <option value="${d.date}">${d.day} (${d.date})</option>
+      `).join('');
+
+      return `
+        <div class="quick-itinerary-panel">
+          <h5 style="margin-bottom:0.8rem; font-size:0.9rem; color:var(--accent); display:flex; align-items:center; gap:0.3rem;">📅 快速将此目的地排入行程表</h5>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.8rem; margin-bottom:0.8rem;">
+            <div class="form-group">
+              <label class="form-label" style="font-size:0.75rem;">规划日期</label>
+              <select id="qi-date-select" class="form-control" onchange="handleQuickItineraryDateChange(this.value)">
+                ${optionsHtml}
+                <option value="custom">➕ 新增其他日期...</option>
+              </select>
+              <input type="text" id="qi-custom-date-input" class="form-control" placeholder="例如: 8月3日" style="display:none; margin-top:0.4rem;">
+            </div>
+            <div class="form-group">
+              <label class="form-label" style="font-size:0.75rem;">出发时间点</label>
+              <input type="time" id="qi-time-input" value="12:00" class="form-control">
+            </div>
+          </div>
+          <button onclick="executeQuickItineraryInjection('${type}', ${key})" style="width:100%; padding:0.65rem; background:var(--accent); color:white; border:none; border-radius:100px; font-size:0.85rem; font-weight:600; cursor:pointer; box-shadow:0 4px 12px rgba(0,113,227,0.2);">
+            确认排入我的行程
+          </button>
+        </div>
+      `;
+    }
+
+    function handleQuickItineraryDateChange(val) {
+      document.getElementById("qi-custom-date-input").style.display = val === 'custom' ? 'block' : 'none';
+    }
+
+    function executeQuickItineraryInjection(type, key) {
+      const selectEl = document.getElementById("qi-date-select");
+      let dateText = selectEl.value;
+      if(dateText === "custom") {
+        dateText = document.getElementById("qi-custom-date-input").value.trim();
+        if(!dateText) { alert("请输入自定义天数的日期规范文本（如：8月3日）！"); return; }
+      }
+      const clockTime = document.getElementById("qi-time-input").value;
+
+      let sourceItem = null;
+      let prefix = "";
+      let descText = "";
+
+      if(type === 'food') {
+        sourceItem = TRAVEL_DATA.foods[key];
+        prefix = "🍣 美食: ";
+        descText = `地址: ${sourceItem.address}\n营业时间: ${sourceItem.openingHours}`;
+      } else if(type === 'attraction') {
+        sourceItem = TRAVEL_DATA.attractions[key];
+        prefix = "🗼 景点: ";
+        descText = `建议停留: ${sourceItem.duration}\n交通: ${sourceItem.transport}`;
+      }
+
+      if(!sourceItem) return;
+
+      let dayBlock = TRAVEL_DATA.itineraries.find(d => d.date === dateText);
+      if(!dayBlock) {
+        const nextIdx = TRAVEL_DATA.itineraries.length + 1;
+        dayBlock = { day: `Day ${nextIdx}`, date: dateText, nodes: [] };
+        TRAVEL_DATA.itineraries.push(dayBlock);
+      }
+
+      dayBlock.nodes.push({
+        time: clockTime,
+        title: prefix + sourceItem.title,
+        desc: descText,
+        image: (sourceItem.images && sourceItem.images.length > 0) ? sourceItem.images[0] : "https://images.unsplash.com/photo-1542051841857-5f90071e7989?w=400&auto=format&fit=crop&q=80"
+      });
+
+      dayBlock.nodes.sort((a, b) => a.time.localeCompare(b.time));
+
+      // 实时刷新并关窗
+      renderItineraryOnly();
+      document.getElementById("global-modal").classList.add("hidden");
+      document.body.classList.remove("locked");
+
+      // 丝滑滚动到行程单视图
+      setTimeout(() => {
+        document.getElementById("itinerary-section").scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 300);
+    }
+
+    // 🍏 深度重构的“多图边缘毛玻璃透视”与“快速排程”详情面板分配器
     function openDetails(type, key) {
       const modal = document.getElementById("global-modal");
       const body = document.getElementById("modal-body-content");
@@ -1066,6 +1168,8 @@
               <strong>💡 佳音专属小批注：</strong><br>${item.comment || '暂无批注'}
             </div>
           </div>
+
+          ${generateQuickItineraryHtml('food', key)}
         `;
       }
       else if(type === 'attraction') {
@@ -1106,6 +1210,8 @@
             <p><strong>📍 景点地址：</strong>${item.address || '暂未录入'}</p><p><strong>⏱️ 建议停留：</strong>${item.duration}</p><p><strong>🚃 交通路线：</strong>${item.transport}</p>
             <p style="margin-top:1rem; white-space: pre-line; color:var(--text-main);"><strong>📝 景点简介：</strong>\n${item.description || '暂无详细描述'}</p>
           </div>
+
+          ${generateQuickItineraryHtml('attraction', key)}
         `;
       }
       else if(type === 'shop') {
@@ -1167,7 +1273,7 @@
       }
 
       modalBody.addEventListener("click", (e) => {
-        if (e.target.tagName === "IMG" && !e.target.closest('.form-control')) {
+        if (e.target.tagName === "IMG" && !e.target.closest('.form-control') && !e.target.closest('.quick-itinerary-panel')) {
           const siblings = Array.from(modalBody.querySelectorAll(".modal-slider-item img"));
           const targets = siblings.length > 0 ? siblings : Array.from(modalBody.querySelectorAll("img"));
           
