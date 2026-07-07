@@ -133,7 +133,7 @@
     .nav-live-countdown { font-variant-numeric: tabular-nums; color: var(--text-main); }
     .nav-live-countdown span { color: var(--accent); font-weight: 700; margin: 0 1px; }
 
-    .nav-controls { flex-shrink: 0; }
+    .nav-controls { display: flex; align-items: center; gap: 1rem; }
     #theme-toggle { background: none; border: none; font-size: 1.2rem; cursor: pointer; }
 
     .hero-section {
@@ -151,7 +151,22 @@
        ========================================================================== */
     .content-container { max-width: 1240px; margin: 0 auto; padding: 4rem 2rem; }
     section { margin-bottom: 6rem; }
-    .section-title { font-size: 2rem; font-weight: 700; margin-bottom: 2rem; }
+    
+    .section-header-wrapper {
+      display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;
+    }
+    .section-title { font-size: 2rem; font-weight: 700; margin-bottom: 0; }
+    
+    .premium-action-btn {
+      padding: 0.55rem 1.4rem; background: var(--bg-glass-active); color: var(--text-main); 
+      border: 1px solid var(--border-glass); border-radius: 100px; font-size: 0.85rem; font-weight: 600; 
+      cursor: pointer; box-shadow: var(--shadow-sm); transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex; align-items: center; gap: 0.4rem;
+    }
+    .premium-action-btn:hover {
+      background: var(--accent); color: white; transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,113,227,0.2);
+    }
+
     .grid-layout { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
     
     .glass-card {
@@ -161,7 +176,7 @@
     }
     .glass-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); background: var(--bg-glass-active); }
 
-    /* 🍱 现代画廊自适应网格系统 */
+    /* 美食自适应网格 */
     .food-grid-layout { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.8rem; margin-top: 1.5rem; }
     
     .food-card-premium {
@@ -179,7 +194,7 @@
     .food-btn-wrapper { margin-top: auto; padding-top: 1.2rem; }
     .fav-btn { position: absolute; top: 1rem; right: 1rem; background: rgba(255,255,255,0.7); border: none; border-radius: 50%; width: 36px; height: 36px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; z-index: 5; }
 
-    /* Pinterest 瀑布流 & 时间轴 */
+    /* 瀑布流 & 时间轴 */
     .pinterest-masonry { columns: 3; column-gap: 1.5rem; }
     .masonry-item { break-inside: avoid; margin-bottom: 1.5rem; display: inline-block; width: 100%; }
     .timeline-block { margin-bottom: 3rem; }
@@ -189,18 +204,17 @@
     .node-dot { position: absolute; left: -2.45rem; top: 0.25rem; width: 12px; height: 12px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px var(--bg-app); }
     .node-time { font-weight: 700; font-size: 0.9rem; margin-bottom: 0.25rem; }
 
-    /* 行程管理微型动作键 */
     .node-action-btn { background: none; border: none; cursor: pointer; font-size: 0.95rem; padding: 0.2rem; opacity: 0.6; transition: opacity 0.2s, transform 0.2s; }
     .node-action-btn:hover { opacity: 1; transform: scale(1.1); }
 
-    /* Budget Dashboard 柱状图 */
+    /* 预算看板 */
     .budget-bars { margin-top: 2rem; display: flex; flex-direction: column; gap: 1rem; }
     .bar-row { display: flex; align-items: center; justify-content: space-between; }
     .bar-label { width: 80px; font-size: 0.9rem; }
     .bar-track { flex-grow: 1; height: 10px; background: rgba(0,0,0,0.05); margin: 0 1rem; border-radius: 50px; overflow: hidden; }
     .bar-fill { height: 100%; background: var(--accent); border-radius: 50px; width: 0%; transition: width 1s cubic-bezier(0.16, 1, 0.3, 1); }
 
-    /* Instagram 摄影墙 */
+    /* 摄影墙 */
     .instagram-gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; }
     .gallery-item { position: relative; aspect-ratio: 1; border-radius: 16px; overflow: hidden; cursor: pointer; }
     .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
@@ -214,8 +228,19 @@
     .pulse-marker span { position: absolute; top: -20px; left: 50%; transform: translateX(-50%); white-space: nowrap; font-size: 0.75rem; background: black; color: white; padding: 2px 6px; border-radius: 4px; }
     @keyframes pulse { 0% { transform: scale(0.6); opacity: 1; } 100% { transform: scale(1.6); opacity: 0; } }
 
+    /* 表单组件 */
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-label { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); }
+    .form-control {
+      width: 100%; padding: 0.65rem 0.8rem; border-radius: 12px; border: 1px solid var(--border-glass);
+      background: var(--bg-app); color: var(--text-main); outline: none; font-size: 0.9rem; transition: border-color 0.2s;
+    }
+    .form-control:focus { border-color: var(--accent); }
+    .checkbox-container { display: flex; align-items: center; gap: 0.5rem; cursor: pointer; font-size: 0.9rem; font-weight: 500; }
+    .checkbox-container input { width: 16px; height: 16px; accent-color: var(--accent); }
+
     /* ==========================================================================
-       5. 🎛️ 模态弹窗与高阶流体灯箱 (Lightbox) 核心系统
+       5. 🎛️ 模态弹窗与苹果级画廊透视系统
        ========================================================================== */
     .modal-overlay { 
       position: fixed; inset: 0; background: rgba(0,0,0,0.3); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
@@ -226,11 +251,53 @@
     .modal-card { background: var(--bg-glass-active); width: 100%; max-width: 600px; border-radius: 28px; padding: 2.5rem; border: 1px solid var(--border-glass); box-shadow: var(--shadow-md); position: relative; }
     .modal-close-btn { position: absolute; top: 1.5rem; right: 1.5rem; background: none; border: none; font-size: 1.2rem; cursor: pointer; color: var(--text-muted); z-index: 10; }
 
-    #modal-body-content img { cursor: zoom-in; transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease; }
-    #modal-body-content img:hover { transform: scale(1.018); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+    /* 🍏 苹果风格多图画廊外壳 */
+    .apple-slider-container {
+      position: relative;
+      width: 100%;
+      margin-bottom: 1.4rem;
+      overflow: hidden;
+    }
+    .modal-image-slider {
+      display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory;
+      padding: 0 12%; /* 左右留出黄金透视边缘间距 */
+      scrollbar-width: none; -webkit-overflow-scrolling: touch;
+    }
+    .modal-image-slider::-webkit-scrollbar { display: none; }
+    .modal-slider-item {
+      flex: 0 0 76%; /* 恰好配合12%*2留白凑满中央主图对齐 */
+      aspect-ratio: 16 / 10; scroll-snap-align: center;
+      overflow: hidden; border-radius: 16px; background: rgba(0,0,0,0.02);
+      position: relative;
+    }
+    .modal-slider-item img {
+      width: 100%; height: 100%; object-fit: cover; cursor: zoom-in;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .modal-slider-item img:hover { transform: scale(1.02); }
 
+    /* 左右高级渐变毛玻璃遮罩层 */
+    .slider-edge-blur {
+      position: absolute; top: 0; bottom: 0; width: 12%;
+      pointer-events: none; /* 让滑动手势可以直接穿透进入轨道 */
+      z-index: 5; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    }
+    .slider-edge-blur.left {
+      left: 0; background: linear-gradient(to right, var(--bg-glass-active), rgba(255,255,255,0));
+    }
+    [data-theme="dark"] .slider-edge-blur.left {
+      background: linear-gradient(to right, var(--bg-glass-active), rgba(0,0,0,0));
+    }
+    .slider-edge-blur.right {
+      right: 0; background: linear-gradient(to left, var(--bg-glass-active), rgba(255,255,255,0));
+    }
+    [data-theme="dark"] .slider-edge-blur.right {
+      background: linear-gradient(to left, var(--bg-glass-active), rgba(0,0,0,0));
+    }
+
+    /* 视觉特写灯箱 */
     .premium-lightbox-container {
-      position: fixed; inset: 0; background: rgba(10, 10, 12, 0.88);
+      position: fixed; inset: 0; background: rgba(10, 10, 12, 0.92);
       backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
       z-index: 300; display: flex; align-items: center; justify-content: center;
       opacity: 0; pointer-events: none; transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
@@ -245,7 +312,6 @@
     }
     .premium-lightbox-container.visible .lightbox-viewport-img { transform: scale(1); }
 
-    /* 看图灯箱超极简半透明方向切换按键样式 */
     .lightbox-nav-btn {
       position: absolute; top: 50%; transform: translateY(-50%);
       background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255,255,255,0.1);
@@ -269,7 +335,7 @@
     .hidden { display: none !important; }
     .empty-state { text-align: center; color: var(--text-muted); padding: 2rem; grid-column: 1 / -1; }
 
-    /* 多端优雅弹性控制 */
+    /* 多端适配 */
     @media (max-width: 1024px) { .pinterest-masonry { columns: 2; } .food-grid-layout { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; } }
     @media (max-width: 768px) {
       .pinterest-masonry { columns: 1; } .hero-content h1 { font-size: 2.4rem; }
@@ -279,6 +345,8 @@
       .content-container { padding: 2rem 1rem; } section { margin-bottom: 4rem; }
       .lightbox-nav-btn { display: none !important; }
       .lightbox-viewport-img { max-width: 95vw; }
+      .modal-image-slider { padding: 0 8%; } .modal-slider-item { flex: 0 0 84%; }
+      .slider-edge-blur { width: 8%; }
     }
     @media (max-width: 480px) {
       .nav-brand { font-size: 0.95rem; }
@@ -338,37 +406,46 @@
 
     <main class="content-container">
       <section id="prep-section" class="scroll-reveal">
-        <h2 class="section-title">✈️ 佳音入境日本的贴心准备</h2>
+        <h2 class="section-title" style="margin-bottom:2rem;">✈️ 佳音入境日本的贴心准备</h2>
         <div class="grid-layout" id="prep-container"></div>
       </section>
 
       <section id="food-section" class="scroll-reveal">
-        <h2 class="section-title">🍣 日本美食</h2>
+        <div class="section-header-wrapper">
+          <h2 class="section-title">🍣 日本美食</h2>
+          <button class="premium-action-btn" onclick="openUniversalCreator('food')">➕ 自定义新美食</button>
+        </div>
         <div class="food-grid-layout" id="food-container"></div>
       </section>
 
       <section id="attraction-section" class="scroll-reveal">
-        <h2 class="section-title">🗼 景点推荐</h2>
+        <div class="section-header-wrapper">
+          <h2 class="section-title">🗼 景点推荐</h2>
+          <button class="premium-action-btn" onclick="openUniversalCreator('attraction')">➕ 自定义新景点</button>
+        </div>
         <div class="pinterest-masonry" id="attraction-container"></div>
       </section>
 
       <section id="shop-section" class="scroll-reveal">
-        <h2 class="section-title">🛍️ 购物指南</h2>
+        <h2 class="section-title" style="margin-bottom:2rem;">🛍️ 购物指南</h2>
         <div class="grid-layout" id="shop-container"></div>
       </section>
 
       <section id="transport-section" class="scroll-reveal">
-        <h2 class="section-title">🚃 交通总览</h2>
+        <h2 class="section-title" style="margin-bottom:2rem;">🚃 交通总览</h2>
         <div id="transport-container"></div>
       </section>
 
       <section id="itinerary-section" class="scroll-reveal">
-        <h2 class="section-title">📅 行程安排</h2>
+        <div class="section-header-wrapper">
+          <h2 class="section-title">📅 行程安排</h2>
+          <button class="premium-action-btn" onclick="openUniversalCreator('itinerary')" style="background:var(--accent); color:white;">➕ 添加自定义日程</button>
+        </div>
         <div id="itinerary-container"></div>
       </section>
 
       <section id="budget-section" class="scroll-reveal">
-        <h2 class="section-title">💰 预算看板</h2>
+        <h2 class="section-title" style="margin-bottom:2rem;">💰 预算看板</h2>
         <div class="glass-card">
           <h3 style="text-align:center; margin-bottom:1rem;">总预算预估：¥<span id="total-budget-val">0</span></h3>
           <div class="budget-bars" id="budget-bars-container"></div>
@@ -376,7 +453,7 @@
       </section>
 
       <section id="map-section" class="scroll-reveal">
-        <h2 class="section-title">📍 智能路线图</h2>
+        <h2 class="section-title" style="margin-bottom:2rem;">📍 智能路线图</h2>
         <div class="glass-card">
           <div class="map-mock-ui">
             <div class="pulse-marker" style="top: 35%; left: 30%;"><span>浅草寺</span></div>
@@ -388,12 +465,12 @@
       </section>
 
       <section id="favorites-section" class="scroll-reveal">
-        <h2 class="section-title">❤️ 我的收藏夹</h2>
+        <h2 class="section-title" style="margin-bottom:2rem;">❤️ 我的收藏夹</h2>
         <div class="grid-layout" id="favorites-container"></div>
       </section>
 
       <section id="gallery-section" class="scroll-reveal">
-        <h2 class="section-title">📸 旅途定格</h2>
+        <h2 class="section-title" style="margin-bottom:2rem;">📸 旅途定格</h2>
         <div class="instagram-gallery" id="gallery-container"></div>
       </section>
     </main>
@@ -419,6 +496,7 @@
   <button id="back-to-top">▲</button>
 
   <script>
+    // 核心数据集
     const TRAVEL_DATA = {
       preparations: [
         { id: "passport", icon: "国内（上海）", title: "出境", desc: "宝贝托运好，拿好护照休息休息哦", 
@@ -435,15 +513,15 @@
       foods: [
         { title: "TANUKI APPETIZING", subtitle: "糕点店", images: ["TANUKI.png"], address: "〒104-0054 Tokyo, Chuo City, Kachidoki, 4 Chome−10−5 としの荘", openingHours: "7:00 - 卖完即闭店（周四和周日营业）", index: "⭐⭐⭐⭐", googleMap: "#", comment: "贝果很好吃！！！码住了很久，但是一直没有尝试。" },
         { title: "Dining33", subtitle: "法餐", images: ["Dining33-2.png", "Dining33.png", "Dining33-3.png", "Dining33-4.png"], address: "〒106-0041 Tokyo, Minato City, Azabudai, 1 Chome−3−1 ヒ尔兹 森JPタワ 33阶", openingHours: "18:00 - 23:00", index: "⭐⭐⭐⭐⭐", googleMap: "#", comment: "可以边看东京塔，边吃美食。" },
-        { title: "つじ半（中文谐音：茨鸡夯）", subtitle: "海鮮丼", images: ["tsujihann-3.png","tsujihann.png","tsujihann-2.png"], address: "〒107-0052 Tokyo, Minato City, Akasaka, 1 Chome−12−32 Ark Mori Building, 3階", openingHours: "11:00 - 21:30", index: "⭐⭐⭐⭐⭐", googleMap: "#", comment: "超级好吃的一家海鲜饭，我去公司经常去这家吃！" },
-        { title: "TsuruTonTan UDON NOODLE Brasserie SHIBUYA", subtitle: "乌冬面", images: ["shibuya-udon.png","shibuya-udon2.png","shibuya-udon3.png"], address: "〒150-6113 Tokyo, Shibuya, 2 Chome−24−12 スク乘车码长条大楼 13阶", openingHours: "11:00 - 23:00", index: "⭐⭐⭐⭐⭐", googleMap: "#", comment: "可以在stay with me那个楼上边看涩谷街头，边吃乌冬面." },
+        { title: "つじ半", subtitle: "海鮮丼", images: ["tsujihann-3.png","tsujihann.png","tsujihann-2.png"], address: "〒107-0052 Tokyo, Minato City, Ark Mori Building, 3階", openingHours: "11:00 - 21:30", index: "⭐⭐⭐⭐⭐", googleMap: "#", comment: "超级好吃的一家海鲜饭，我去公司经常去这家吃！" },
+        { title: "TsuruTonTan UDON NOODLE Brasserie SHIBUYA", subtitle: "乌冬面", images: ["shibuya-udon.png","shibuya-udon2.png","shibuya-udon3.png"], address: "〒150-6113 Tokyo, Shibuya, スク乘车码长条大楼 13阶", openingHours: "11:00 - 23:00", index: "⭐⭐⭐⭐⭐", googleMap: "#", comment: "可以在stay with me那个楼上边看涩谷街头，边吃乌冬面." },
         { title: "Curry & Cafe SAMA Kanda", subtitle: "汤咖喱", images: ["sama4.png","sama5.png","sama1.png","sama2.png","sama3.png"], address: "6 Chome-15-4 Outer Kanda, Chiyoda City, Tokyo 101-0021", openingHours: "11:30 - 14:30 / 17:00 - 21:00", index: "⭐⭐⭐⭐⭐", googleMap: "#", comment: "好吃又健康的汤咖喱！王思聪经常会去。"  },
-        { title: "LUKE'S LOBSTER 原宿エアストリーム", subtitle: "龙虾堡", images: ["longxia1.png","longxia2.png"], address: "4 Chome-26-18 Jingumae, Shibuya, Tokyo 150-0001", openingHours: "10:00–21:00", index: "夯爆了⭐⭐⭐⭐⭐", googleMap: "#", comment: "" },
-        { title: "Hawaiian Cafe＆Restaurant Merengue 渋谷店", subtitle: "松饼", images: ["songbing1.png","songbing2.png","songbing3.png","songbing4.png"], address: "〒150-0002 Tokyo, Shibuya, 3 Chome−27−11 Gems Shibuya, 1F", openingHours: "10:00–21:00", index: "夯爆了⭐⭐⭐⭐⭐", googleMap: "#", comment: "" }
+        { title: "LUKE'S LOBSTER 原宿", subtitle: "龙虾堡", images: ["longxia1.png","longxia2.png"], address: "4 Chome-26-18 Jingumae, Shibuya, Tokyo 150-0001", openingHours: "10:00–21:00", index: "⭐⭐⭐⭐⭐", googleMap: "#", comment: "" },
+        { title: "Hawaiian Cafe＆Restaurant Merengue", subtitle: "松饼", images: ["songbing1.png","songbing2.png","songbing3.png","songbing4.png"], address: "〒150-0002 Tokyo, Gems Shibuya, 1F", openingHours: "10:00–21:00", index: "⭐⭐⭐⭐⭐", googleMap: "#", comment: "" }
       ],
       attractions: [
-        { title: "浅草寺", image: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=600&auto=format&fit=crop&q=80", address: "東京都台东区浅草2-3-1", duration: "2 - 3 小时", description: "东京都内最古老的寺庙，巨大的「雷门」红灯笼是经典地标。适合租借和服在此拍照打卡。", transport: "银座线/浅草线 浅草站 步行5分钟" },
-        { title: "母亲牧场", subtitle: "风光+体验", images: ["ma1.jpg","ma2.jpg","ma3.jpg","ma4.jpg"], address: "千葉县富津市田仓940-3", duration: "4 - 5 小时", description: "拥有广阔自然风光的体验型牧场，可以近距离亲近各种可爱动物，还有非常精彩的绵羊大游行以及四季不断的花海盛景。", transport: "从JR君津站乘坐直达巴士约30分钟" }
+        { title: "浅草寺", subtitle: "经典地标", images: ["https://images.unsplash.com/photo-1503899036084-c55cdd92da26?w=800&auto=format&fit=crop&q=80", "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=800&auto=format&fit=crop&q=80", "https://images.unsplash.com/photo-1542051841857-5f90071e7989?w=800&auto=format&fit=crop&q=80"], address: "東京都台东区浅草2-3-1", duration: "2 - 3 小时", description: "东京都内最古老的寺庙，巨大的「雷门」红灯笼是经典地标。适合租借和服在此拍照打卡。", transport: "银座线/浅草线 浅草站 步行5分钟" },
+        { title: "母亲牧场", subtitle: "风光体验", images: ["https://images.unsplash.com/photo-1484557985045-edf25e08da73?w=800&auto=format&fit=crop&q=80"], address: "千葉县富津市田仓940-3", duration: "4 - 5 小时", description: "拥有广阔自然风光的体验型牧场，可以近距离亲近各种可爱动物，还有非常精彩的绵羊大游行以及四季不断的花海盛景。", transport: "从JR君津站乘坐直达巴士约30分钟" }
       ],
       shoppings: [
         { title: "唐吉诃德 (涩谷本店)", mustBuy: "药妆、零食、限定周边", taxRefund: "满¥5,000免税 + 额外最高5%优惠", remark: "全日本最大型的综合免税折扣店，24小时营业，深夜去可以完美避开人潮。" },
@@ -464,7 +542,7 @@
         {
           day: "Day 2", date: "8月1日",
           nodes: [
-            { time: "18:00", title: "Wolfgang's Steakhouse Takanawa", desc: "地址: 2-21-1 Takanawa, NEWoMan Takanawa 29F, Minato, Tokyo 108-0074", image: "wolfgangs.png" }
+            { time: "18:00", title: "Wolfgang's Steakhouse Takanawa", desc: "地址: NEWoMan Takanawa 29F, Minato, Tokyo", image: "https://images.unsplash.com/photo-1544025162-d76694265947?w=400&auto=format&fit=crop&q=80" }
           ]
         },
         {
@@ -486,7 +564,7 @@
       document.body.classList.add("locked");
       initFlightCountdown();
       initEnterButtonEvent();
-      renderDynamicCards();
+      renderAllDynamicGrids();
       initScrollAndTheme();
       initModalEvents(); 
       initLightboxEngine();
@@ -526,21 +604,256 @@
     }
 
     /* ==========================================================================
-       6. ✨ 核心模块重构：支持深度编辑、排序与删除的时间轴引擎
+       6. 万能中央分发灵感面板
+       ========================================================================== */
+    function openUniversalCreator(defaultType = 'food') {
+      const modal = document.getElementById("global-modal");
+      const body = document.getElementById("modal-body-content");
+      
+      body.innerHTML = `
+        <h3 style="margin-bottom:1.5rem; display:flex; align-items:center; gap:0.5rem;">✨ 灵感随手记 · 中央分发器</h3>
+        <div style="display:flex; flex-direction:column; gap:1.2rem;">
+          
+          <div class="form-group">
+            <label class="form-label">💡 灵感所属类型</label>
+            <select id="uc-category" class="form-control" onchange="toggleCreatorFormFields(this.value)">
+              <option value="food" ${defaultType === 'food' ? 'selected' : ''}>🍣 美食探店</option>
+              <option value="attraction" ${defaultType === 'attraction' ? 'selected' : ''}>🗼 风景景点</option>
+              <option value="itinerary" ${defaultType === 'itinerary' ? 'selected' : ''}>📅 纯行程备忘</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">🎯 主题/名称</label>
+            <input type="text" id="uc-title" class="form-control" placeholder="请输入名称（例如：SHIBUYA SKY 观景台）">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">🖼️ 视觉图片链接 (多图请用半角逗号,隔开)</label>
+            <input type="text" id="uc-image" class="form-control" placeholder="粘贴任何网络图片URL（多张请用逗号隔开）">
+          </div>
+
+          <div id="uc-fields-food" class="uc-dynamic-fields" style="display:none; flex-direction:column; gap:1.2rem;">
+            <div class="form-group">
+              <label class="form-label">标签/品类</label>
+              <input type="text" id="uc-food-sub" class="form-control" placeholder="例如：居酒屋 / 甜品 / 烧肉">
+            </div>
+            <div class="form-group">
+              <label class="form-label">📍 探店详细地址</label>
+              <input type="text" id="uc-food-address" class="form-control" placeholder="例如：东京都涩谷区...">
+            </div>
+            <div class="form-group">
+              <label class="form-label">🕒 营业时间</label>
+              <input type="text" id="uc-food-hours" class="form-control" placeholder="例如：11:00 - 22:00">
+            </div>
+            <div class="form-group">
+              <label class="form-label">✍️ 佳音专属小批注</label>
+              <textarea id="uc-food-comment" class="form-control" style="height:60px; resize:none;" placeholder="想吃他们家的什么菜品？或者有什么特殊期待点嘛~"></textarea>
+            </div>
+          </div>
+
+          <div id="uc-fields-attraction" class="uc-dynamic-fields" style="display:none; flex-direction:column; gap:1.2rem;">
+            <div class="form-group">
+              <label class="form-label">定位标签</label>
+              <input type="text" id="uc-attr-sub" class="form-control" placeholder="例如：动漫圣地 / 浪漫夜景 / 避世小镇">
+            </div>
+            <div class="form-group">
+              <label class="form-label">📍 景点坐标地址</label>
+              <input type="text" id="uc-attr-address" class="form-control" placeholder="请输入景点具体路线地址">
+            </div>
+            <div class="form-group">
+              <label class="form-label">⏱️ 建议游玩时长</label>
+              <input type="text" id="uc-attr-duration" class="form-control" placeholder="例如：2 - 3 小时">
+            </div>
+            <div class="form-group">
+              <label class="form-label">🚃 推荐交通路线</label>
+              <input type="text" id="uc-attr-transport" class="form-control" placeholder="例如：地铁新宿线 站 步行5分钟">
+            </div>
+            <div class="form-group">
+              <label class="form-label">📝 景点亮点简介</label>
+              <textarea id="uc-attr-desc" class="form-control" style="height:60px; resize:none;" placeholder="在这里写下这个景点的必打卡点或浪漫小贴士..."></textarea>
+            </div>
+          </div>
+
+          <div id="uc-fields-itinerary" class="uc-dynamic-fields" style="display:none;">
+            <div class="form-group">
+              <label class="form-label">📝 行程细节备注</label>
+              <textarea id="uc-itinerary-desc" class="form-control" style="height:80px; resize:none;" placeholder="写写具体的出行细节安排..."></textarea>
+            </div>
+          </div>
+
+          <hr style="border:none; border-top:1px solid var(--border-glass); margin:0.4rem 0;">
+
+          <div class="form-group">
+            <label class="form-label" style="color:var(--accent); font-weight:700;">🔀 选择将当前灵感同步添加到何处：</label>
+            <div style="display:flex; flex-direction:column; gap:0.6rem; margin-top:0.4rem;">
+              <label class="checkbox-container" id="uc-wrapper-pool">
+                <input type="checkbox" id="uc-target-pool" checked> 存入底部的专属「美食/景点灵感库」
+              </label>
+              <label class="checkbox-container">
+                <input type="checkbox" id="uc-target-timeline" onchange="toggleTimelineSelector(this.checked)"> 同步排入核心「📅 时间轴日程表」
+              </label>
+            </div>
+          </div>
+
+          <div id="uc-timeline-config" style="display:none; padding:1rem; background:var(--bg-app); border-radius:16px; border:1px solid var(--border-glass); flex-direction:column; gap:0.8rem;">
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.8rem;">
+              <div class="form-group">
+                <label style="font-size:0.8rem; font-weight:600;">设定具体天数</label>
+                <select id="uc-time-date" class="form-control">
+                  <option value="7月31日">7月31日 (Day 1)</option>
+                  <option value="8月1日" selected>8月1日 (Day 2)</option>
+                  <option value="8月2日">8月2日 (Day 3)</option>
+                  <option value="custom">➕ 新增其他日期...</option>
+                </select>
+                <input type="text" id="uc-time-custom-date" class="form-control" placeholder="请输入例如: 8月3日" style="display:none; margin-top:0.4rem;">
+              </div>
+              <div class="form-group">
+                <label style="font-size:0.8rem; font-weight:600;">精确到时间点</label>
+                <input type="time" id="uc-time-clock" value="12:00" class="form-control">
+              </div>
+            </div>
+          </div>
+
+          <button onclick="dispatchUniversalItem()" style="margin-top:0.4rem; padding:0.8rem; background:var(--accent); color:white; border:none; border-radius:100px; font-size:0.95rem; font-weight:600; cursor:pointer; box-shadow:0 6px 20px rgba(0,113,227,0.25); text-align:center;">
+            确认智能保存并分发
+          </button>
+        </div>
+      `;
+
+      const selectDateEl = document.getElementById("uc-time-date");
+      const customDateInput = document.getElementById("uc-time-custom-date");
+      selectDateEl.addEventListener("change", () => {
+        customDateInput.style.display = selectDateEl.value === "custom" ? "block" : "none";
+      });
+
+      toggleCreatorFormFields(defaultType);
+      modal.classList.remove("hidden");
+      document.body.classList.add("locked");
+    }
+
+    function toggleCreatorFormFields(category) {
+      document.querySelectorAll(".uc-dynamic-fields").forEach(el => el.style.display = 'none');
+      const poolWrapper = document.getElementById("uc-wrapper-pool");
+      const poolCheckbox = document.getElementById("uc-target-pool");
+
+      if(category === 'food') {
+        document.getElementById("uc-fields-food").style.display = 'flex';
+        poolWrapper.style.display = 'flex';
+      } else if(category === 'attraction') {
+        document.getElementById("uc-fields-attraction").style.display = 'flex';
+        poolWrapper.style.display = 'flex';
+      } else if(category === 'itinerary') {
+        document.getElementById("uc-fields-itinerary").style.display = 'block';
+        poolWrapper.style.none = 'none';
+        poolCheckbox.checked = false;
+        document.getElementById("uc-target-timeline").checked = true;
+        toggleTimelineSelector(true);
+      }
+    }
+
+    function toggleTimelineSelector(checked) {
+      document.getElementById("uc-timeline-config").style.display = checked ? 'flex' : 'none';
+    }
+
+    function dispatchUniversalItem() {
+      const category = document.getElementById("uc-category").value;
+      const title = document.getElementById("uc-title").value.trim();
+      let imgInput = document.getElementById("uc-image").value.trim();
+      
+      const saveToPool = document.getElementById("uc-target-pool").checked;
+      const saveToTimeline = document.getElementById("uc-target-timeline").checked;
+
+      if(!title) { alert("名称/主题是必填项哦！"); return; }
+      
+      let imgArray = [];
+      if(imgInput) {
+        imgArray = imgInput.split(',').map(url => url.trim()).filter(url => url.length > 0);
+      } else {
+        if(category === 'food') imgArray = ["https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=500&auto=format&fit=crop&q=80"];
+        else imgArray = ["https://images.unsplash.com/photo-1542051841857-5f90071e7989?w=500&auto=format&fit=crop&q=80"];
+      }
+
+      let textDesc = "";
+      if(category === 'food') {
+        const sub = document.getElementById("uc-food-sub").value.trim() || "自定义美食";
+        const addr = document.getElementById("uc-food-address").value.trim() || "暂未填写地址";
+        const hours = document.getElementById("uc-food-hours").value.trim() || "未载入时间";
+        const comment = document.getElementById("uc-food-comment").value.trim();
+        
+        textDesc = `地址: ${addr}\n营业时间: ${hours}`;
+        
+        if(saveToPool) {
+          TRAVEL_DATA.foods.push({
+            title: title, subtitle: sub, images: imgArray, address: addr, openingHours: hours, index: "⭐⭐⭐⭐⭐", comment: comment
+          });
+        }
+      } 
+      else if(category === 'attraction') {
+        const sub = document.getElementById("uc-attr-sub").value.trim() || "专属自定义景点";
+        const addr = document.getElementById("uc-attr-address").value.trim() || "暂未录入地址";
+        const duration = document.getElementById("uc-attr-duration").value.trim() || "自适应";
+        const transport = document.getElementById("uc-attr-transport").value.trim() || "自驾/地铁直达";
+        const desc = document.getElementById("uc-attr-desc").value.trim();
+
+        textDesc = `建议游玩: ${duration}\n交通: ${transport}`;
+
+        if(saveToPool) {
+          TRAVEL_DATA.attractions.push({
+            title: title, subtitle: sub, images: imgArray, address: addr, duration: duration, transport: transport, description: desc
+          });
+        }
+      }
+      else if(category === 'itinerary') {
+        textDesc = document.getElementById("uc-itinerary-desc").value.trim() || "无特别备忘";
+      }
+
+      if(saveToTimeline) {
+        const selectDateEl = document.getElementById("uc-time-date");
+        let dateText = selectDateEl.value;
+        if (dateText === "custom") {
+          dateText = document.getElementById("uc-time-custom-date").value.trim();
+          if(!dateText) { alert("请输入自定义天数的规范文本信息！"); return; }
+        }
+
+        const clockTime = document.getElementById("uc-time-clock").value;
+        const prefix = category === 'food' ? "🍣 美食: " : (category === 'attraction' ? "🗼 景点: " : "📅 ");
+
+        let dayBlock = TRAVEL_DATA.itineraries.find(d => d.date === dateText);
+        if (!dayBlock) {
+          const nextDayIndex = TRAVEL_DATA.itineraries.length + 1;
+          dayBlock = { day: `Day ${nextDayIndex}`, date: dateText, nodes: [] };
+          TRAVEL_DATA.itineraries.push(dayBlock);
+        }
+
+        dayBlock.nodes.push({
+          time: clockTime,
+          title: prefix + title,
+          desc: textDesc,
+          image: imgArray[0]
+        });
+        dayBlock.nodes.sort((a, b) => a.time.localeCompare(b.time));
+      }
+
+      renderAllDynamicGrids();
+      document.getElementById("global-modal").classList.add("hidden");
+      document.body.classList.remove("locked");
+    }
+
+    /* ==========================================================================
+       7. 视窗网格渲染与画廊分流内核
        ========================================================================== */
     function renderItineraryOnly() {
       const container = document.getElementById("itinerary-container");
-      
-      // 先过滤掉已经彻底没有节点的空日子，保持视图极简
       const activeDays = TRAVEL_DATA.itineraries.filter(dayBlock => dayBlock.nodes.length > 0);
       
       if(activeDays.length === 0) {
-        container.innerHTML = `<p class="empty-state">当前没有任何行程，从上方美食或景点中自动导入，或手动调整吧！</p>`;
+        container.innerHTML = `<p class="empty-state">当前没有任何行程，点击右上方按钮开始自定义添加吧！</p>`;
         return;
       }
 
       container.innerHTML = TRAVEL_DATA.itineraries.map((dayBlock, dayIdx) => {
-        if(dayBlock.nodes.length === 0) return ''; // 跳过空日程
+        if(dayBlock.nodes.length === 0) return ''; 
         return `
           <div class="timeline-block">
             <div class="timeline-day-title">${dayBlock.day} · <span style="font-size:1rem; color:var(--text-main);">${dayBlock.date}</span></div>
@@ -555,10 +868,9 @@
                       <h6 style="font-size:0.95rem; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${node.title}</h6>
                       <p style="font-size:0.8rem; color:var(--text-muted); white-space:pre-line; margin-top:0.2rem;">${node.desc}</p>
                     </div>
-                    <!-- 行程单控制动作夹 -->
                     <div style="position:absolute; right:1.2rem; top:50%; transform:translateY(-50%); display:flex; flex-direction:column; gap:0.6rem; align-items:center;">
-                      <button class="node-action-btn" onclick="openEditItineraryModal(${dayIdx}, ${nodeIdx})" title="修改时间或内容" style="color:var(--accent);">✎</button>
-                      <button class="node-action-btn" onclick="deleteItineraryNode(${dayIdx}, ${nodeIdx})" title="删除此日程" style="color:#ff1744;">✕</button>
+                      <button class="node-action-btn" onclick="openEditItineraryModal(${dayIdx}, ${nodeIdx})" style="color:var(--accent);">✎</button>
+                      <button class="node-action-btn" onclick="deleteItineraryNode(${dayIdx}, ${nodeIdx})" style="color:#ff1744;">✕</button>
                     </div>
                   </div>
                 </div>
@@ -569,7 +881,6 @@
       }).join('');
     }
 
-    // 核心函数：移除指定节点的逻辑
     function deleteItineraryNode(dayIdx, nodeIdx) {
       const targetNode = TRAVEL_DATA.itineraries[dayIdx].nodes[nodeIdx];
       if (confirm(`确定要移除「${targetNode.title}」这一项行程吗？`)) {
@@ -578,7 +889,6 @@
       }
     }
 
-    // 核心函数：调取编辑弹窗
     function openEditItineraryModal(dayIdx, nodeIdx) {
       const modal = document.getElementById("global-modal");
       const body = document.getElementById("modal-body-content");
@@ -587,19 +897,23 @@
       body.innerHTML = `
         <h3 style="margin-bottom:1.5rem;">⚙️ 修改行程详情</h3>
         <div style="display:flex; flex-direction:column; gap:1.2rem;">
-          <div>
-            <label style="font-size:0.85rem; font-weight:600; color:var(--text-muted); display:block; margin-bottom:0.4rem;">设定时间点</label>
-            <input type="time" id="edit-node-time" value="${node.time}" style="width:100%; padding:0.65rem 0.8rem; border-radius:12px; border:1px solid var(--border-glass); background:var(--bg-app); color:var(--text-main); outline:none; font-size:0.9rem;">
+          <div class="form-group">
+            <label class="form-label">设定时间点</label>
+            <input type="time" id="edit-node-time" value="${node.time}" class="form-control">
           </div>
-          <div>
-            <label style="font-size:0.85rem; font-weight:600; color:var(--text-muted); display:block; margin-bottom:0.4rem;">行程主题</label>
-            <input type="text" id="edit-node-title" value="${node.title}" style="width:100%; padding:0.65rem 0.8rem; border-radius:12px; border:1px solid var(--border-glass); background:var(--bg-app); color:var(--text-main); outline:none; font-size:0.9rem;">
+          <div class="form-group">
+            <label class="form-label">行程主题</label>
+            <input type="text" id="edit-node-title" value="${node.title}" class="form-control">
           </div>
-          <div>
-            <label style="font-size:0.85rem; font-weight:600; color:var(--text-muted); display:block; margin-bottom:0.4rem;">详细备忘详情</label>
-            <textarea id="edit-node-desc" style="width:100%; height:90px; padding:0.65rem 0.8rem; border-radius:12px; border:1px solid var(--border-glass); background:var(--bg-app); color:var(--text-main); outline:none; resize:none; font-size:0.85rem; line-height:1.5;">${node.desc}</textarea>
+          <div class="form-group">
+            <label class="form-label">更替图片链接 (可选)</label>
+            <input type="text" id="edit-node-image" value="${node.image}" class="form-control">
           </div>
-          <button onclick="saveItineraryNode(${dayIdx}, ${nodeIdx})" style="margin-top:0.4rem; padding:0.75rem; background:var(--accent); color:white; border:none; border-radius:100px; font-size:0.9rem; font-weight:600; cursor:pointer; box-shadow:0 4px 12px rgba(0,113,227,0.2);">
+          <div class="form-group">
+            <label class="form-label">详细备忘详情</label>
+            <textarea id="edit-node-desc" class="form-control" style="height:90px; resize:none;">${node.desc}</textarea>
+          </div>
+          <button onclick="saveItineraryNode(${dayIdx}, ${nodeIdx})" style="margin-top:0.4rem; padding:0.75rem; background:var(--accent); color:white; border:none; border-radius:100px; font-size:0.9rem; font-weight:600; cursor:pointer;">
             保存修改并实时重排
           </button>
         </div>
@@ -608,69 +922,29 @@
       document.body.classList.add("locked");
     }
 
-    // 核心函数：保存修改数据，正序排列重写整个视图
     function saveItineraryNode(dayIdx, nodeIdx) {
       const timeVal = document.getElementById("edit-node-time").value;
       const titleVal = document.getElementById("edit-node-title").value;
+      const imgVal = document.getElementById("edit-node-image").value;
       const descVal = document.getElementById("edit-node-desc").value;
 
-      if(!timeVal || !titleVal.trim()) {
-        alert("时间与标题不能为空哦！");
-        return;
-      }
+      if(!timeVal || !titleVal.trim()) { alert("时间与标题不能为空哦！"); return; }
 
       const dayBlock = TRAVEL_DATA.itineraries[dayIdx];
       dayBlock.nodes[nodeIdx].time = timeVal;
       dayBlock.nodes[nodeIdx].title = titleVal;
+      dayBlock.nodes[nodeIdx].image = imgVal || "https://images.unsplash.com/photo-1542051841857-5f90071e7989?w=400&auto=format&fit=crop&q=80";
       dayBlock.nodes[nodeIdx].desc = descVal;
 
-      // 实时根据更改后的时间正序重排
       dayBlock.nodes.sort((a, b) => a.time.localeCompare(b.time));
 
       renderItineraryOnly();
-      
       document.getElementById("global-modal").classList.add("hidden");
       document.body.classList.remove("locked");
     }
 
-    function addToItinerary(type, key) {
-      const dateVal = document.getElementById("sched-date").value;
-      const timeVal = document.getElementById("sched-time").value;
-      
-      let title = "", desc = "", image = "";
-      if (type === 'food') {
-        const item = TRAVEL_DATA.foods[key];
-        title = `🍣 美食: ${item.title}`;
-        desc = `地址: ${item.address}\n营业时间: ${item.openingHours}`;
-        image = (item.images && item.images.length > 0) ? item.images[0] : 'default.jpg';
-      } else if (type === 'attraction') {
-        const item = TRAVEL_DATA.attractions[key];
-        title = `🗼 景点: ${item.title}`;
-        desc = `地址: ${item.address || '暂无数据'}\n建议停留: ${item.duration || '暂无数据'}`;
-        image = item.image || (item.images && item.images.length > 0 ? item.images[0] : 'default.jpg');
-      }
-
-      const dateMap = { "2026-07-31": "7月31日", "2026-08-01": "8月1日", "2026-08-02": "8月2日" };
-      const targetDateText = dateMap[dateVal];
-      let dayBlock = TRAVEL_DATA.itineraries.find(d => d.date.trim() === targetDateText);
-
-      if (!dayBlock) {
-        const formattedDateStr = dateVal.split('-')[1] + "月" + dateVal.split('-')[2] + "日";
-        dayBlock = { day: "自定义日程", date: formattedDateStr, nodes: [] };
-        TRAVEL_DATA.itineraries.push(dayBlock);
-      }
-
-      dayBlock.nodes.push({ time: timeVal, title: title, desc: desc, image: image });
-      dayBlock.nodes.sort((a, b) => a.time.localeCompare(b.time));
-
-      renderItineraryOnly();
-      alert(`✨ 已成功将「${title}」加入到 ${targetDateText} 的行程单中！`);
-      
-      document.getElementById("global-modal").classList.add("hidden");
-      document.body.classList.remove("locked");
-    }
-
-    function renderDynamicCards() {
+    function renderAllDynamicGrids() {
+      // 1. 入境模块
       document.getElementById("prep-container").innerHTML = TRAVEL_DATA.preparations.map(item => `
         <div class="glass-card" onclick="openDetails('prep', '${item.id}')">
           <div style="font-size: 1.5rem; color:var(--accent); margin-bottom:0.5rem;">${item.icon}</div>
@@ -679,8 +953,9 @@
         </div>
       `).join('');
 
+      // 2. 美食大图层
       document.getElementById("food-container").innerHTML = TRAVEL_DATA.foods.map((item, idx) => {
-        const coverImg = (item.images && item.images.length > 0) ? item.images[0] : (item.image || 'default.jpg');
+        const coverImg = (item.images && item.images.length > 0) ? item.images[0] : 'default.jpg';
         return `
           <div class="food-card-premium" onclick="openDetails('food', ${idx})">
             <button class="fav-btn" onclick="toggleFavorite(event, '${item.title}')">♥</button>
@@ -689,7 +964,7 @@
               <h3 style="font-size:1.15rem; font-weight:700; letter-spacing:-0.3px;">${item.title}</h3>
               <p style="font-size:0.8rem; color:var(--text-muted); margin-top:0.25rem;">${item.subtitle}</p>
               <div class="food-btn-wrapper">
-                <button class="cta-button" style="padding:0.45rem 1.2rem; font-size:0.75rem; box-shadow:none; background:var(--text-main); color:var(--bg-app); border-radius:100px;">
+                <button class="cta-button" style="padding:0.45rem 1.2rem; font-size:0.75rem; background:var(--text-main); color:var(--bg-app); border-radius:100px; border:none; cursor:pointer;">
                   阅读攻略
                 </button>
               </div>
@@ -698,8 +973,9 @@
         `;
       }).join('');
 
+      // 3. 瀑布流景点
       document.getElementById("attraction-container").innerHTML = TRAVEL_DATA.attractions.map((item, idx) => {
-        const coverImg = item.image || (item.images && item.images.length > 0 ? item.images[0] : 'default.jpg');
+        const coverImg = (item.images && item.images.length > 0) ? item.images[0] : 'default.jpg';
         return `
           <div class="masonry-item glass-card" style="padding:0;" onclick="openDetails('attraction', ${idx})">
             <div class="card-img-wrapper" style="height:auto;"><img src="${coverImg}" style="width:100%; height:auto;" loading="lazy"></div>
@@ -711,6 +987,7 @@
         `;
       }).join('');
 
+      // 4. 购物与交通
       document.getElementById("shop-container").innerHTML = TRAVEL_DATA.shoppings.map((item, idx) => `
         <div class="glass-card" onclick="openDetails('shop', ${idx})">
           <h4 style="font-size:1.1rem; margin-bottom:0.3rem;">${item.title}</h4>
@@ -726,38 +1003,14 @@
       `).join('');
 
       renderItineraryOnly();
-
-      document.getElementById("gallery-container").innerHTML = TRAVEL_DATA.photos.map(p => `
-        <div class="gallery-item">
-          <img src="${p.url}" loading="lazy">
-          <div class="gallery-overlay">${p.caption}</div>
-        </div>
-      `).join('');
-
       renderFavorites();
     }
 
+    // 🍏 深度重构的“多图边缘毛玻璃透视”详情面板分配器
     function openDetails(type, key) {
       const modal = document.getElementById("global-modal");
       const body = document.getElementById("modal-body-content");
       let contentHtml = "";
-
-      const getSchedulerHtml = (titleText) => `
-        <div style="margin-top:1.8rem; padding:1.2rem; background:var(--bg-app); border-radius:20px; border:1px solid var(--border-glass);">
-          <h4 style="font-size:0.95rem; margin-bottom:0.8rem; display:flex; align-items:center; gap:0.4rem;">📅 添加到我的专属安排行程中</h4>
-          <div style="display:flex; gap:0.6rem; flex-wrap:wrap; align-items:center;">
-            <select id="sched-date" style="padding:0.5rem 0.8rem; border-radius:12px; border:1px solid var(--border-glass); background:var(--bg-glass-active); color:var(--text-main); font-size:0.85rem; cursor:pointer; outline:none;">
-              <option value="2026-07-31">7月31日 (Day 1)</option>
-              <option value="2026-08-01" selected>8月1日 (Day 2)</option>
-              <option value="2026-08-02">8月2日 (Day 3)</option>
-            </select>
-            <input type="time" id="sched-time" value="12:00" style="padding:0.45rem 0.8rem; border-radius:12px; border:1px solid var(--border-glass); background:var(--bg-glass-active); color:var(--text-main); font-size:0.85rem; outline:none;">
-            <button onclick="addToItinerary('${type}', ${key})" style="padding:0.5rem 1.4rem; background:var(--accent); color:white; border:none; border-radius:100px; font-size:0.85rem; font-weight:600; cursor:pointer; transition: transform 0.2s;">
-              确认加入
-            </button>
-          </div>
-        </div>
-      `;
 
       if(type === 'prep') {
         const item = TRAVEL_DATA.preparations.find(p => p.id === key);
@@ -765,7 +1018,7 @@
         if (item.steps) {
           item.steps.forEach(step => {
             if (step.text) contentHtml += `<p style="margin-bottom:0.8rem; white-space: pre-line; color:var(--text-main);">${step.text}</p>`;
-            if (step.image) contentHtml += `<img src="${step.image}" style="width:100%; border-radius:12px; margin: 1rem 0; box-shadow: var(--shadow-sm); display:block;">`;
+            if (step.image) contentHtml += `<div class="modal-slider-item" style="flex:0 0 100%; margin-bottom:1rem;"><img src="${step.image}"></div>`;
           });
         } else {
           contentHtml += `<p style="white-space: pre-line;">${item.detail || ''}</p>`;
@@ -774,55 +1027,85 @@
       }
       else if(type === 'food') {
         const item = TRAVEL_DATA.foods[key];
-        let galleryHtml = '';
-        if (item.images && item.images.length > 0) {
-          galleryHtml = `
-            <div class="modal-gallery-viewport" style="display:grid; grid-template-columns: ${item.images.length === 1 ? '1fr' : 'repeat(2, 1fr)'}; gap: 0.8rem; margin-bottom: 1.2rem;">
-              ${item.images.map((img, i) => `
-                <div style="aspect-ratio: 16/10; overflow:hidden; border-radius:12px; box-shadow: var(--shadow-sm); ${item.images.length > 1 && i === 0 ? 'grid-column: span 2;' : ''}">
-                  <img src="${img}" style="width:100%; height:100%; object-fit:cover;">
-                </div>
-              `).join('')}
+        let imageAreaHtml = "";
+        
+        // 多图与单图的分流渲染
+        if (item.images && item.images.length > 1) {
+          const sliderHtml = item.images.map(img => `
+            <div class="modal-slider-item">
+              <img src="${img}" alt="${item.title}" title="轻触展开全屏特写灯箱">
+            </div>
+          `).join('');
+          
+          imageAreaHtml = `
+            <div class="apple-slider-container">
+              <div class="slider-edge-blur left"></div>
+              <div class="modal-image-slider">
+                ${sliderHtml}
+              </div>
+              <div class="slider-edge-blur right"></div>
+            </div>
+          `;
+        } else {
+          const singleImg = (item.images && item.images.length > 0) ? item.images[0] : 'default.jpg';
+          imageAreaHtml = `
+            <div class="modal-slider-item" style="flex: 0 0 100%; aspect-ratio: 16/10; overflow: hidden; border-radius: 16px; margin-bottom: 1.4rem;">
+              <img src="${singleImg}" alt="${item.title}">
             </div>
           `;
         }
+
         contentHtml = `
           <h3>${item.title}</h3><p style="color:var(--text-muted); font-size:0.9rem; margin-top:0.3rem; margin-bottom:1.2rem;">${item.subtitle}</p>
-          ${galleryHtml}
+          
+          ${imageAreaHtml}
+          
           <div style="line-height:1.8; font-size:0.95rem;">
             <p><strong>📍 店铺地址：</strong>${item.address}</p><p><strong>🕒 营业时间：</strong>${item.openingHours}</p><p><strong>⭐ 推荐指数：</strong>${item.index}</p>
             <div style="margin-top:1.2rem; padding:1rem; background:rgba(0,0,0,0.03); border-radius:12px; color:var(--text-main); border-left: 4px solid var(--accent);">
               <strong>💡 佳音专属小批注：</strong><br>${item.comment || '暂无批注'}
             </div>
           </div>
-          ${getSchedulerHtml(item.title)}
         `;
       }
       else if(type === 'attraction') {
         const item = TRAVEL_DATA.attractions[key];
-        let galleryHtml = '';
-        if (item.images && item.images.length > 0) {
-          galleryHtml = `
-            <div class="modal-gallery-viewport" style="display:grid; grid-template-columns: ${item.images.length === 1 ? '1fr' : 'repeat(2, 1fr)'}; gap: 0.8rem; margin-bottom: 1.2rem;">
-              ${item.images.map((img, i) => `
-                <div style="aspect-ratio: 16/10; overflow:hidden; border-radius:12px; box-shadow: var(--shadow-sm); ${item.images.length > 1 && i === 0 ? 'grid-column: span 2;' : ''}">
-                  <img src="${img}" style="width:100%; height:100%; object-fit:cover;">
-                </div>
-              `).join('')}
+        let imageAreaHtml = "";
+
+        if (item.images && item.images.length > 1) {
+          const sliderHtml = item.images.map(img => `
+            <div class="modal-slider-item">
+              <img src="${img}" alt="${item.title}">
+            </div>
+          `).join('');
+          
+          imageAreaHtml = `
+            <div class="apple-slider-container">
+              <div class="slider-edge-blur left"></div>
+              <div class="modal-image-slider">
+                ${sliderHtml}
+              </div>
+              <div class="slider-edge-blur right"></div>
             </div>
           `;
-        } else if (item.image) {
-          galleryHtml = `<img src="${item.image}" style="width:100%; border-radius:16px; margin:1.2rem 0; box-shadow: var(--shadow-sm);">`;
+        } else {
+          const singleImg = (item.images && item.images.length > 0) ? item.images[0] : 'default.jpg';
+          imageAreaHtml = `
+            <div class="modal-slider-item" style="flex: 0 0 100%; aspect-ratio: 16/10; overflow: hidden; border-radius: 16px; margin-bottom: 1.4rem;">
+              <img src="${singleImg}" alt="${item.title}">
+            </div>
+          `;
         }
 
         contentHtml = `
-          <h3>${item.title}</h3>
-          ${galleryHtml}
+          <h3>${item.title}</h3><p style="color:var(--text-muted); font-size:0.9rem; margin-top:0.3rem; margin-bottom:1.2rem;">${item.subtitle || '风景景点'}</p>
+          
+          ${imageAreaHtml}
+
           <div style="line-height:1.8; font-size:0.95rem;">
-            <p><strong>📍 景点地址：</strong>${item.address || '暂无数据'}</p><p><strong>⏱️ 建议停留：</strong>${item.duration}</p><p><strong>🚃 交通路线：</strong>${item.transport}</p>
+            <p><strong>📍 景点地址：</strong>${item.address || '暂未录入'}</p><p><strong>⏱️ 建议停留：</strong>${item.duration}</p><p><strong>🚃 交通路线：</strong>${item.transport}</p>
             <p style="margin-top:1rem; white-space: pre-line; color:var(--text-main);"><strong>📝 景点简介：</strong>\n${item.description || '暂无详细描述'}</p>
           </div>
-          ${getSchedulerHtml(item.title)}
         `;
       }
       else if(type === 'shop') {
@@ -853,6 +1136,7 @@
       });
     }
 
+    // 高阶全屏大图流转灯箱系统
     function initLightboxEngine() {
       const lightbox = document.getElementById("premium-lightbox");
       const viewer = document.getElementById("lightbox-viewer");
@@ -860,7 +1144,7 @@
       const prevBtn = document.getElementById("lightbox-prev");
       const nextBtn = document.getElementById("lightbox-next");
 
-      let activeImages = []; let activeIndex = 0; let touchStartX = 0; let touchEndX = 0;     
+      let activeImages = []; let activeIndex = 0;     
 
       function syncRenderImage() {
         if(activeImages.length === 0) return;
@@ -883,10 +1167,16 @@
       }
 
       modalBody.addEventListener("click", (e) => {
-        if (e.target.tagName === "IMG" && !e.target.closest('#sched-date') && !e.target.closest('#sched-time') && !e.target.closest('input') && !e.target.closest('textarea')) {
-          const siblings = Array.from(modalBody.querySelectorAll("img"));
-          activeImages = siblings.map(img => img.src); activeIndex = siblings.indexOf(e.target);
-          syncRenderImage(); lightbox.classList.add("visible");
+        if (e.target.tagName === "IMG" && !e.target.closest('.form-control')) {
+          const siblings = Array.from(modalBody.querySelectorAll(".modal-slider-item img"));
+          const targets = siblings.length > 0 ? siblings : Array.from(modalBody.querySelectorAll("img"));
+          
+          activeImages = targets.map(img => img.src); 
+          activeIndex = targets.indexOf(e.target);
+          if(activeIndex === -1) activeIndex = 0;
+
+          syncRenderImage(); 
+          lightbox.classList.add("visible");
         }
       });
 
@@ -903,15 +1193,6 @@
         if (e.key === "ArrowLeft" || e.key === "a") execPrev();
         if (e.key === "ArrowRight" || e.key === "d") execNext();
       });
-
-      viewer.addEventListener("touchstart", (e) => { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
-      viewer.addEventListener("touchend", (e) => { touchEndX = e.changedTouches[0].screenX; handleSwipeGesture(); }, { passive: true });
-
-      function handleSwipeGesture() {
-        const threshold = 45; 
-        if (touchEndX < touchStartX - threshold) execNext(); 
-        if (touchEndX > touchStartX + threshold) execPrev(); 
-      }
     }
 
     function initBudgetDashboard() {
@@ -937,6 +1218,7 @@
       else container.innerHTML = favs.map(title => `<div class="glass-card" style="border-left:4px solid var(--accent);"><h5>❤️ ${title}</h5><p style="font-size:0.75rem; color:var(--text-muted); margin-top:0.25rem;">已实时同步至本地云端缓存</p></div>`).join('');
     }
 
+    // 滚动感知动效与换肤控制
     function initScrollAndTheme() {
       const btt = document.getElementById("back-to-top");
       window.addEventListener("scroll", () => {
